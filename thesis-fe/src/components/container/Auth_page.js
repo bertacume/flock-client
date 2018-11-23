@@ -19,7 +19,7 @@ justify-content: center;
 align-items: center;
 `;
 
-class Auth extends Component {
+class Auth_page extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,6 +38,7 @@ class Auth extends Component {
   handleSendParent = () => {
     if (!this.state.inputEmail) console.log('do graphql query for login and send: ', this.state.inputUsername, this.state.inputPassword)
     else console.log('do graphql query for signup and send: ',this.state.inputEmail)
+    this.props.history.push('/mytrips/55');
   }
 
   handleFBAuthentication = (res) => {
@@ -51,6 +52,7 @@ class Auth extends Component {
   );
 
   render() {
+    console.log(this);
     return (
       <OuterContainer>
         <InnerContainer >
@@ -62,4 +64,4 @@ class Auth extends Component {
   }
 }
 
-export default Auth;
+export default Auth_page;

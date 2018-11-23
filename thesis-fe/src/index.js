@@ -3,18 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import reducers from './reducers/reducers';
+import { ApolloProvider } from "react-apollo";
 
 
-const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ &&
-  window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render(
-  <Provider store={store}>
+
     <App />
-  </Provider>,
+  ,
   document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

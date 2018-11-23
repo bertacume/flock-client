@@ -3,9 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "apollo-boost": "^0.1.22",
+    "emotion": "^9.2.12",
+    "graphql": "^14.0.2",
+    "react-apollo": "^2.3.1",
     "react-dom": "^16.6.3",
     "react-emotion": "^9.2.12",
     "react-facebook-login": "^4.1.1",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1"
   },
   "scripts": {
