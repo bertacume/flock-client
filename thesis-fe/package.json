@@ -4,14 +4,15 @@
   "private": true,
   "dependencies": {
     "react-dom": "^16.6.3",
+    "react-emotion": "^9.2.12",
+    "react-facebook-login": "^4.1.1",
     "react-scripts": "2.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "watch:sass": "node-sass src/sass/main.scss src/index.css -w"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -23,7 +24,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "node-sass": "^4.10.0",
     "react": "^16.6.3",
     "react-redux": "^5.1.1"
   }
