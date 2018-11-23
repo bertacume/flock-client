@@ -4,6 +4,28 @@ import { fontFamily } from '../../helpers/constants';
 
 
 export class AddTime extends Component {
+  state = {
+    start: '',
+    end: '',
+    dates: [],
+  }
+
+  handleStartDate = (event) => {
+    this.setState({start: event.target.value});
+    if (!this.state.end.length) return;
+    this.setDates();
+  }
+
+  handleEndDate = async (event) => {
+    await this.setState({end: event.target.value});
+    if (!this.state.start.length) return;
+    this.setDates();
+  }
+
+  setDates = () => {
+    this.setState({dates: [this.state.start, this.state.end]});
+  }
+
   render() {
     return (
       <Container>
@@ -12,9 +34,8 @@ export class AddTime extends Component {
         <Button>Democracy</Button>
         </ButtonContainer>
         <Title>Add Dates:</Title>
-        <Input type='date' />
-        <Input type='date' />
-        <Button>Done</Button>
+        <Input type='date' value={this.state.start} onChange={this.handleStartDate} />
+        <Input type='date' value={this.state.end} onChange={this.handleEndDate}/>
       </Container>
     );
   }

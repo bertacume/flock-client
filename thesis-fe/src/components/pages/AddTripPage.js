@@ -9,7 +9,7 @@ import { AddMembers } from '../container/AddMembers';
 
 export class AddTripPage extends Component {
   state = {
-    currentView: 1,
+    currentView: 2,
     tripData: {
       name: null,
       destination: null,
