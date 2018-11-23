@@ -10,6 +10,10 @@ export class AddTime extends Component {
     dates: [],
   }
 
+  componentDidMount() {
+    if (this.props.time) this.setState({start: this.props.time[0], end: this.props.time[1], dates: this.props.time.slice()});
+  }
+
   handleStartDate = (event) => {
     this.setState({start: event.target.value});
     if (!this.state.end.length) return;
@@ -20,10 +24,12 @@ export class AddTime extends Component {
     await this.setState({end: event.target.value});
     if (!this.state.start.length) return;
     this.setDates();
+    console.log(this.state);
   }
 
-  setDates = () => {
-    this.setState({dates: [this.state.start, this.state.end]});
+  setDates = async () => {
+    await this.setState({dates: [this.state.start, this.state.end]});
+    this.props.setDates(this.state.dates.slice());
   }
 
   render() {

@@ -29,6 +29,11 @@ export class AddTripPage extends Component {
     this.setState({tripData: { ...this.state.tripData, destination: input }});
   }
 
+  setDates = dates => {
+    this.setState({tripData: { ...this.state.tripData, time: dates }});
+    console.log(this.state);
+  }
+
   handleBackClick = () => {
     this.setState({currentView: this.state.currentView - 1});
   }
@@ -51,7 +56,7 @@ export class AddTripPage extends Component {
       <Container>
         {(this.state.currentView === 0) &&  <AddName name={tripData.name} setName={input => this.setName(input)}/>}
         {(this.state.currentView === 1) &&  <AddDestination destination={tripData.destination} setDestination={input => this.setDestination(input)}/>}
-        {(this.state.currentView === 2) &&  <AddTime />}
+        {(this.state.currentView === 2) &&  <AddTime time={tripData.time} setDates={dates => this.setDates(dates)} />}
         {(this.state.currentView === 3) &&  <AddBudget />}
         {(this.state.currentView === 4) &&  <AddMembers />}
         <ButtonContainer>
