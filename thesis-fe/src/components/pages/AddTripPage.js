@@ -9,7 +9,7 @@ import { AddMembers } from '../container/AddMembers';
 
 export class AddTripPage extends Component {
   state = {
-    currentView: 0,
+    currentView: 1,
     tripData: {
       name: null,
       destination: null,
@@ -21,9 +21,12 @@ export class AddTripPage extends Component {
 
   relation = ['name', 'destination', 'time', 'budget', 'members'];
 
-  setName = async (input) => {
-    await this.setState({tripData: { ...this.state.tripData, name: input }});
-    console.log('add trip state', this.state);
+  setName = input => {
+    this.setState({tripData: { ...this.state.tripData, name: input }});
+  }
+
+  setDestination = input => {
+    this.setState({tripData: { ...this.state.tripData, destination: input }});
   }
 
   handleBackClick = () => {
@@ -43,10 +46,11 @@ export class AddTripPage extends Component {
   }
 
   render() {
+    const tripData = this.state.tripData;
     return (
       <Container>
-        {(this.state.currentView === 0) &&  <AddName name={input => this.setName(input)}/>}
-        {(this.state.currentView === 1) &&  <AddDestination />}
+        {(this.state.currentView === 0) &&  <AddName name={tripData.name} setName={input => this.setName(input)}/>}
+        {(this.state.currentView === 1) &&  <AddDestination destination={tripData.destination} setDestination={input => this.setDestination(input)}/>}
         {(this.state.currentView === 2) &&  <AddTime />}
         {(this.state.currentView === 3) &&  <AddBudget />}
         {(this.state.currentView === 4) &&  <AddMembers />}

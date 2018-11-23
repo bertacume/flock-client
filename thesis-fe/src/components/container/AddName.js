@@ -8,17 +8,21 @@ export class AddName extends Component {
     input: '',
   }
 
+  componentDidMount() {
+    if (this.props.name) this.setState({input: this.props.name});
+  }
+
   handleInput = async (event) => {
     let name;
     await this.setState({input: event.target.value});
     this.state.input.length ? name = this.state.input : name = null;
-    this.props.name(name);
+    this.props.setName(name);
   }
 
   render() {
     return (
       <Container>
-        <Title>Trip name:</Title>
+        <Title>Trip's name:</Title>
         <Input type="text" placeholder="Title" value={this.state.input} onChange={this.handleInput}></Input>
       </Container>
     );

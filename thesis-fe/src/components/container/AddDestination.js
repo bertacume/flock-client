@@ -4,6 +4,21 @@ import { fontFamily } from '../../helpers/constants';
 
 
 export class AddDestination extends Component {
+  state = {
+    input: '',
+  }
+
+  componentDidMount() {
+    if (this.props.destination) this.setState({input: this.props.destination});
+  }
+  
+  handleInput = async (event) => {
+    let destination;
+    await this.setState({input: event.target.value});
+    this.state.input.length ? destination = this.state.input : destination = null;
+    this.props.setDestination(destination);
+  }
+
   render() {
     return (
       <Container>
@@ -12,7 +27,7 @@ export class AddDestination extends Component {
         <Button>Democracy</Button>
         </ButtonContainer>
         <Title>Add Destination:</Title>
-        <Input></Input>
+        <Input type="text" placeholder="" value={this.state.input} onChange={this.handleInput}></Input>
         <Button>Done</Button>
       </Container>
     );
