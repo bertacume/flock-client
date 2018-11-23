@@ -9,7 +9,7 @@ import { AddMembers } from '../container/AddMembers';
 
 export class AddTripPage extends Component {
   state = {
-    currentView: 2,
+    currentView: 0,
     tripData: {
       name: null,
       destination: null,
@@ -17,59 +17,67 @@ export class AddTripPage extends Component {
       budget: null,
       members: null,
     },
+    nameRequired: false,
   }
 
   relation = ['name', 'destination', 'time', 'budget', 'members'];
 
   setName = input => {
-    this.setState({tripData: { ...this.state.tripData, name: input }});
+    this.setState({ tripData: { ...this.state.tripData, name: input }, nameRequired: false });
   }
 
   setDestination = input => {
-    this.setState({tripData: { ...this.state.tripData, destination: input }});
+    this.setState({ tripData: { ...this.state.tripData, destination: input } });
   }
 
   setDates = dates => {
-    this.setState({tripData: { ...this.state.tripData, time: dates }});
+    this.setState({ tripData: { ...this.state.tripData, time: dates } });
     console.log(this.state);
   }
 
   handleBackClick = () => {
-    this.setState({currentView: this.state.currentView - 1});
+    this.setState({ currentView: this.state.currentView - 1 });
   }
-  
-  handleNextClick = () => {
-    this.setState({currentView: this.state.currentView + 1});
+
+  handleNextClick = async () => {
+    if (this.state.currentView === 0 && !this.state.tripData.name) {
+      await this.setState({ nameRequired: true });
+      return;
+    }
+    this.setState({ currentView: this.state.currentView + 1 });
   }
-  
+
   handleCreateTripClick = () => {
   }
 
   getNextBtnTxt = () => {
+    const next = '➡️';
     const index = this.state.currentView;
-    return this.state.tripData[this.relation[index]] ? '➡️' : 'SKIP';
+    if (index === 0) return next;
+    return this.state.tripData[this.relation[index]] ? next : 'SKIP';
   }
 
   render() {
     const tripData = this.state.tripData;
     return (
       <Container>
-        {(this.state.currentView === 0) &&  <AddName name={tripData.name} setName={input => this.setName(input)}/>}
-        {(this.state.currentView === 1) &&  <AddDestination destination={tripData.destination} setDestination={input => this.setDestination(input)}/>}
-        {(this.state.currentView === 2) &&  <AddTime time={tripData.time} setDates={dates => this.setDates(dates)} />}
-        {(this.state.currentView === 3) &&  <AddBudget />}
-        {(this.state.currentView === 4) &&  <AddMembers />}
+        {(this.state.currentView === 0) && <AddName name={tripData.name} setName={input => this.setName(input)}
+          nameRequired={this.state.nameRequired} setNameRequired={flag => this.setNameRequired(flag)} />}
+        {(this.state.currentView === 1) && <AddDestination destination={tripData.destination} setDestination={input => this.setDestination(input)} />}
+        {(this.state.currentView === 2) && <AddTime time={tripData.time} setDates={dates => this.setDates(dates)} />}
+        {(this.state.currentView === 3) && <AddBudget />}
+        {(this.state.currentView === 4) && <AddMembers />}
         <ButtonContainer>
-        {!(this.state.currentView === 0) && <Button onClick={this.handleBackClick}>⬅️</Button>}
-        {!(this.state.currentView === 4) ? 
-          <Button onClick={this.handleNextClick}>{this.getNextBtnTxt()}</Button> :
-          <Button onClick={this.handleCreateTripClick}>CREATE TRIP</Button>}
+          {!(this.state.currentView === 0) && <Button onClick={this.handleBackClick}>⬅️</Button>}
+          {!(this.state.currentView === 4) ?
+            <Button onClick={this.handleNextClick}>{this.getNextBtnTxt()}</Button> :
+            <Button onClick={this.handleCreateTripClick}>CREATE TRIP</Button>}
         </ButtonContainer>
       </Container>
     );
   }
 }
-  const Container = styled('div')`
+const Container = styled('div')`
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -86,15 +94,15 @@ export class AddTripPage extends Component {
       border-color: #afafaf;
     }
   `
-  const ButtonContainer = styled('div')`
+const ButtonContainer = styled('div')`
     width: 100%;
     display: flex;
     flex-direction row;
     justify-content: space-around;
     align-items: center;
   `
-  
-  const Button = styled('button')`
+
+const Button = styled('button')`
     width: 20vw;
     height: 5vh;
     border-width: 2px;

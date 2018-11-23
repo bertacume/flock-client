@@ -24,7 +24,6 @@ export class AddTime extends Component {
     await this.setState({end: event.target.value});
     if (!this.state.start.length) return;
     this.setDates();
-    console.log(this.state);
   }
 
   setDates = async () => {
