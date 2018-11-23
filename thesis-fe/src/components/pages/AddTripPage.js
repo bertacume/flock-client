@@ -9,7 +9,7 @@ import { AddMembers } from '../container/AddMembers';
 
 export class AddTripPage extends Component {
   state = {
-    currentView: 'AddName',
+    currentView: 0,
     tripData: {
       name: null,
       destination: null,
@@ -18,17 +18,43 @@ export class AddTripPage extends Component {
       members: null,
     },
   }
+
+  relation = ['name', 'destination', 'time', 'budget', 'members'];
+
+  setName = async (input) => {
+    await this.setState({tripData: { ...this.state.tripData, name: input }});
+    console.log('add trip state', this.state);
+  }
+
+  handleBackClick = () => {
+    this.setState({currentView: this.state.currentView - 1});
+  }
+  
+  handleNextClick = () => {
+    this.setState({currentView: this.state.currentView + 1});
+  }
+  
+  handleCreateTripClick = () => {
+  }
+
+  getNextBtnTxt = () => {
+    const index = this.state.currentView;
+    return this.state.tripData[this.relation[index]] ? '➡️' : 'SKIP';
+  }
+
   render() {
     return (
       <Container>
-        {(this.state.currentView === 'AddName') &&  <AddName />}
-        {(this.state.currentView === 'AddDestination') &&  <AddDestination />}
-        {(this.state.currentView === 'AddTime') &&  <AddTime />}
-        {(this.state.currentView === 'AddBudget') &&  <AddBudget />}
-        {(this.state.currentView === 'AddMembers') &&  <AddMembers />}
+        {(this.state.currentView === 0) &&  <AddName name={input => this.setName(input)}/>}
+        {(this.state.currentView === 1) &&  <AddDestination />}
+        {(this.state.currentView === 2) &&  <AddTime />}
+        {(this.state.currentView === 3) &&  <AddBudget />}
+        {(this.state.currentView === 4) &&  <AddMembers />}
         <ButtonContainer>
-        <Button>⬅️</Button>
-        <Button>➡️</Button>
+        {!(this.state.currentView === 0) && <Button onClick={this.handleBackClick}>⬅️</Button>}
+        {!(this.state.currentView === 4) ? 
+          <Button onClick={this.handleNextClick}>{this.getNextBtnTxt()}</Button> :
+          <Button onClick={this.handleCreateTripClick}>CREATE TRIP</Button>}
         </ButtonContainer>
       </Container>
     );

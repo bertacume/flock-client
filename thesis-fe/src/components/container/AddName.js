@@ -4,12 +4,22 @@ import { fontFamily } from '../../helpers/constants';
 
 
 export class AddName extends Component {
+  state = {
+    input: '',
+  }
+
+  handleInput = async (event) => {
+    let name;
+    await this.setState({input: event.target.value});
+    this.state.input.length ? name = this.state.input : name = null;
+    this.props.name(name);
+  }
+
   render() {
     return (
       <Container>
         <Title>Trip name:</Title>
-        <Input></Input>
-        <Button>Done</Button>
+        <Input type="text" placeholder="Title" value={this.state.input} onChange={this.handleInput}></Input>
       </Container>
     );
   }
@@ -40,13 +50,4 @@ const Input = styled('input')`
   font-family: ${fontFamily};
   padding: 0 10px;
   border-width: 0 0 2px 0;
-`
-const Button = styled('button')`
-width: 20vw;
-height: 5vh;
-border-width: 2px;
-border-color: #afafaf;
-border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font-family: ${fontFamily};
 `

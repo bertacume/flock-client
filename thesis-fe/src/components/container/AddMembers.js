@@ -33,13 +33,6 @@ const Title = styled('p')`
   font-family: ${fontFamily};
   font-size: 1.5rem;
 `
-const ButtonContainer = styled('div')`
-width: 100%;
-display: flex;
-flex-direction row;
-justify-content: space-evenly;
-align-items: center;
-`
 
 const Button = styled('button')`
 width: 20vw;
