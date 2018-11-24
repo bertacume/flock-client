@@ -55,6 +55,7 @@ class MyTripsDashboard extends Component {
 
   }
   render() {
+    console.log(this.props);
     const mockTrip = [
       {
         id: 25,
