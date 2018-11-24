@@ -23,7 +23,7 @@ export class AddName extends Component {
   render() {
     let inputClasses = cx(
       standarInput,
-      { [mandatoryInput]: this.props.nameRequired},
+      {[mandatoryInput]: this.props.nameRequired},
     );
     return (
       <Container>
@@ -43,7 +43,8 @@ const standarInput = css`
 `
 
 const mandatoryInput = css`
-  background: red;
+  box-shadow: 0 0 0.1pt 2pt #ff7151;
+  border-radius: 5px;
 `
 
 const Container = styled('div')`

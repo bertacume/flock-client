@@ -28,7 +28,6 @@ export class AddDestination extends Component {
         </ButtonContainer>
         <Title>Add Destination:</Title>
         <Input type="text" placeholder="" value={this.state.input} onChange={this.handleInput}></Input>
-        <Button>Done</Button>
       </Container>
     );
   }
