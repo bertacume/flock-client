@@ -32,7 +32,10 @@ export class AddTripPage extends Component {
 
   setDates = dates => {
     this.setState({ tripData: { ...this.state.tripData, time: dates } });
-    console.log(this.state);
+  }
+
+  setBudget = budget => {
+    this.setState({ tripData: { ...this.state.tripData, budget } });
   }
 
   handleBackClick = () => {
@@ -61,12 +64,21 @@ export class AddTripPage extends Component {
     const tripData = this.state.tripData;
     return (
       <Container>
-        {(this.state.currentView === 0) && <AddName name={tripData.name} setName={input => this.setName(input)}
+        {(this.state.currentView === 0) && <AddName
+          name={tripData.name} setName={input => this.setName(input)}
           nameRequired={this.state.nameRequired} setNameRequired={flag => this.setNameRequired(flag)} />}
-        {(this.state.currentView === 1) && <AddDestination destination={tripData.destination} setDestination={input => this.setDestination(input)} />}
-        {(this.state.currentView === 2) && <AddTime time={tripData.time} setDates={dates => this.setDates(dates)} />}
-        {(this.state.currentView === 3) && <AddBudget />}
+
+        {(this.state.currentView === 1) && <AddDestination
+          destination={tripData.destination} setDestination={input => this.setDestination(input)} />}
+
+        {(this.state.currentView === 2) && <AddTime
+          time={tripData.time} setDates={dates => this.setDates(dates)} />}
+
+        {(this.state.currentView === 3) && <AddBudget
+          budget={tripData.budget} setBudget={budget => this.setBudget(budget)} />}
+
         {(this.state.currentView === 4) && <AddMembers />}
+
         <ButtonContainer>
           {!(this.state.currentView === 0) && <Button onClick={this.handleBackClick}>⬅️</Button>}
           {!(this.state.currentView === 4) ?
