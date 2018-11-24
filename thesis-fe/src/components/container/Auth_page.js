@@ -38,7 +38,9 @@ class Auth_page extends Component {
   handleSendParent = () => {
     if (!this.state.inputEmail) console.log('do graphql query for login and send: ', this.state.inputUsername, this.state.inputPassword)
     else console.log('do graphql query for signup and send: ',this.state.inputEmail)
-    this.props.history.push('/mytrips/55');
+    const first = localStorage.getItem('history1');
+    const second = localStorage.getItem('history2');
+    this.props.routerMethods.history.push('/' + first + '/' + second);
   }
 
   handleFBAuthentication = (res) => {

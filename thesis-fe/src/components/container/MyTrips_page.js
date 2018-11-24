@@ -9,7 +9,7 @@ class MyTrips_page extends Component {
     return (
       <div>
         <Navigation textContent="My trips" />
-        <MyTripsDashboard history={this.props.history}/>
+        <MyTripsDashboard history={this.props.routerMethods.history}/>
       </div>
     );
   }

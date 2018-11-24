@@ -23,7 +23,8 @@ class TripDetails_page extends Component {
       start_date: '20/06/2019',
       end_date: '25/06/2019',
       budget: '1500 Euros',
-      friends_subscribing: ['Melanie', 'Priscila', 'Oliver'],
+      participants: ['Melanie', 'Priscila', 'Oliver'],
+
     }
     return (
       <div>
