@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion'
+import plus from '../../assets/svg/plus.svg';
 
 const Container = styled('div')`
   width: 100vw;
@@ -49,7 +50,7 @@ class MyTripsDashboard extends Component {
 
   redirectToTrip = (id) => {
     return () => {
-      this.props.history.push('/tripdetails/55/' + id )
+      this.props.history.push('/tripdetails/' + id)
     }
 
   }
@@ -93,7 +94,7 @@ class MyTripsDashboard extends Component {
       <Container>
         <ContainerButton>
           <AddTripButton>
-            +
+            <img src={plus} alt="e" />
           </AddTripButton>
         </ContainerButton>
         {listTrips}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion'
-import NavProfile from './NavProfile';
+import NavProfile from '../presentational/NavProfile';
 
 const NavigationContainer = styled('div')`
   height: 10vh;

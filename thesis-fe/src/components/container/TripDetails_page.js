@@ -44,3 +44,14 @@ class TripDetails_page extends Component {
 }
 
 export default TripDetails_page
+
+/*
+  Here we should go knowing both the user id and the trip id. We will get from the db:
+  on schema:
+    - name,
+    - participants,
+    - destination.
+    - budget,
+    - timeFrame
+
+*/

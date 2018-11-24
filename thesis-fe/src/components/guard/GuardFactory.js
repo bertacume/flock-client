@@ -10,7 +10,6 @@ const GuardFactory = (() => {
   let ComponentFiltered;
   const GuardCheck = (routerMethods) => {
     const ctx = routerMethods.match.params;
-    console.log(ctx);
     if (!isLogged() || isLogged() === 'false') {
       localStorage.setItem('history1', ctx.first);
       localStorage.setItem('history2', ctx.second || '');
@@ -26,7 +25,7 @@ const GuardFactory = (() => {
         }
       }
       else if (ctx.first === 'tripdetails') {
-        if (ctx.second) ComponentFiltered = <TripDetails_page routerMethods={routerMethods}/>;
+        if (ctx.second && !ctx.third) ComponentFiltered = <TripDetails_page routerMethods={routerMethods}/>;
         else {
           ComponentFiltered = <MyTrips_page routerMethods={routerMethods}/>;
           window.location.replace('http://localhost:3000/mytrips');
@@ -43,7 +42,6 @@ const GuardFactory = (() => {
     return (
       class Guard extends Component {
         render () {
-          console.log('a');
           GuardCheck(this.props);
           return (
             <ComponentToRender />
