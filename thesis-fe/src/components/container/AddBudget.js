@@ -122,13 +122,11 @@ const SliderContainer = styled('div')`
   flex-direction column;
   align-items: center;
 `
-
 const SliderWrapper = styled('div')`
   width: 75%;
   height: 100%;
   touch-action: none;
 `
-
 const SliderLblsContainer = styled('div')`
   width: 80%;
   margin: 0;
@@ -137,19 +135,16 @@ const SliderLblsContainer = styled('div')`
   justify-content: space-between;
   // align-items: center;
 `
-
 const Title = styled('p')`
   color: #afafaf;
   font-family: ${fontFamily};
   font-size: 1.5rem;
 `
-
 const SubTitle = styled('p')`
   color: #8db5f4;
   font-family: ${fontFamily};
   font-size: 3rem;
 `
-
 const Button = styled('button')`
   width: 20vw;
   height: 5vh;
@@ -164,7 +159,6 @@ const BtnContainer = styled('div')`
   flex-direction column;
   align-items: center;
 `
-
 const ButtonInterval = styled('button')`
   border-width: 2px;
   border-color: #afafaf;

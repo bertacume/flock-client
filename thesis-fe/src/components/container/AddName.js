@@ -41,12 +41,10 @@ const standarInput = css`
   padding: 0 10px;
   border-width: 0 0 2px 0;
 `
-
 const mandatoryInput = css`
   box-shadow: 0 0 0.1pt 2pt #ff7151;
   border-radius: 5px;
 `
-
 const Container = styled('div')`
   width: 100%;
   height: 80%;
@@ -59,7 +57,6 @@ const Container = styled('div')`
     outline: none;
   }
 `
-
 const Title = styled('p')`
   color: #afafaf;
   font-family: ${fontFamily};

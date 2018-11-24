@@ -45,7 +45,6 @@ const Container = styled('div')`
     outline: none;
   }
 `
-
 const Title = styled('p')`
   color: #afafaf;
   font-family: ${fontFamily};
@@ -58,7 +57,6 @@ flex-direction row;
 justify-content: space-evenly;
 align-items: center;
 `
-
 const Button = styled('button')`
 width: 20vw;
 height: 5vh;
@@ -68,7 +66,6 @@ border-radius: 10px;
 background-color: rgb(255, 255, 255);
 font-family: ${fontFamily};
 `
-
 const Input = styled('input')`
   width: 70vw;
   height: 5vh;

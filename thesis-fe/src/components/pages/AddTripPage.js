@@ -9,7 +9,7 @@ import { AddMembers } from '../container/AddMembers';
 
 export class AddTripPage extends Component {
   state = {
-    currentView: 4,
+    currentView: 0,
     tripData: {
       name: null,
       destination: null,
@@ -70,7 +70,7 @@ export class AddTripPage extends Component {
       <Container>
         {(this.state.currentView === 0) && <AddName
           name={tripData.name} setName={input => this.setName(input)}
-          nameRequired={this.state.nameRequired} setNameRequired={flag => this.setNameRequired(flag)} />}
+          nameRequired={this.state.nameRequired} />}
 
         {(this.state.currentView === 1) && <AddDestination
           destination={tripData.destination} setDestination={input => this.setDestination(input)} />}
@@ -95,36 +95,36 @@ export class AddTripPage extends Component {
   }
 }
 const Container = styled('div')`
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction column;
-    justify-content: space-evenly;
-    align-items: center;
-  
-    Button {
-      outline: none;
-    }
-    Button:active {
-      color: red;
-      border-width: 2px;
-      border-color: #afafaf;
-    }
-  `
-const ButtonContainer = styled('div')`
-    width: 100%;
-    display: flex;
-    flex-direction row;
-    justify-content: space-around;
-    align-items: center;
-  `
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction column;
+  justify-content: space-evenly;
+  align-items: center;
 
-const Button = styled('button')`
-    width: 20vw;
-    height: 5vh;
+  Button {
+    outline: none;
+  }
+  Button:active {
+    color: red;
     border-width: 2px;
     border-color: #afafaf;
-    border-radius: 10px;
-    background-color: rgb(255, 255, 255);
-    font-family: ${fontFamily};
-  `
+  }
+`
+const ButtonContainer = styled('div')`
+  width: 100%;
+  display: flex;
+  flex-direction row;
+  justify-content: space-around;
+  align-items: center;
+`
+
+const Button = styled('button')`
+  width: 20vw;
+  height: 5vh;
+  border-width: 2px;
+  border-color: #afafaf;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  font-family: ${fontFamily}
+`
