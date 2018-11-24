@@ -89,4 +89,6 @@ const Input = styled('input')`
   font-family: ${fontFamily};
   padding: 0 10px;
   border-width: 0 0 2px 0;
+  border-color: #f3f3f3;
+  background-color: transparent;
 `

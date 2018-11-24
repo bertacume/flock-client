@@ -65,13 +65,3 @@ const Title = styled('p')`
   font-family: ${fontFamily};
   font-size: 1.5rem;
 `
-
-// const Input = styled('input')`
-//   width: 70vw;
-//   height: 5vh;
-//   font-family: ${fontFamily};
-//   padding: 0 10px;
-//   border-width: 0 0 2px 0;
-//   background-color: ${ console.log('aa')};
-//   // background-color: ${props => !props.nameRequired ? 'white' : 'red'};
-// `
