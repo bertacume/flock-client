@@ -67,3 +67,11 @@ class Auth_page extends Component {
 }
 
 export default Auth_page;
+
+
+/*
+User will get in and: login with his username and password, sign up and create new account, login with facebook (and maybe sign up on this case),
+the fe will send this data to the be and the backend should return in case of success the userid to the
+front end -which will be kept on the localStorage???- and will be further used. In case of failure, define what to do.//#endregion
+In the success case, the USER ID should persist.
+*/
