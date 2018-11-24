@@ -11,18 +11,22 @@ export class AddMembers extends Component {
     members: [],
   }
 
+  componentDidMount() {
+    if (this.props.members) this.setState({ members: this.props.members });
+  }
+
   handleInput = (event) => {
     this.setState({ input: event.target.value, error: '' });
   }
 
   handleAddClick = async () => {
     const member = this.state.input;
-    //TODO: check if its a valid input aka mail
     if (this.state.members.includes(member)) return this.setState({ error: 'Already added' });
     if (!this.validateEmail(member)) return this.setState({ error: 'Not an email' });
     const members = this.state.members.slice();
     members.push(member);
     await this.setState({ input: '', members });
+    this.props.setMembers(this.state.members.slice());
   }
 
   validateEmail = (email) => {
@@ -34,9 +38,10 @@ export class AddMembers extends Component {
     return <Error>{this.state.error}</Error>;
   }
 
-  deleteMember = (friend) => {
+  deleteMember = async (friend) => {
     const members = this.state.members.filter(el => el !== friend);
-    this.setState({ members });
+    await this.setState({ members });
+    this.props.setMembers(this.state.members.slice());
   }
 
   renderMembers = () => {

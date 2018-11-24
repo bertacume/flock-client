@@ -38,6 +38,10 @@ export class AddTripPage extends Component {
     this.setState({ tripData: { ...this.state.tripData, budget } });
   }
 
+  setMembers = members => {
+    this.setState({ tripData: { ...this.state.tripData, members } });
+  }
+
   handleBackClick = () => {
     this.setState({ currentView: this.state.currentView - 1 });
   }
@@ -77,7 +81,8 @@ export class AddTripPage extends Component {
         {(this.state.currentView === 3) && <AddBudget
           budget={tripData.budget} setBudget={budget => this.setBudget(budget)} />}
 
-        {(this.state.currentView === 4) && <AddMembers />}
+        {(this.state.currentView === 4) && <AddMembers
+          members={tripData.members} setMembers={members => this.setMembers(members)} />}
 
         <ButtonContainer>
           {!(this.state.currentView === 0) && <Button onClick={this.handleBackClick}>⬅️</Button>}
