@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import MyTrips_page from '../container/MyTrips_page';
-import Auth_page from '../container/Auth_page'
-import TripDetails_page from '../container/TripDetails_page';
+import MyTrips_page from '../apollo/MyTrips_page';
+import Auth_page from '../apollo/Auth_page';
+import TripDetails_page from '../apollo/TripDetails_page';
 
 const GuardFactory = (() => {
   if (!localStorage.getItem('logged')) {

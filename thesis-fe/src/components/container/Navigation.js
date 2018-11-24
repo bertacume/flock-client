@@ -18,6 +18,7 @@ const NavLogo = styled('div')`
 class Navigation extends Component {
 
   render() {
+    console.log(this.props);
     return (
       <NavigationContainer>
         <NavLogo>
