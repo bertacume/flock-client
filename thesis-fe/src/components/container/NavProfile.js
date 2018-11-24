@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import styled from 'react-emotion'
+import styled from 'react-emotion';
+
 
 const NavProfileImage = styled('div')`
 border: 1px solid #000;
@@ -10,12 +11,15 @@ height: 80%;
 margin-right: 2rem;
 `;
 class Navigation extends Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      showProfileDashboard : false
+    }
+  }
   render() {
     return (
-      <NavProfileImage>
-
-      </NavProfileImage>
+      <NavProfileImage/>
     );
   }
 }
