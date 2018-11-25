@@ -19,11 +19,12 @@ const GeneralInfo = styled('button')`
 class TripDetails_page extends Component {
 
   render() {
-    const TripDetailsApollo = () => (
+    console.log(this.props);
+    const TripDetailsApollo = ({ tripID }) => (
       <Query
       query={gql`
         {
-          Trip (id:0) {
+          trip (tripID: $tripID) {
             name,
             participants{
               firstName,
@@ -46,23 +47,36 @@ class TripDetails_page extends Component {
         }
       `}
       errorPolicy="all"
+      variables ={{tripID : this.props.tripID}}
     >
       {({ loading, error, data }) => {
         if (loading) return <p>Loading...</p>;
-        return (
-          <div>
-          <Navigation textContent={data.Trip.name}/>
-          <GeneralInfo>
+        if (error) console.log('opappapa');
+        if (data) console.log(this.props);
+        if (data.trip) {
+          return (
+            <div>
+            <Navigation textContent={data.trip.name}/>
+            <GeneralInfo>
+              <h1>
+                ops
+              </h1>
+              <h2>
+                aloha
+              </h2>
+            </GeneralInfo>
+          </div>
+          );
+        }
+        else if (!data.trip) {
+          return (
             <h1>
-              ops
+              Sorry, trip not found
             </h1>
-            <h2>
-              aloha
-            </h2>
-          </GeneralInfo>
-        </div>
-        );
-      }}
+          )
+        }
+      }
+    }
     </Query>
     );
     return (
@@ -82,16 +96,6 @@ export default TripDetails_page
     - budget,
     - timeFrame
 
-
-      const mockTrip = {
-      id: 25,
-      name: 'Fiesta',
-      destination: 'Barcelona',
-      start_date: '20/06/2019',
-      end_date: '25/06/2019',
-      budget: '1500 Euros',
-      participants: ['Melanie', 'Priscila', 'Oliver'],
-
-    }
-
+  should the id it will try to fetch from graphql should come from the url -> allow for direct access to the url and
+  independence
 */
