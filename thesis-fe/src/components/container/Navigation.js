@@ -18,7 +18,6 @@ const NavLogo = styled('div')`
 class Navigation extends Component {
 
   render() {
-    console.log(this.props);
     return (
       <NavigationContainer>
         <NavLogo>
@@ -27,7 +26,7 @@ class Navigation extends Component {
         <h1>
           {this.props.textContent}
         </h1>
-        <NavProfile />
+        <NavProfile avatarURL ={this.props.avatarURL}/>
       </NavigationContainer>
     );
   }

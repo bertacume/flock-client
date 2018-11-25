@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import MyTrips_page from '../apollo/MyTrips_page';
-import Auth_page from '../apollo/Auth_page';
-import TripDetails_page from '../apollo/TripDetails_page';
+import MyTripsPage from '../apollo/MyTrips_page';
+import AuthPage from '../apollo/Auth_page';
+import TripDetailsPage from '../apollo/TripDetails_page';
 
 const GuardFactory = (() => {
   if (!localStorage.getItem('logged')) {
@@ -13,26 +13,26 @@ const GuardFactory = (() => {
     if (!isLogged() || isLogged() === 'false') {
       localStorage.setItem('history1', ctx.first);
       localStorage.setItem('history2', ctx.second || '');
-      ComponentFiltered = <Auth_page routerMethods={routerMethods}/>;
+      ComponentFiltered = <AuthPage routerMethods={routerMethods}/>;
       localStorage.setItem('logged','true');
     }
     else {
       if (ctx.first === 'mytrips') {
-        if (!ctx.second) ComponentFiltered = <MyTrips_page routerMethods={routerMethods}/>
+        if (!ctx.second) ComponentFiltered = <MyTripsPage routerMethods={routerMethods}/>
         else {
-        ComponentFiltered = <MyTrips_page routerMethods={routerMethods}/>;
+        ComponentFiltered = <MyTripsPage routerMethods={routerMethods}/>;
         window.location.replace('http://localhost:3000/mytrips');
         }
       }
       else if (ctx.first === 'tripdetails') {
-        if (ctx.second && !ctx.third) ComponentFiltered = <TripDetails_page routerMethods={routerMethods}/>;
+        if (ctx.second && !ctx.third) ComponentFiltered = <TripDetailsPage routerMethods={routerMethods} tripID={ctx.second}/>;
         else {
-          ComponentFiltered = <MyTrips_page routerMethods={routerMethods}/>;
+          ComponentFiltered = <MyTripsPage routerMethods={routerMethods}/>;
           window.location.replace('http://localhost:3000/mytrips');
         }
       }
       else {
-        ComponentFiltered = <MyTrips_page />;
+        ComponentFiltered = <MyTripsPage />;
         window.location.replace('http://localhost:3000/mytrips');
       }
     }

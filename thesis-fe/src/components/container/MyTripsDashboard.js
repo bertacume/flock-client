@@ -27,9 +27,10 @@ const ContainerTrip = styled('div')`
   margin: 1.5rem 0;
 `;
 
-const ContainerDates = styled('div')`
+
+const ContainerFriends = styled('div')`
   display: flex;
-  justify-content: center;
+  width: 80vw;
   flex-direction: row;
 `;
 
@@ -55,42 +56,24 @@ class MyTripsDashboard extends Component {
 
   }
   render() {
-    console.log(this.props);
-    const mockTrip = [
-      {
-        id: 25,
-        name: 'Fiesta',
-        destination: 'Barcelona',
-        start_date: '20/06/2019',
-        end_date: '25/06/2019'
-      },
-      {
-        id: 90,
-        name: 'super',
-        destination: 'berlin',
-        start_date: '20/12/2018',
-        end_date: '15/01/2019'
-      },
-      {
-        id: 121,
-        name: 'super',
-        destination: 'berlin',
-        start_date: '20/12/2018',
-        end_date: '15/01/2019'
-      }
-    ]
-    const listTrips = mockTrip.map( obj => {
-      return (
+    const listTrips = this.props.info.map( obj => (
         <ContainerTrip onClick={this.redirectToTrip(obj.id)} key={obj.id}>
           <h1>{obj.name}</h1>
-          <h2>{obj.destination}</h2>
-          <ContainerDates>
-          <h2>{obj.start_date}</h2>
-          <h2>{obj.end_date}</h2>
-          </ContainerDates>
+          { (obj.destination.chosenDestination.name) ?
+            <h2>{obj.destination.chosenDestination.name}</h2> :
+            (<h2>Destinations to be decided</h2>)
+          }
+          { (obj.timeFrame.chosenTimeframe) ?
+            (<h2>obj.timeFrame.chosenTimeframe</h2>) :
+            (<h2>Timeframe to be decided</h2>)
+          }
+          { (obj.participants.length >0) ?
+            (<ContainerFriends><h2>Friends attending: </h2>{obj.participants.map( obj => <h2 key={obj.firstName}>{obj.firstName}</h2>)}</ContainerFriends>) :
+            (<ContainerFriends>No friends subscribing</ContainerFriends>)
+          }
         </ContainerTrip>
       )
-    })
+    )
     return (
       <Container>
         <ContainerButton>

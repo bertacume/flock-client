@@ -12,9 +12,31 @@ class MyTrips_page extends Component {
       query={gql`
         {
           User (id:1)
-          { firstName,
-            lastName,
-            email
+          {
+            avatarURL
+          }
+          tripsByUserID (userID:1) {
+            id,
+            name,
+            participants {
+              firstName
+            },
+            destination {
+              chosenDestination {
+                name
+              }
+            },
+            budget {
+              chosenBudget {
+                value
+              }
+            },
+            timeFrame {
+              chosenTimeFrame {
+                startDate,
+                endDate
+              }
+            }
           }
         }
       `}
@@ -24,8 +46,8 @@ class MyTrips_page extends Component {
         if (loading) return <p>Loading...</p>;
         return (
           <div>
-            <Navigation textContent="My trips" info={data.User}/>
-            <MyTripsDashboard history={this.props.routerMethods.history} info={data.User}/>
+            <Navigation textContent="My trips" avatarURL={data.User.avatarURL} />
+            <MyTripsDashboard history={this.props.routerMethods.history} info={data.tripsByUserID} />
           </div>
         );
       }}
