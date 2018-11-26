@@ -29,7 +29,8 @@ class Profile_page extends Component {
   logout = () => {
     localStorage.setItem('logged','');
     localStorage.setItem('id','');
-    window.location.replace('/mytrips');
+    window.location.replace('/auth');
+
   }
   render() {
     return (

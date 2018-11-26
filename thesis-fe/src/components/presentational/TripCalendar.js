@@ -26,6 +26,7 @@ class TripCalendar extends Component {
 
     return (
       <Container>
+
         <MoreInfoButton>
           <img src={plus} alt="more info" height="20" width="20" onClick={this.props.redirectParent}/>
         </MoreInfoButton>

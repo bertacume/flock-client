@@ -61,7 +61,7 @@ class MyTripsDashboard extends Component {
 
     return (
       <h1>
-        helo
+        cALL
       </h1>
     );
   }

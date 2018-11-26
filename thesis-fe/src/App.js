@@ -1,18 +1,33 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import GuardFactory from './components/guard/GuardFactory';
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
+import Guard from './components/guard/Guard';
+import MyTripsPage from './components/pages/MyTrips_page';
+import AuthPage from './components/pages/Auth_page';
+import TripDetailsPage from './components/pages/TripDetails_page';
+import ProfilePage from './components/pages/Profile_page';
+import TripDetailsDestinationPage from './components/pages/TripDetailsDestination_page';
+import TripDetailsParticipantsPage from './components/pages/TripDetailsParticipants_page';
+import TripDetailsCalendarPage from './components/pages/TripDetailsCalendar_page';
+import TripDetailsBudgetPage from './components/pages/TripDetailsBudget_page';
 
 
 class App extends Component {
   render() {
-    console.log('app');
     return (
       <Router>
         <div>
-          <Route exact path="/" component={GuardFactory} />
-          <Route exact path="/:first/" component={GuardFactory} />
-          <Route exact path="/:first/:second" component={GuardFactory} />
-          <Route path="/:first/:second/:third" component={GuardFactory} />
+          <Switch>
+            <Guard exact path="/" component={MyTripsPage} />
+            <Route path="/auth" component={AuthPage} />
+            <Guard path="/mytrips" component={MyTripsPage} />
+            <Guard exact path="/tripdetails/:id" component={TripDetailsPage} />
+            <Guard path="/tripdetails/:id/destination" component={TripDetailsDestinationPage} />
+            <Guard path="/tripdetails/:id/calendar" component={TripDetailsCalendarPage} />
+            <Guard path="/tripdetails/:id/participants" component={TripDetailsParticipantsPage} />
+            <Guard path="/tripdetails/:id/budget" component={TripDetailsBudgetPage} />
+            <Guard path="/profile" component={ProfilePage} />
+            <Redirect to='/mytrips' />
+          </Switch>
         </div>
       </Router>
     );

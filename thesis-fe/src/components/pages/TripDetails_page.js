@@ -19,18 +19,24 @@ const GeneralInfo = styled('div')`
 
 class TripDetails_page extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = ({
+      tripID : this.props.location.pathname.split('/')[2]
+    })
+  }
+
   redirectParent = (str) => {
     return () => {
-      this.props.routerMethods.history.push('/tripdetails/' + this.props.tripID + '/' + str)
+      this.props.history.push('/tripdetails/' + this.state.tripID + '/' + str)
     }
   }
   render() {
-    console.log(this.props.routerMethods.history.push);
     const TripDetailsApollo = () => (
       <Query
       query={GET_TRIP_DETAILS}
       errorPolicy="all"
-      variables ={{tripID : this.props.tripID}}
+      variables ={{tripID : this.state.tripID }}
     >
       {({ loading, error, data }) => {
         if (loading) return <p>Loading...</p>;

@@ -21,7 +21,7 @@ class MyTrips_page extends Component {
         return (
           <div>
             <Navigation textContent="My trips" avatarURL={data.User.avatarURL} />
-            <MyTripsDashboard history={this.props.routerMethods.history} info={data.tripsByUserID} />
+            <MyTripsDashboard history={this.props.history} info={data.tripsByUserID} />
           </div>
         );
       }}
