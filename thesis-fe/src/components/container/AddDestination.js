@@ -13,7 +13,9 @@ export class AddDestination extends Component {
   }
 
   componentDidMount() {
-    if (this.props.destination.chosenOne) this.setState({ input: this.props.destination.chosenOne });
+    if (!this.props.destination.chosenOne) this.setState({ dictator: false});
+    this.props.destination.chosenOne &&
+    this.setState({ input: this.props.destination.chosenOne });
   }
 
   handleInput = async (event) => {
@@ -26,21 +28,24 @@ export class AddDestination extends Component {
   }
 
   handleAddClick = async () => {
+    const parentSuggestions = this.props.destination.suggestions;
     const destination = this.state.input;
-    if (this.state.suggestions.includes(destination)) return;
-    const suggestions = this.state.suggestions.slice();
+    let suggestions;
+    if (parentSuggestions){
+      if (parentSuggestions.includes(destination)) return;
+      suggestions = parentSuggestions.slice();
+    } else suggestions = [];
     suggestions.push(destination);
-    await this.setState({ input: '', suggestions });
-    this.props.setDestination({suggestions: this.state.suggestions.slice(), chosenOne: null});
+    await this.setState({ input: '' });
+    this.props.setDestination({ suggestions, chosenOne: null});
   }
 
   setMode = async (flag) => {
     await this.setState({ dictator: flag });
   }
 
-  setSuggestions = async (suggestions) => {
-    await this.setState({ suggestions });
-    this.props.setDestination({suggestions: this.state.suggestions.slice(), chosenOne: null});
+  setSuggestions = (suggestions) => {
+    this.props.setDestination({ suggestions, chosenOne: null});
   }
 
 
@@ -49,7 +54,8 @@ export class AddDestination extends Component {
       <Container>
         <Input type="text" placeholder="" value={this.state.input} onChange={this.handleInput}></Input>
         <Button onClick={this.handleAddClick}>Add</Button>
-        <List items={this.state.suggestions} setItems={(items) => this.setSuggestions(items)} />
+        {this.props.destination.suggestions &&
+        <List items={this.props.destination.suggestions} setItems={(items) => this.setSuggestions(items)} />}
       </Container>
     );
   }
@@ -57,7 +63,7 @@ export class AddDestination extends Component {
   render() {
     return (
       <Container>
-        <WizardMode setMode={(flag) => this.setMode(flag)} />
+        <WizardMode mode={this.state.dictator} setMode={(flag) => this.setMode(flag)} />
         <Title>Add Destination:</Title>
         {this.state.dictator ?
           <Input type="text" placeholder="" value={this.state.input} onChange={this.handleInput}></Input> : this.renderDemocracy()}

@@ -5,23 +5,18 @@ import { fontFamily } from '../../helpers/constants';
 
 
 export class WizardMode extends Component {
-  state = {
-    dictator: true,
-  }
-
-  handleClick = async (type) => {
-    const flag = this.state.dictator;
+  handleClick = (type) => {
+    const flag = this.props.mode;
     if (type === 'dictator' && flag) return;
     if (type === 'democracy' && !flag) return;
-    await this.setState({dictator: !flag});
-    this.props.setMode(this.state.dictator);
+    this.props.setMode(!flag);
   }
 
   render() {
     return (
       <Container>
-        <Button className={this.state.dictator ? pressed : null} onClick={() => this.handleClick('dictator')}>Dictator</Button>
-        <Button className={!this.state.dictator ? pressed : null} onClick={() => this.handleClick('democracy')}>Democracy</Button>
+        <Button className={!this.props.mode ? pressed : null} onClick={() => this.handleClick('democracy')}>Democracy</Button>
+        <Button className={this.props.mode ? pressed : null} onClick={() => this.handleClick('dictator')}>Dictator</Button>
       </Container>
     );
   }

@@ -29,9 +29,8 @@ export class AddTripPage extends Component {
     this.setState({ tripData: { ...this.state.tripData, name: input }, nameRequired: false });
   }
 
-  setDestination = async destinationObj => {
-    await this.setState({ tripData: { ...this.state.tripData, destination: {...destinationObj} } });
-    console.log(this.state);
+  setDestination =  destinationObj => {
+    this.setState({ tripData: { ...this.state.tripData, destination: { ...destinationObj } } });
   }
 
   setDates = dates => {
@@ -51,6 +50,9 @@ export class AddTripPage extends Component {
   }
 
   handleNextClick = async () => {
+    //TODO: refactor views 2 and 3
+    if (this.state.currentView > 0) return; 
+    
     if (this.state.currentView === 0 && !this.state.tripData.name) {
       await this.setState({ nameRequired: true });
       return;
@@ -63,9 +65,12 @@ export class AddTripPage extends Component {
 
   getNextBtnTxt = () => {
     const next = '➡️';
-    const index = this.state.currentView;
-    if (index === 0) return next;
-    return this.state.tripData[this.relation[index]] ? next : 'SKIP';
+    if (this.state.currentView === 0) return next;
+    const current = this.relation[this.state.currentView]
+    return (this.state.tripData[current].chosenOne ||
+      (this.state.tripData[current].suggestions && 
+      this.state.tripData[current].suggestions.length)) ?
+       next : 'SKIP';
   }
 
   render() {
