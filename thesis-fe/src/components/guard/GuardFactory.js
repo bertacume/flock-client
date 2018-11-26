@@ -5,6 +5,7 @@ import TripDetailsPage from '../pages/TripDetails_page';
 import ProfilePage from '../pages/Profile_page';
 import TripDetailsDestinationPage from '../pages/TripDetailsDestination_page';
 import TripDetailsParticipantsPage from '../pages/TripDetailsParticipants_page';
+import TripDetailsCalendarPage from '../pages/TripDetailsCalendar_page';
 import { baseURL } from '../../helpers/constants'
 
 const GuardFactory = (() => {
@@ -26,14 +27,14 @@ const GuardFactory = (() => {
         if (!ctx.second) ComponentFiltered = <MyTripsPage routerMethods={routerMethods}/>
         else {
         ComponentFiltered = <MyTripsPage routerMethods={routerMethods}/>;
-        window.location.replace(baseURL + '/mytrips');
+        window.history.replaceState({foo: '/'},'mytrips','/mytrips');
         }
       }
       else if (ctx.first === 'profile') {
         if (!ctx.second) ComponentFiltered = <ProfilePage routerMethods={routerMethods}/>
         else {
         ComponentFiltered = <MyTripsPage routerMethods={routerMethods}/>;
-        window.location.replace(baseURL + '/mytrips');
+        window.history.replaceState({foo: '/'},'mytrips','/mytrips');
         }
       }
       else if (ctx.first === 'tripdetails') {
@@ -45,15 +46,18 @@ const GuardFactory = (() => {
           else if (ctx.third === 'participants') {
             ComponentFiltered = <TripDetailsParticipantsPage routerMethods={routerMethods} tripID={ctx.second} />
           }
+          else if (ctx.third === 'calendar') {
+            ComponentFiltered = <TripDetailsCalendarPage routerMethods={routerMethods} tripID={ctx.second} />
+          }
         }
         else {
           ComponentFiltered = <MyTripsPage routerMethods={routerMethods}/>;
-          window.location.replace(baseURL + '/mytrips');
+          window.history.replaceState({foo: '/'},'mytrips','/mytrips');
         }
       }
       else {
         ComponentFiltered = <MyTripsPage />;
-        window.location.replace(baseURL + '/mytrips');
+        window.history.replaceState({foo: '/'},'mytrips','/mytrips');
       }
     }
   }

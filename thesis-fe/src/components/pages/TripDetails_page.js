@@ -5,7 +5,7 @@ import { Query } from "react-apollo";
 import GET_TRIP_DETAILS from '../apollo/get_trip_details';
 import TripParticipants from '../presentational/TripParticipants';
 import TripDestination from '../presentational/TripDestination';
-import TripTime from '../presentational/TripTime';
+import TripCalendar from '../presentational/TripCalendar';
 import TripBudget from '../presentational/TripBudget';
 
 const GeneralInfo = styled('div')`
@@ -42,7 +42,7 @@ class TripDetails_page extends Component {
             <GeneralInfo>
               <TripParticipants info={data.trip.participants} redirectParent={this.redirectParent('participants')} />
               <TripDestination info={data.trip.destination} redirectParent={this.redirectParent('destination')}/>
-              <TripTime info={data.trip.timeFrame} redirectParent={this.redirectParent('calendar')}/>
+              <TripCalendar info={data.trip.timeFrame} redirectParent={this.redirectParent('calendar')}/>
               <TripBudget redirectParent={this.redirectParent('budget')}/>
             </GeneralInfo>
           </div>
