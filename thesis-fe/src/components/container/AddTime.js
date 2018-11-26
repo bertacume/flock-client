@@ -9,54 +9,68 @@ export class AddTime extends Component {
   state = {
     start: '',
     end: '',
-    dates: [],
     dictator: false,
   }
 
   componentDidMount() {
-    const range = this.props.time.chosenOne;
-    if (range) this.setState({ start: range[0], end: range[1], dates: range.slice() });
+    const chosenTime = this.props.time.chosenOne;
+    if (chosenTime) return this.setState({ start: chosenTime[0], end: chosenTime[1], dictator: true });
+
   }
 
-  handleStartDate = (event) => {
-    this.setState({ start: event.target.value });
-    if (!this.state.end.length) return;
-    // this.setDates();
+  handleStartDate = async (event) => {
+    await this.setState({ start: event.target.value });
+    this.setDates();
   }
 
   handleEndDate = async (event) => {
     await this.setState({ end: event.target.value });
-    if (!this.state.start.length) return;
-    // this.setDates();
+    this.setDates();
   }
 
   handleAddClick = async () => {
     const parentSuggestions = this.props.time.suggestions;
-    const start = this.state.start;
-    const end = this.state.end;
-    if (!start.length || !end.length) return;
-    const datesInput = `From: ${start} To: ${end}`;
+    const datesArr = this.datesInputToArray();
+    if (!datesArr) return; //TODO: throw error
     let suggestions;
-    if (parentSuggestions){
-      if (parentSuggestions.includes(datesInput)) return;
+
+    //check if we already have some suggestions
+    if (parentSuggestions) {
+      if (parentSuggestions.includes(datesArr)) return;
       suggestions = parentSuggestions.slice();
     } else suggestions = [];
-    suggestions.push(datesInput);
-    await this.setState({ start: '', end: '' });
-    this.props.setDates({ suggestions, chosenOne: null});
+
+    suggestions.push(datesArr);
+    await this.props.setDates({ suggestions, chosenOne: null });
+
+    this.setState({ start: '', end: '' });
   }
 
-  setDates = async () => {
-    await this.setState({ dates: [this.state.start, this.state.end] });
-    this.props.setDates({ suggestions: null, chosenOne: this.state.dates.slice() });
+
+  setDates = () => {
+    if (!this.state.dictator) return;
+    const datesArr = this.datesInputToArray();
+    this.props.setDates({ suggestions: null, chosenOne: datesArr });
   }
 
-  setMode = async (flag) => {
-    await this.setState({ dictator: flag });
+  datesInputToArray = () => {
+    const start = this.state.start;
+    const end = this.state.end;
+    if (!start.length || !end.length) return null;
+    return [start, end];
   }
 
-  setSuggestions = (suggestions) => {
-    this.props.setDates({ suggestions, chosenOne: null});
+  setMode = (flag) => {
+    this.setState({ dictator: flag });
+  }
+
+  renderDatesSuggestions = () => {
+    return this.props.time.suggestions.map(el => `From: ${el[0]} To: ${el[1]}`);
+  }
+
+  deleteItem = (item) => {
+    const suggestions = this.props.time.suggestions.filter(el => `From: ${el[0]} To: ${el[1]}` !== item);
+    this.props.setDates({ suggestions, chosenOne: null });
   }
 
   renderDemocracy = () => {
@@ -65,17 +79,17 @@ export class AddTime extends Component {
       <Input type='date' value={this.state.start} onChange={this.handleStartDate} />
       <Input type='date' value={this.state.end} onChange={this.handleEndDate} />
       <Button onClick={this.handleAddClick}>Add</Button>
-        {this.props.time.suggestions &&
-        <List items={this.props.time.suggestions} setItems={(items) => this.setSuggestions(items)} />}
+      {this.props.time.suggestions &&
+        <List items={this.renderDatesSuggestions()} deleteItem={(item) => this.deleteItem(item)} />}
     </Container>
     );
   }
 
   renderDictator = () => {
     return (<Container>
-      {/* <Title>Add Dates:</Title>
+      <Title>Add Dates:</Title>
       <Input type='date' value={this.state.start} onChange={this.handleStartDate} />
-      <Input type='date' value={this.state.end} onChange={this.handleEndDate} /> */}
+      <Input type='date' value={this.state.end} onChange={this.handleEndDate} />
     </Container>
     );
   }

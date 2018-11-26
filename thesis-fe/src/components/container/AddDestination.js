@@ -43,10 +43,10 @@ export class AddDestination extends Component {
     await this.setState({ dictator: flag });
   }
 
-  setSuggestions = (suggestions) => {
-    this.props.setDestination({ suggestions, chosenOne: null});
+  deleteItem = (item) => {
+    const suggestions = this.props.destination.suggestions.filter(el => el !== item);
+    this.props.setDestination({ suggestions, chosenOne: null });
   }
-
 
   renderDemocracy = () => {
     return (
@@ -54,7 +54,7 @@ export class AddDestination extends Component {
         <Input type="text" placeholder="" value={this.state.input} onChange={this.handleInput}></Input>
         <Button onClick={this.handleAddClick}>Add</Button>
         {this.props.destination.suggestions &&
-        <List items={this.props.destination.suggestions} setItems={(items) => this.setSuggestions(items)} />}
+        <List items={this.props.destination.suggestions} deleteItem={(item) => this.deleteItem(item)} />}
       </Container>
     );
   }

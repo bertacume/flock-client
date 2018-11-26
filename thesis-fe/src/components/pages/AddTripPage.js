@@ -36,8 +36,9 @@ export class AddTripPage extends Component {
     this.setState({ tripData: { ...this.state.tripData, destination: { ...destinationObj } } });
   }
 
-  setDates = datesObj => {
-    this.setState({ tripData: { ...this.state.tripData, time: { ...datesObj } } });
+  setDates = async datesObj => {
+    await this.setState({ tripData: { ...this.state.tripData, time: { ...datesObj } } });
+    console.log('state', this.state);
   }
 
   setBudget = budget => {

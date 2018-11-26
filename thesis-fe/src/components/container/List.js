@@ -1,32 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'react-emotion'
 
-
-export class List extends Component {
-  deleteItem = async (item) => {
-    const items = this.props.items.filter(el => el !== item);
-    this.props.setItems(items);
-  }
-
-  renderItems = () => {
-    return this.props.items.map(item => {
-      return (<ListItem key={item}>
-        <button onClick={() => this.deleteItem(item)}>X</button>
-        <ItemTitle>{item}</ItemTitle>
-      </ListItem>);
+// Functional Component – Good for presentational components
+export const List = (props) => {
+  const renderItems = () => {
+    return props.items.map(item => {
+      return (
+        <ListItem key={item}>
+          <button onClick={() => props.deleteItem(item)}>X</button>
+          <ItemTitle>{item}</ItemTitle>
+        </ListItem>
+      );
     });
   }
 
-  render() {
-    return (
-      <Container>
-        <ListContainer>
-          {this.renderItems()}
-        </ListContainer>
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      <ListContainer>
+        {renderItems()}
+      </ListContainer>
+    </Container>
+  );
+};
 
 const Container = styled('div')`
   width: 100%;
@@ -36,7 +31,6 @@ const Container = styled('div')`
   justify-content: flex-start;
   align-items: center;
 `
-
 const ListContainer = styled('div')`
   width: 90%;
   display: flex;
@@ -52,7 +46,6 @@ const ListItem = styled('div')`
   justify-content: flex-start;
   align-items: center;
 `
-
 const ItemTitle = styled('p')`
   margin: 0;
   font-size: 1rem;

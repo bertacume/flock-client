@@ -39,9 +39,10 @@ export class AddMembers extends Component {
     return <Error>{this.state.error}</Error>;
   }
 
-  setMembers = async (members) => {
-    await this.setState({ members });
-    this.props.setMembers(this.state.members.slice());
+  deleteItem = (item) => {
+    const members = this.state.members.filter(el => el !== item);
+    this.setState({ members });
+    this.props.setMembers({ members, chosenOne: null });
   }
 
   render() {
@@ -57,7 +58,7 @@ export class AddMembers extends Component {
         </ErrorDiv>
         <input className={inputClasses} type="text" placeholder="" value={this.state.input} onChange={this.handleInput}></input>
         <Button onClick={this.handleAddClick}>Add</Button>
-        <List items={this.state.members} setItems={(items) => this.setMembers(items)} />
+        <List items={this.state.members} deleteItem={(item) => this.deleteItem(item)} />
       </Container>
     );
   }
