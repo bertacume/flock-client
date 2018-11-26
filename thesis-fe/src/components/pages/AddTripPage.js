@@ -12,7 +12,10 @@ export class AddTripPage extends Component {
     currentView: 1,
     tripData: {
       name: null,
-      destination: null,
+      destination: {
+        suggestions: null,
+        chosenOne: null,
+      },
       time: null,
       budget: null,
       members: null,
@@ -26,8 +29,9 @@ export class AddTripPage extends Component {
     this.setState({ tripData: { ...this.state.tripData, name: input }, nameRequired: false });
   }
 
-  setDestination = input => {
-    this.setState({ tripData: { ...this.state.tripData, destination: input } });
+  setDestination = async destinationObj => {
+    await this.setState({ tripData: { ...this.state.tripData, destination: {...destinationObj} } });
+    console.log(this.state);
   }
 
   setDates = dates => {

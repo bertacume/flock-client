@@ -13,14 +13,16 @@ export class AddDestination extends Component {
   }
 
   componentDidMount() {
-    if (this.props.destination) this.setState({ input: this.props.destination });
+    if (this.props.destination.chosenOne) this.setState({ input: this.props.destination.chosenOne });
   }
 
   handleInput = async (event) => {
-    let destination;
+    let chosenOne;
     await this.setState({ input: event.target.value });
-    this.state.input.length ? destination = this.state.input : destination = null;
-    this.props.setDestination(destination);
+    if (this.state.dictator) {
+      this.state.input.length ? chosenOne = this.state.input : chosenOne = null;
+      this.props.setDestination({ suggestions: null, chosenOne });
+    }
   }
 
   handleAddClick = async () => {
@@ -29,7 +31,7 @@ export class AddDestination extends Component {
     const suggestions = this.state.suggestions.slice();
     suggestions.push(destination);
     await this.setState({ input: '', suggestions });
-    console.log(this.state);
+    this.props.setDestination({suggestions: this.state.suggestions.slice(), chosenOne: null});
   }
 
   setMode = async (flag) => {
@@ -38,6 +40,7 @@ export class AddDestination extends Component {
 
   setSuggestions = async (suggestions) => {
     await this.setState({ suggestions });
+    this.props.setDestination({suggestions: this.state.suggestions.slice(), chosenOne: null});
   }
 
 
