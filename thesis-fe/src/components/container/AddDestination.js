@@ -22,7 +22,7 @@ export class AddDestination extends Component {
     await this.setState({ input: event.target.value });
     if (this.state.dictator) {
       this.state.input.length ? chosenOne = this.state.input : chosenOne = null;
-      this.props.setDestination({ suggestions: null, chosenOne });
+      this.props.setDestination({ suggestions: [], chosenOne });
     }
   }
 

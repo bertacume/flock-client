@@ -9,15 +9,15 @@ import { AddMembers } from '../container/AddMembers';
 
 export class AddTripPage extends Component {
   state = {
-    currentView: 4,
+    currentView: 1,
     tripData: {
       name: null,
       destination: {
-        suggestions: null,
+        suggestions: [],
         chosenOne: null,
       },
       time: {
-        suggestions: null,
+        suggestions: [],
         chosenOne: null,
       },
       budget: null,

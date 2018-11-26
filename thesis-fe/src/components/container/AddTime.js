@@ -50,7 +50,7 @@ export class AddTime extends Component {
   setDates = () => {
     if (!this.state.dictator) return;
     const datesArr = this.datesInputToArray();
-    this.props.setDates({ suggestions: null, chosenOne: datesArr });
+    this.props.setDates({ suggestions: [], chosenOne: datesArr });
   }
 
   datesInputToArray = () => {
