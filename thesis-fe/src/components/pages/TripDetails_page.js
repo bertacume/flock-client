@@ -8,7 +8,7 @@ import TripDestination from '../presentational/TripDestination';
 import TripTime from '../presentational/TripTime';
 import TripBudget from '../presentational/TripBudget';
 
-const GeneralInfo = styled('button')`
+const GeneralInfo = styled('div')`
   width: 100vw;
   height: 90vh;
   display: flex;
@@ -19,7 +19,13 @@ const GeneralInfo = styled('button')`
 
 class TripDetails_page extends Component {
 
+  redirectParent = (str) => {
+    return () => {
+      this.props.routerMethods.history.push('/tripdetails/' + this.props.tripID + '/' + str)
+    }
+  }
   render() {
+    console.log(this.props.routerMethods.history.push);
     const TripDetailsApollo = () => (
       <Query
       query={GET_TRIP_DETAILS}
@@ -34,10 +40,10 @@ class TripDetails_page extends Component {
             <div>
             <Navigation textContent={data.trip.name}/>
             <GeneralInfo>
-              <TripParticipants info={data.trip.participants}/>
-              <TripDestination info={data.trip.destination}/>
-              <TripTime info={data.trip.timeFrame}/>
-              <TripBudget />
+              <TripParticipants info={data.trip.participants} redirectParent={this.redirectParent('participants')} />
+              <TripDestination info={data.trip.destination} redirectParent={this.redirectParent('destination')}/>
+              <TripTime info={data.trip.timeFrame} redirectParent={this.redirectParent('calendar')}/>
+              <TripBudget redirectParent={this.redirectParent('budget')}/>
             </GeneralInfo>
           </div>
           );
