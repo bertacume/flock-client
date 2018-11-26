@@ -9,14 +9,17 @@ import { AddMembers } from '../container/AddMembers';
 
 export class AddTripPage extends Component {
   state = {
-    currentView: 1,
+    currentView: 2,
     tripData: {
       name: null,
       destination: {
         suggestions: null,
         chosenOne: null,
       },
-      time: null,
+      time: {
+        suggestions: null,
+        chosenOne: null,
+      },
       budget: null,
       members: null,
     },
@@ -33,8 +36,8 @@ export class AddTripPage extends Component {
     this.setState({ tripData: { ...this.state.tripData, destination: { ...destinationObj } } });
   }
 
-  setDates = dates => {
-    this.setState({ tripData: { ...this.state.tripData, time: dates } });
+  setDates = datesObj => {
+    this.setState({ tripData: { ...this.state.tripData, time: { ...datesObj } } });
   }
 
   setBudget = budget => {
@@ -50,8 +53,8 @@ export class AddTripPage extends Component {
   }
 
   handleNextClick = async () => {
-    //TODO: refactor views 2 and 3
-    if (this.state.currentView > 0) return; 
+    //TODO: refactor views 3
+    if (this.state.currentView > 1) return; 
     
     if (this.state.currentView === 0 && !this.state.tripData.name) {
       await this.setState({ isNextAviable: true });

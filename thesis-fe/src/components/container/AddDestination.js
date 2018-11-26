@@ -9,7 +9,6 @@ export class AddDestination extends Component {
   state = {
     input: '',
     dictator: true,
-    suggestions: [],
   }
 
   componentDidMount() {

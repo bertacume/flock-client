@@ -8,10 +8,12 @@ export class AddTime extends Component {
     start: '',
     end: '',
     dates: [],
+    dictator: true,
   }
 
   componentDidMount() {
-    if (this.props.time) this.setState({start: this.props.time[0], end: this.props.time[1], dates: this.props.time.slice()});
+    const range = this.props.time.chosenOne;
+    if (range) this.setState({start: range[0], end: range[1], dates: range.slice()});
   }
 
   handleStartDate = (event) => {
@@ -28,16 +30,12 @@ export class AddTime extends Component {
 
   setDates = async () => {
     await this.setState({dates: [this.state.start, this.state.end]});
-    this.props.setDates(this.state.dates.slice());
+    this.props.setDates({suggestions: null, chosenOne: this.state.dates.slice()});
   }
 
   render() {
     return (
       <Container>
-        <ButtonContainer>
-        <Button>Dictator</Button>
-        <Button>Democracy</Button>
-        </ButtonContainer>
         <Title>Add Dates:</Title>
         <Input type='date' value={this.state.start} onChange={this.handleStartDate} />
         <Input type='date' value={this.state.end} onChange={this.handleEndDate}/>
