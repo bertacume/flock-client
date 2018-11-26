@@ -17,8 +17,8 @@ export class AddBudget extends Component {
   }
 
   async componentDidMount() {
-    if (this.props.budget) {
-      await this.setState({ value: this.props.budget });
+    if (this.props.budget.chosenOne) {
+      await this.setState({ value: this.props.budget.chosenOne });
       this.setState({ isAdded: true });
       if (this.state.max < this.state.value) {
         const newMax = Math.ceil(this.state.value / maxDefault) * maxDefault;
@@ -29,18 +29,18 @@ export class AddBudget extends Component {
 
   handleInput = async (value) => {
     await this.setState({ value });
-    this.props.setBudget(this.state.value);
+    this.props.setBudget({ suggestions: [], chosenOne: this.state.value });
   }
 
   handleAddClick = async () => {
     await this.setState({ isAdded: !this.state.isAdded });
     this.state.isAdded ?
-      this.props.setBudget(this.state.value) :
+      this.props.setBudget({ suggestions: [], chosenOne: this.state.value }) :
       this.clearBudget();
   }
 
   clearBudget = () => {
-    this.props.setBudget(null);
+    this.props.setBudget({ suggestions: [], chosenOne: null });
     this.setState({
       min: minDefault,
       max: maxDefault,
