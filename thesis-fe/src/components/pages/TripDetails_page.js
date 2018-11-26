@@ -5,7 +5,8 @@ import { Query } from "react-apollo";
 import GET_TRIP_DETAILS from '../apollo/get_trip_details';
 import TripParticipants from '../presentational/TripParticipants';
 import TripDestination from '../presentational/TripDestination';
-import TripTime from '../presentational/TripTime'
+import TripTime from '../presentational/TripTime';
+import TripBudget from '../presentational/TripBudget';
 
 const GeneralInfo = styled('button')`
   width: 100vw;
@@ -36,7 +37,7 @@ class TripDetails_page extends Component {
               <TripParticipants info={data.trip.participants}/>
               <TripDestination info={data.trip.destination}/>
               <TripTime info={data.trip.timeFrame}/>
-              {/*<TripBudget /> */}
+              <TripBudget />
             </GeneralInfo>
           </div>
           );

@@ -3,12 +3,13 @@ import Navigation from '../../components/container/Navigation';
 import MyTripsDashboard from '../../components/container/MyTripsDashboard';
 import { Query } from "react-apollo";
 import GET_MY_TRIPS from '../apollo/get_my_trips';
+import { baseURL } from '../../helpers/constants'
 
 class MyTrips_page extends Component {
 
   render() {
     const userID = localStorage.getItem('id');
-    if (!userID) window.location.replace('http://localhost:3000/auth');
+    if (!userID) window.location.replace(baseURL + '/auth');
     const MyTripsApollo = () => (
       <Query
       query={GET_MY_TRIPS}

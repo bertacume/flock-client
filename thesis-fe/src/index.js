@@ -5,9 +5,10 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
+import { serverURL } from './helpers/constants';
 
 const client = new ApolloClient({
-  uri: "http://localhost:4005/"
+  uri: serverURL
 });
 
 

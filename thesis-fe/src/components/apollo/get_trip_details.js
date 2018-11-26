@@ -4,34 +4,42 @@ const GET_MY_TRIPS = gql` query GET_TRIP_DETAILS ($tripID: ID!)
   {
     trip (tripID: $tripID) {
       name,
-      participants{
+      participants {
         id,
         firstName,
         lastName,
         avatarURL
       },
-      destination{
-        chosenDestination{
+      destination {
+        isDictated
+        chosenDestination {
           name
         },
         suggestions {
           name
-        },
-        isDictated
+        }
       },
-      budget{
-        chosenBudget{value}
-      },
-      timeFrame{
+      budget {
         isDictated,
-        chosenTimeFrame{
+        chosenBudget {
+          value
+        },
+        suggestions {
+          value
+        }
+      },
+      timeFrame {
+        isDictated,
+        chosenTimeFrame {
           startDate,
           endDate
         },
         suggestions {
           startDate,
           endDate,
-          creator
+          creator {
+            firstName
+          }
         }
       }
     }

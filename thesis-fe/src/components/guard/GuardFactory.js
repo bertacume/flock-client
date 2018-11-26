@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import MyTripsPage from '../pages/MyTrips_page';
 import AuthPage from '../pages/Auth_page';
 import TripDetailsPage from '../pages/TripDetails_page';
+import ProfilePage from '../pages/Profile_page';
+import { baseURL } from '../../helpers/constants'
 
 const GuardFactory = (() => {
   if (!localStorage.getItem('logged')) {
@@ -22,19 +24,26 @@ const GuardFactory = (() => {
         if (!ctx.second) ComponentFiltered = <MyTripsPage routerMethods={routerMethods}/>
         else {
         ComponentFiltered = <MyTripsPage routerMethods={routerMethods}/>;
-        window.location.replace('http://localhost:3000/mytrips');
+        window.location.replace(baseURL + '/mytrips');
+        }
+      }
+      else if (ctx.first === 'profile') {
+        if (!ctx.second) ComponentFiltered = <ProfilePage routerMethods={routerMethods}/>
+        else {
+        ComponentFiltered = <MyTripsPage routerMethods={routerMethods}/>;
+        window.location.replace(baseURL + '/mytrips');
         }
       }
       else if (ctx.first === 'tripdetails') {
         if (ctx.second && !ctx.third) ComponentFiltered = <TripDetailsPage routerMethods={routerMethods} tripID={ctx.second}/>;
         else {
           ComponentFiltered = <MyTripsPage routerMethods={routerMethods}/>;
-          window.location.replace('http://localhost:3000/mytrips');
+          window.location.replace(baseURL + '/mytrips');
         }
       }
       else {
         ComponentFiltered = <MyTripsPage />;
-        window.location.replace('http://localhost:3000/mytrips');
+        window.location.replace(baseURL + '/mytrips');
       }
     }
   }
