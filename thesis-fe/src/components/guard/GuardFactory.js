@@ -3,6 +3,8 @@ import MyTripsPage from '../pages/MyTrips_page';
 import AuthPage from '../pages/Auth_page';
 import TripDetailsPage from '../pages/TripDetails_page';
 import ProfilePage from '../pages/Profile_page';
+import TripDetailsDestinationPage from '../pages/TripDetailsDestination_page';
+import TripDetailsParticipantsPage from '../pages/TripDetailsParticipants_page';
 import { baseURL } from '../../helpers/constants'
 
 const GuardFactory = (() => {
@@ -36,6 +38,14 @@ const GuardFactory = (() => {
       }
       else if (ctx.first === 'tripdetails') {
         if (ctx.second && !ctx.third) ComponentFiltered = <TripDetailsPage routerMethods={routerMethods} tripID={ctx.second}/>;
+        else if (ctx.third) {
+          if (ctx.third === 'destination') {
+            ComponentFiltered = <TripDetailsDestinationPage routerMethods={routerMethods} tripID={ctx.second} />
+          }
+          else if (ctx.third === 'participants') {
+            ComponentFiltered = <TripDetailsParticipantsPage routerMethods={routerMethods} tripID={ctx.second} />
+          }
+        }
         else {
           ComponentFiltered = <MyTripsPage routerMethods={routerMethods}/>;
           window.location.replace(baseURL + '/mytrips');

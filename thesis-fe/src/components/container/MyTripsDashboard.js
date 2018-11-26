@@ -78,7 +78,7 @@ class MyTripsDashboard extends Component {
       <Container>
         <ContainerButton>
           <AddTripButton>
-            <img src={plus} alt="e" />
+            <img src={plus} alt="add trip" />
           </AddTripButton>
         </ContainerButton>
         {listTrips}
