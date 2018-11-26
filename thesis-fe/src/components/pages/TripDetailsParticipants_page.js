@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Query } from "react-apollo";
 import GET_PARTICIPANTS_DETAILS from '../apollo/get_participants_details';
-import DestinationDashboard from '../container/DestinationDashboard';
+import DestinationDashboard from '../container/CalendarDashboard';
 
 
 // const GeneralInfo = styled('div')`

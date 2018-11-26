@@ -28,7 +28,6 @@ const ContainerDestinations = styled('div')`
 const MoreInfoButton = styled('button')`
   position: relative;
   font-size: 2rem;
-
 `;
 
 class TripDestination extends Component {

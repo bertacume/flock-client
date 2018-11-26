@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Query } from "react-apollo";
-import GET_DESTINATION_DETAILS from '../apollo/get_destination_details';
-import DestinationDashboard from '../container/CalendarDashboard';
+import GET_CALENDAR_DETAILS from '../apollo/get_calendar_details';
+import CalendarDashboard from '../container/CalendarDashboard';
 
 
 // const GeneralInfo = styled('div')`
@@ -13,12 +13,12 @@ import DestinationDashboard from '../container/CalendarDashboard';
 //   padding-top: 5vh;
 // `;
 
-class TripDetailsDestination_page extends Component {
+class TripDetailsCalendar_page extends Component {
 
   render() {
-    const DestinationDetailsApollo = () => (
+    const CalendarDetailsApollo = () => (
       <Query
-      query={GET_DESTINATION_DETAILS}
+      query={GET_CALENDAR_DETAILS}
       errorPolicy="all"
       variables ={{tripID : this.props.tripID}}
     >
@@ -28,7 +28,7 @@ class TripDetailsDestination_page extends Component {
         if (data.trip) {
           return (
             <div>
-              <DestinationDashboard info={data}/>
+              <CalendarDashboard info={data}/>
           </div>
           );
         }
@@ -44,12 +44,12 @@ class TripDetailsDestination_page extends Component {
     </Query>
     );
     return (
-      <DestinationDetailsApollo />
+      <CalendarDetailsApollo />
     );
   }
 }
 
-export default TripDetailsDestination_page
+export default TripDetailsCalendar_page
 
 /*
   Here we should go knowing both the user id and the trip id. We will get from the db:

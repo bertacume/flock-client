@@ -5,6 +5,7 @@ import GuardFactory from './components/guard/GuardFactory';
 
 class App extends Component {
   render() {
+    console.log('app');
     return (
       <Router>
         <div>
