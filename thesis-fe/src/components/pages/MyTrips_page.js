@@ -2,44 +2,17 @@ import React, { Component } from 'react';
 import Navigation from '../../components/container/Navigation';
 import MyTripsDashboard from '../../components/container/MyTripsDashboard';
 import { Query } from "react-apollo";
-import gql from "graphql-tag";
+import GET_MY_TRIPS from '../apollo/get_my_trips';
 
 class MyTrips_page extends Component {
 
   render() {
+    const userID = localStorage.getItem('id');
+    if (!userID) window.location.replace('http://localhost:3000/auth');
     const MyTripsApollo = () => (
       <Query
-      query={gql`
-        {
-          User (id:1)
-          {
-            avatarURL
-          }
-          tripsByUserID (userID:1) {
-            id,
-            name,
-            participants {
-              firstName
-            },
-            destination {
-              chosenDestination {
-                name
-              }
-            },
-            budget {
-              chosenBudget {
-                value
-              }
-            },
-            timeFrame {
-              chosenTimeFrame {
-                startDate,
-                endDate
-              }
-            }
-          }
-        }
-      `}
+      query={GET_MY_TRIPS}
+      variables ={{id : userID}}
       errorPolicy="all"
     >
       {({ loading, error, data }) => {

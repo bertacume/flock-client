@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import MyTripsPage from '../apollo/MyTrips_page';
-import AuthPage from '../apollo/Auth_page';
-import TripDetailsPage from '../apollo/TripDetails_page';
+import MyTripsPage from '../pages/MyTrips_page';
+import AuthPage from '../pages/Auth_page';
+import TripDetailsPage from '../pages/TripDetails_page';
 
 const GuardFactory = (() => {
   if (!localStorage.getItem('logged')) {
@@ -15,6 +15,7 @@ const GuardFactory = (() => {
       localStorage.setItem('history2', ctx.second || '');
       ComponentFiltered = <AuthPage routerMethods={routerMethods}/>;
       localStorage.setItem('logged','true');
+      localStorage.setItem('id',0);
     }
     else {
       if (ctx.first === 'mytrips') {
