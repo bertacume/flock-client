@@ -8,11 +8,11 @@ import { List } from './List';
 export class AddDestination extends Component {
   state = {
     input: '',
-    dictator: true,
+    dictator: false,
   }
 
   componentDidMount() {
-    if (!this.props.destination.chosenOne) this.setState({ dictator: false});
+    if (this.props.destination.chosenOne) this.setState({ dictator: true});
     this.props.destination.chosenOne &&
     this.setState({ input: this.props.destination.chosenOne });
   }
@@ -28,13 +28,13 @@ export class AddDestination extends Component {
 
   handleAddClick = async () => {
     const parentSuggestions = this.props.destination.suggestions;
-    const destination = this.state.input;
+    const destinationInput = this.state.input;
     let suggestions;
     if (parentSuggestions){
-      if (parentSuggestions.includes(destination)) return;
+      if (parentSuggestions.includes(destinationInput)) return;
       suggestions = parentSuggestions.slice();
     } else suggestions = [];
-    suggestions.push(destination);
+    suggestions.push(destinationInput);
     await this.setState({ input: '' });
     this.props.setDestination({ suggestions, chosenOne: null});
   }
