@@ -63,10 +63,10 @@ class MyTripsDashboard extends Component {
             <h2>{obj.destination.chosenDestination.name}</h2> :
             (<h2>Destinations to be decided</h2>)
           }
-          { (obj.timeFrame.chosenTimeframe) ?
+          {/* { (obj.timeFrame.chosenTimeframe) ?
             (<h2>obj.timeFrame.chosenTimeframe</h2>) :
             (<h2>Timeframe to be decided</h2>)
-          }
+          } */}
           { (obj.participants.length >0) ?
             (<ContainerFriends><h2>Friends attending: </h2>{obj.participants.map( obj => <h2 key={obj.firstName}>{obj.firstName}</h2>)}</ContainerFriends>) :
             (<ContainerFriends>No friends subscribing</ContainerFriends>)

@@ -16,17 +16,6 @@ const GET_MY_TRIPS = gql` query GET_USER_ID ($id: ID!)
         chosenDestination {
           name
         }
-      },
-      budget {
-        chosenBudget {
-          value
-        }
-      },
-      timeFrame {
-        chosenTimeFrame {
-          startDate,
-          endDate
-        }
       }
     }
   }

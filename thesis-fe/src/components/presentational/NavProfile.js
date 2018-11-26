@@ -11,10 +11,11 @@ width: 15%;
 height: 80%;
 margin-right: 2rem;
 `;
+
 class Navigation extends Component {
   render() {
     return (
-      <NavProfileImage onClick={() => window.location.replace('/mytrips')} />
+      <NavProfileImage onClick={() => window.location.replace('/profile')} />
     );
   }
 }

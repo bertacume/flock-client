@@ -21,7 +21,7 @@ class Navigation extends Component {
     return (
       <NavigationContainer>
         <NavLogo>
-        <h1>Logo</h1>
+        <h1 onClick={() => window.location.replace('/mytrips')}>Logo</h1>
         </NavLogo>
         <h1>
           {this.props.textContent}
