@@ -67,7 +67,7 @@ export class AddTripPage extends Component {
   }
 
   getNextBtnTxt = () => {
-    const next = '➡️';
+    const next = <span role="img" aria-label="arrow">➡️</span>;
     if (this.state.currentView === 0) return next;
     const current = this.relation[this.state.currentView]
     return (this.state.tripData[current].chosenOne ||
@@ -97,7 +97,7 @@ export class AddTripPage extends Component {
           members={tripData.members} setMembers={members => this.setMembers(members)} />}
 
         <ButtonContainer>
-          {!(this.state.currentView === 0) && <Button onClick={this.handleBackClick}>⬅️</Button>}
+          {!(this.state.currentView === 0) && <Button onClick={this.handleBackClick}><span role="img" aria-label="arrow">⬅️</span></Button>}
           {!(this.state.currentView === 4) ?
             <Button onClick={this.handleNextClick}>{this.getNextBtnTxt()}</Button> :
             <Button onClick={this.handleCreateTripClick}>CREATE TRIP</Button>}
