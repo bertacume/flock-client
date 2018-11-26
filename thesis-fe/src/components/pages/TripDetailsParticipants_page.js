@@ -16,11 +16,12 @@ import DestinationDashboard from '../container/CalendarDashboard';
 class TripDetails_page extends Component {
 
   render() {
+    const tripID = this.props.location.pathname.split('/')[2];
     const ParticipantsDetailsApollo = () => (
       <Query
       query={GET_PARTICIPANTS_DETAILS}
       errorPolicy="all"
-      variables ={{tripID : this.props.tripID}}
+      variables ={{tripID : tripID}}
     >
       {({ loading, error, data }) => {
         if (loading) return <p>Loading...</p>;

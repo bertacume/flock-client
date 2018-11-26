@@ -40,7 +40,10 @@ class Auth_page extends Component {
     else console.log('do graphql query for signup and send: ',this.state.inputEmail)
     const first = localStorage.getItem('history1');
     const second = localStorage.getItem('history2');
-    this.props.routerMethods.history.push('/' + first + '/' + second);
+    if (first && second) {
+      console.log(first);
+    }
+    this.props.history.push('/mytrips');
   }
 
   handleFBAuthentication = (res) => {
@@ -54,7 +57,6 @@ class Auth_page extends Component {
   );
 
   render() {
-    console.log(this);
     return (
       <OuterContainer>
         <InnerContainer >
