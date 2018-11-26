@@ -21,7 +21,7 @@ export class AddTripPage extends Component {
         chosenOne: null,
       },
       budget: null,
-      members: null,
+      members: [],
     },
     isNextAviable: false,
   }

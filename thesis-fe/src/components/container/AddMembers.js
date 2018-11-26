@@ -43,7 +43,6 @@ export class AddMembers extends Component {
   }
 
   deleteItem = (item) => {
-    console.log(this.props.members);
     const members = this.props.members.filter(el => el !== item);
     this.props.setMembers(members);
   }
