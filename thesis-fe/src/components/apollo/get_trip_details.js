@@ -7,19 +7,31 @@ const GET_MY_TRIPS = gql` query GET_TRIP_DETAILS ($tripID: ID!)
       participants{
         id,
         firstName,
-        lastName
+        lastName,
+        avatarURL
       },
       destination{
         chosenDestination{
           name
-        }
+        },
+        suggestions {
+          name
+        },
+        isDictated
       },
       budget{
         chosenBudget{value}
       },
       timeFrame{
+        isDictated,
         chosenTimeFrame{
-          startDate
+          startDate,
+          endDate
+        },
+        suggestions {
+          startDate,
+          endDate,
+          creator
         }
       }
     }
