@@ -4,22 +4,25 @@ import styled from 'react-emotion';
 import { fontFamily } from '../../helpers/constants';
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
+import { WizardMode } from './WizardMode';
+import { List } from './List';
 
 const minDefault = 0;
 const maxDefault = 1000;
+const valueDefault = (maxDefault - minDefault) / 2;
 
 export class AddBudget extends Component {
   state = {
     min: minDefault,
     max: maxDefault,
-    value: (maxDefault - minDefault) / 2,
+    value: valueDefault,
     isAdded: false,
+    dictator: false,
   }
 
   async componentDidMount() {
     if (this.props.budget.chosenOne) {
-      await this.setState({ value: this.props.budget.chosenOne });
-      this.setState({ isAdded: true });
+      await this.setState({ value: this.props.budget.chosenOne, isAdded: true, dictator: true });
       if (this.state.max < this.state.value) {
         const newMax = Math.ceil(this.state.value / maxDefault) * maxDefault;
         this.setState({ max: newMax });
@@ -29,14 +32,32 @@ export class AddBudget extends Component {
 
   handleInput = async (value) => {
     await this.setState({ value });
+    this.dictator &&
     this.props.setBudget({ suggestions: [], chosenOne: this.state.value });
   }
 
-  handleAddClick = async () => {
+  handleSetClick = async () => {
     await this.setState({ isAdded: !this.state.isAdded });
     this.state.isAdded ?
       this.props.setBudget({ suggestions: [], chosenOne: this.state.value }) :
       this.clearBudget();
+  }
+
+  handleAddClick = () => {
+    const parentSuggestions = this.props.budget.suggestions;
+    const value = this.state.value;
+    let suggestions;
+
+    //check if we already have some suggestions
+    if (parentSuggestions) {
+      if (parentSuggestions.includes(value)) return; //TODO: throw err
+      suggestions = parentSuggestions.slice();
+    } else suggestions = [];
+
+    suggestions.push(value);
+    this.props.setBudget({ suggestions, chosenOne: null });
+
+    this.setState({ value: valueDefault });
   }
 
   clearBudget = () => {
@@ -51,6 +72,10 @@ export class AddBudget extends Component {
   handleIntervalBtnsClick = async (type) => {
     if (type === 'plus') this.setState({ max: this.state.max * 2 })
     else this.setState({ max: this.state.max / 2 })
+  }
+
+  setMode = async (flag) => {
+    await this.setState({ dictator: flag });
   }
 
   renderSlider = () => {
@@ -83,13 +108,43 @@ export class AddBudget extends Component {
     );
   }
 
-  render() {
+  deleteItem = (item) => {
+    const suggestions = this.props.budget.suggestions.filter(el => el !== item);
+    this.props.setBudget({ suggestions, chosenOne: null });
+  }
+
+  renderSuggestions = () => {
+    return this.props.budget.suggestions.sort( (a, b) => a - b);
+  }
+
+  renderDemocracy = () => {
+    const { suggestions } = this.props.budget;
+    return (<SubContainer>
+      <Title>Budget suggestions:</Title>
+      {this.renderSlider()}
+      <Button onClick={this.handleAddClick}>Add</Button>
+      {suggestions && <List items={this.renderSuggestions()} deleteItem={(item) => this.deleteItem(item)} />}
+    </SubContainer>
+    );
+  }
+
+  renderDictator = () => {
     const { isAdded } = this.state;
+    return (<Container>
+      <Title>Budget:</Title>
+        <Button onClick={this.handleSetClick}>{isAdded ? 'X' : 'Set'}</Button>
+        {isAdded && this.renderSlider()}
+    </Container>
+    );
+  }
+
+  render() {
     return (
       <Container>
-        <Title>Budget:</Title>
-        <Button onClick={this.handleAddClick}>{isAdded ? 'X' : 'Add'}</Button>
-        {isAdded && this.renderSlider()}
+        <WizardMode mode={this.state.dictator} setMode={(flag) => this.setMode(flag)} />
+        {!this.state.dictator ?
+          this.renderDemocracy() :
+          this.renderDictator() }
       </Container>
     );
   }
@@ -102,30 +157,25 @@ const Container = styled('div')`
   flex-direction column;
   justify-content: flex-start;
   align-items: center;
-
-  Input:focus{
-    outline: none;
-  }
-  Input::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    background: #4CAF50;
-    cursor: pointer;
-    border-radius: 50%;
-  }
+`
+const SubContainer = styled('div')`
+  width: 100%;
+  display: flex;
+  flex-direction column;
+  justify-content: flex-start;
+  align-items: center;
 `
 const SliderContainer = styled('div')`
   width: 100%;
   display: flex;
+  height: 80%;
   flex-direction column;
   align-items: center;
 `
 const SliderWrapper = styled('div')`
   width: 75%;
-  height: 100%;
   touch-action: none;
+  display: inline-block;
 `
 const SliderLblsContainer = styled('div')`
   width: 80%;
