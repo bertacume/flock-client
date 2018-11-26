@@ -20,13 +20,13 @@ export class AddTripPage extends Component {
       budget: null,
       members: null,
     },
-    nameRequired: false,
+    isNextAviable: false,
   }
 
   relation = ['name', 'destination', 'time', 'budget', 'members'];
 
   setName = input => {
-    this.setState({ tripData: { ...this.state.tripData, name: input }, nameRequired: false });
+    this.setState({ tripData: { ...this.state.tripData, name: input }, isNextAviable: false });
   }
 
   setDestination =  destinationObj => {
@@ -54,7 +54,7 @@ export class AddTripPage extends Component {
     if (this.state.currentView > 0) return; 
     
     if (this.state.currentView === 0 && !this.state.tripData.name) {
-      await this.setState({ nameRequired: true });
+      await this.setState({ isNextAviable: true });
       return;
     }
     this.setState({ currentView: this.state.currentView + 1 });
@@ -79,7 +79,7 @@ export class AddTripPage extends Component {
       <Container>
         {(this.state.currentView === 0) && <AddName
           name={tripData.name} setName={input => this.setName(input)}
-          nameRequired={this.state.nameRequired} />}
+          nameRequired={this.state.isNextAviable} />}
 
         {(this.state.currentView === 1) && <AddDestination
           destination={tripData.destination} setDestination={input => this.setDestination(input)} />}
