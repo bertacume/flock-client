@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { cx, css } from 'emotion';
 import styled from 'react-emotion'
 import { fontFamily } from '../../helpers/constants';
+import { List } from './List';
 
 
 export class AddMembers extends Component {
@@ -30,7 +31,7 @@ export class AddMembers extends Component {
   }
 
   validateEmail = (email) => {
-    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   }
 
@@ -38,19 +39,9 @@ export class AddMembers extends Component {
     return <Error>{this.state.error}</Error>;
   }
 
-  deleteMember = async (friend) => {
-    const members = this.state.members.filter(el => el !== friend);
+  setMembers = async (members) => {
     await this.setState({ members });
     this.props.setMembers(this.state.members.slice());
-  }
-
-  renderMembers = () => {
-    return this.state.members.map(friend => {
-      return (<ListItem key={friend}>
-        <button onClick={() => this.deleteMember(friend)}>X</button>
-        <MemberName>{friend}</MemberName>
-      </ListItem>);
-    });
   }
 
   render() {
@@ -66,9 +57,7 @@ export class AddMembers extends Component {
         </ErrorDiv>
         <input className={inputClasses} type="text" placeholder="" value={this.state.input} onChange={this.handleInput}></input>
         <Button onClick={this.handleAddClick}>Add</Button>
-        <MemberList>
-          {this.renderMembers()}
-        </MemberList>
+        <List items={this.state.members} setItems={(items) => this.setMembers(items)} />
       </Container>
     );
   }
@@ -117,25 +106,6 @@ const ErrorDiv = styled('div')`
   flex-direction column;
   justify-content: center;
   align-items: center;
-`
-const MemberList = styled('div')`
-  width: 90%;
-  display: flex;
-  flex-direction column;
-  justify-content: center;
-  align-items: center;
-`
-const ListItem = styled('div')`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction row;
-  justify-content: flex-start;
-  align-items: center;
-`
-const MemberName = styled('p')`
-  margin: 0;
-  font-size: 1rem;
 `
 const Error = styled('p')`
   color: red;

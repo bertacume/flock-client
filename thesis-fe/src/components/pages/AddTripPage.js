@@ -9,7 +9,7 @@ import { AddMembers } from '../container/AddMembers';
 
 export class AddTripPage extends Component {
   state = {
-    currentView: 0,
+    currentView: 1,
     tripData: {
       name: null,
       destination: null,
@@ -94,6 +94,7 @@ export class AddTripPage extends Component {
     );
   }
 }
+
 const Container = styled('div')`
   width: 100vw;
   height: 100vh;
@@ -101,15 +102,6 @@ const Container = styled('div')`
   flex-direction column;
   justify-content: space-evenly;
   align-items: center;
-
-  Button {
-    outline: none;
-  }
-  Button:active {
-    color: red;
-    border-width: 2px;
-    border-color: #afafaf;
-  }
 `
 const ButtonContainer = styled('div')`
   width: 100%;
@@ -118,7 +110,6 @@ const ButtonContainer = styled('div')`
   justify-content: space-around;
   align-items: center;
 `
-
 const Button = styled('button')`
   width: 20vw;
   height: 5vh;
