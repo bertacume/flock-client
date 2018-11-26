@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import Navigation from '../container/Navigation';
 import styled from 'react-emotion'
 import { Query } from "react-apollo";
-import gql from "graphql-tag";
-
+import GET_TRIP_DETAILS from '../apollo/get_trip_details';
+import TripParticipants from '../presentational/TripParticipants';
+import TripDestination from '../presentational/TripDestination'
 
 const GeneralInfo = styled('button')`
   width: 100vw;
@@ -14,56 +15,27 @@ const GeneralInfo = styled('button')`
   padding-top: 5vh;
 `;
 
-
-
 class TripDetails_page extends Component {
 
   render() {
-    console.log(this.props);
-    const TripDetailsApollo = ({ tripID }) => (
+    const TripDetailsApollo = () => (
       <Query
-      query={gql`
-        {
-          trip (tripID: $tripID) {
-            name,
-            participants{
-              firstName,
-              lastName
-            },
-            destination{
-              chosenDestination{
-                name
-              }
-            },
-            budget{
-              chosenBudget{value}
-            },
-            timeFrame{
-              chosenTimeFrame{
-                startDate
-              }
-            }
-          }
-        }
-      `}
+      query={GET_TRIP_DETAILS}
       errorPolicy="all"
       variables ={{tripID : this.props.tripID}}
     >
       {({ loading, error, data }) => {
         if (loading) return <p>Loading...</p>;
-        if (error) console.log('opappapa');
-        if (data) console.log(this.props);
+        if (error) console.log(error);
         if (data.trip) {
           return (
             <div>
             <Navigation textContent={data.trip.name}/>
             <GeneralInfo>
-              <h1>
-                ops
-              </h1>
-              <h2>
-                aloha
-              </h2>
+              <TripParticipants info={data.trip.participants}/>
+              <TripDestination />
+              {/*<TripTime />
+              <TripBudget /> */}
             </GeneralInfo>
           </div>
           );
