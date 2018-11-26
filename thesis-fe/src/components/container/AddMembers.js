@@ -9,25 +9,28 @@ export class AddMembers extends Component {
   state = {
     error: '',
     input: '',
-    members: [],
-  }
-
-  componentDidMount() {
-    if (this.props.members) this.setState({ members: this.props.members });
   }
 
   handleInput = (event) => {
     this.setState({ input: event.target.value, error: '' });
   }
 
-  handleAddClick = async () => {
+  handleAddClick = () => {
     const member = this.state.input;
-    if (this.state.members.includes(member)) return this.setState({ error: 'Already added' });
     if (!this.validateEmail(member)) return this.setState({ error: 'Not an email' });
-    const members = this.state.members.slice();
+
+    const parentMembers = this.props.members;
+    let members;
+
+    //check if we already have some suggestions
+    if (parentMembers) {
+      if (parentMembers.includes(member)) return this.setState({ error: 'Already added' });
+      members = parentMembers.slice();
+    } else members = [];
+    
     members.push(member);
-    await this.setState({ input: '', members });
-    this.props.setMembers(this.state.members.slice());
+    this.setState({ input: '' });
+    this.props.setMembers(members);
   }
 
   validateEmail = (email) => {
@@ -40,9 +43,9 @@ export class AddMembers extends Component {
   }
 
   deleteItem = (item) => {
-    const members = this.state.members.filter(el => el !== item);
-    this.setState({ members });
-    this.props.setMembers({ members, chosenOne: null });
+    console.log(this.props.members);
+    const members = this.props.members.filter(el => el !== item);
+    this.props.setMembers(members);
   }
 
   render() {
@@ -58,7 +61,7 @@ export class AddMembers extends Component {
         </ErrorDiv>
         <input className={inputClasses} type="text" placeholder="" value={this.state.input} onChange={this.handleInput}></input>
         <Button onClick={this.handleAddClick}>Add</Button>
-        <List items={this.state.members} deleteItem={(item) => this.deleteItem(item)} />
+        {this.props.members && <List items={this.props.members} deleteItem={(item) => this.deleteItem(item)} />}
       </Container>
     );
   }
