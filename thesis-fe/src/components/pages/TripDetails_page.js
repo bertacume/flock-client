@@ -4,7 +4,8 @@ import styled from 'react-emotion'
 import { Query } from "react-apollo";
 import GET_TRIP_DETAILS from '../apollo/get_trip_details';
 import TripParticipants from '../presentational/TripParticipants';
-import TripDestination from '../presentational/TripDestination'
+import TripDestination from '../presentational/TripDestination';
+import TripTime from '../presentational/TripTime'
 
 const GeneralInfo = styled('button')`
   width: 100vw;
@@ -33,9 +34,9 @@ class TripDetails_page extends Component {
             <Navigation textContent={data.trip.name}/>
             <GeneralInfo>
               <TripParticipants info={data.trip.participants}/>
-              <TripDestination />
-              {/*<TripTime />
-              <TripBudget /> */}
+              <TripDestination info={data.trip.destination}/>
+              <TripTime info={data.trip.timeFrame}/>
+              {/*<TripBudget /> */}
             </GeneralInfo>
           </div>
           );

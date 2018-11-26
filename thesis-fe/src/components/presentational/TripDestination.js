@@ -16,18 +16,26 @@ const ContainerInner = styled('div')`
 font-size: 1.25rem;
 
 `;
-class TripParticipants extends Component {
+class TripDestination extends Component {
   render() {
-    // console.log(this.props);
-    // const listParticipants = this.props.info.map(obj => (
-    //   <ContainerInner key={obj.id}>{obj.firstName} {obj.lastName}</ContainerInner>
-    // ))
     return (
       <Container>
-        {/* Participants: {listParticipants} */}
+        {
+          (this.props.info.isDictated) ?
+            <h1>
+              Destination: {this.props.chosenDestination}
+            </h1>
+          :
+            <h1>
+              Decided destination: {(this.props.info.chosenDestination.name) ? this.props.info.chosenDestination.name : <span>Not yet decided</span>}
+              Suggestions: {
+                this.props.info.suggestions.map(obj => <span key={obj.name}>{obj.name}</span>)
+              }
+            </h1>
+        }
       </Container>
     );
   }
 }
 
-export default TripParticipants;
+export default TripDestination;
