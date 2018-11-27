@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  font-family: 'Century Gothic';
+}
+
+Button {
+  outline: none;
+}
+
+Button:active {
+  border: 2px solid #afafaf;
+}
