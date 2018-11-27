@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'react-emotion'
 import plus from '../../assets/svg/plus.svg';
+import { BrowserRouter as  Router, Link } from "react-router-dom";
 
 const Container = styled('div')`
   width: 100vw;
@@ -89,9 +90,11 @@ const MyTripsDashboard = (props) => {
   return (
     <Container>
       <ContainerButton>
-        <AddTripButton>
-          <img src={plus} alt="add trip" />
-        </AddTripButton>
+        <Link to='/addtrip'>
+          <AddTripButton>
+            <img src={plus} alt="add trip" />
+          </AddTripButton>
+        </Link>
       </ContainerButton>
       {listTrips}
     </Container>

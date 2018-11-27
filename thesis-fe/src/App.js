@@ -9,6 +9,7 @@ import TripDetailsDestinationPage from './components/pages/TripDetailsDestinatio
 import TripDetailsParticipantsPage from './components/pages/TripDetailsParticipants_page';
 import TripDetailsCalendarPage from './components/pages/TripDetailsCalendar_page';
 import TripDetailsBudgetPage from './components/pages/TripDetailsBudget_page';
+import { AddTripPage } from './components/pages/AddTripPage';
 
 
 class App extends Component {
@@ -25,6 +26,7 @@ class App extends Component {
             <Guard path="/tripdetails/:id/calendar" component={TripDetailsCalendarPage} />
             <Guard path="/tripdetails/:id/participants" component={TripDetailsParticipantsPage} />
             <Guard path="/tripdetails/:id/budget" component={TripDetailsBudgetPage} />
+            <Guard path="/addtrip" component={AddTripPage} />
             <Guard path="/profile" component={ProfilePage} />
             <Redirect to='/mytrips' />
           </Switch>
