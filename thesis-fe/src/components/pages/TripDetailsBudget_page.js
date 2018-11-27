@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Query } from "react-apollo";
 import GET_BUDGET_DETAILS from '../apollo/get_destination_details';
 import BudgetDashboard from '../container/BudgetDashboard';
@@ -14,9 +14,9 @@ import BudgetDashboard from '../container/BudgetDashboard';
 //   padding-top: 5vh;
 // `;
 
-const TripDetailsBudget_page = () => {
+const TripDetailsBudget_page = (props) => {
 
-  const tripID = this.props.location.pathname.split('/')[2];
+  const tripID = props.location.pathname.split('/')[2]
   const BudgetDetailsApollo = () => (
     <Query
       query={GET_BUDGET_DETAILS}

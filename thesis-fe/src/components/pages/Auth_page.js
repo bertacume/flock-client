@@ -5,18 +5,18 @@ import { BASE_FACEBOOK_ID } from '../../helpers/constants';
 import styled from 'react-emotion'
 
 const InnerContainer = styled('div')`
-transform: translateY(-10vh);
-color: blue;
-display: flex;
-flex-direction: column;
-align-items: center;
+  transform: translateY(-10vh);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
+
 const OuterContainer = styled('div')`
-height: 100vh;
-width: 100vw;
-display: flex;
-justify-content: center;
-align-items: center;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 class Auth_page extends Component {

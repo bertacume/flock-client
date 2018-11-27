@@ -7,10 +7,11 @@ const Container = styled('div')`
 font-size: 1.25rem;
 border: 1px solid #000;
 width: 90vw;
-height: 10%;
+height: 12.5%;
 display: flex;
 flex-direction:row;
 align-items: center;
+padding-left: .25rem;
 `;
 
 const ContainerDestination = styled('h1')`
@@ -26,15 +27,17 @@ const ContainerDestinations = styled('div')`
   flex-direction: column;
 `;
 const MoreInfoButton = styled('button')`
+  margin-right: .25rem;
   position: relative;
   font-size: 2rem;
 `;
 
+const Suggestions = styled('span')`
+  margin: 0 .25rem;
+`;
+
 class TripDestination extends Component {
 
-  redirectParent = () => {
-
-  }
   render() {
     return (
       <Container>
@@ -50,7 +53,7 @@ class TripDestination extends Component {
               </ContainerDestination>
               <ContainerSuggestions>
               Suggestions: {
-                this.props.info.suggestions.map(obj => <span key={obj.name}>{obj.name}</span>)
+                this.props.info.suggestions.map(obj => <Suggestions key={obj.name}>{obj.name}</Suggestions>)
               }
               </ContainerSuggestions>
             </ContainerDestinations>
