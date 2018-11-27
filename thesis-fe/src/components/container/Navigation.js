@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'react-emotion'
 import NavProfile from '../presentational/NavProfile';
+import { BrowserRouter as  Router, Link } from "react-router-dom";
 
 const NavigationContainer = styled('div')`
   height: 10vh;
@@ -19,7 +20,9 @@ const Navigation = (props) => {
   return (
     <NavigationContainer>
       <NavLogo>
-      <h1 onClick={() => window.location.replace('/mytrips')}>Logo</h1>
+        <Link to="/mytrips">
+          <h1>Logo</h1>
+        </Link>
       </NavLogo>
       <h1>
         {props.textContent}

@@ -6,7 +6,7 @@ const Container = styled('div')`
 font-size: 1.25rem;
 border: 1px solid #000;
 width: 90vw;
-height: 10%;
+height: 60%;
 display: flex;
 flex-direction:row;
 align-items: center;

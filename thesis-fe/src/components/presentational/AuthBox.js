@@ -2,30 +2,34 @@ import React, { Component } from 'react';
 import styled from 'react-emotion'
 
 const AuthBoxContainer = styled('div')`
-display: flex;
-flex-direction: column;
-align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+  border: 1px solid #000;
 `;
 
 const AuthBoxHeader = styled('div')`
-display: flex;
-flex-direction: row;
-align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 const AuthBoxLogin = styled('div')`
-display: flex;
-flex-direction: column;
-height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 20vh;
 `;
 const AuthBoxSignUp = styled('div')`
-display: flex;
-flex-direction: column;
-height: 20vh;
+  display: flex;
+  flex-direction: column;
+  height: 20vh;
 `;
 const AuthButton = styled('button')`
-border-radius: 50px;
-background-color: blue;
+  border-radius: 50px;
+  background-color: white;
+  padding: 1rem;
 `
 
 class AuthBox extends Component {
@@ -61,11 +65,11 @@ class AuthBox extends Component {
               <h2>
                 Username
               </h2>
-              <input onChange={this.props.handleInputChild('inputUsername')} />
+              <input onChange={this.props.handleInputChild('inputUsername')} style={{border: '1px solid #000'}} />
               <h2>
                 Password
               </h2>
-              <input onChange={this.props.handleInputChild('inputPassword')} type="password" />
+              <input onChange={this.props.handleInputChild('inputPassword')} type="password" style={{border: '1px solid #000'}}/>
             </AuthBoxLogin>}
           </div>
         <div>
@@ -73,15 +77,15 @@ class AuthBox extends Component {
             <h2>
               Username
             </h2>
-            <input onChange={this.props.handleInputChild('inputUsername')} />
+            <input onChange={this.props.handleInputChild('inputUsername')} style={{border: '1px solid #000'}}/>
             <h2>
               Email
             </h2>
-            <input onChange={this.props.handleInputChild('inputEmail')}/>
+            <input onChange={this.props.handleInputChild('inputEmail')} style={{border: '1px solid #000'}} />
             <h2>
               Password
             </h2>
-            <input onChange={this.props.handleInputChild('inputPassword')} type="password"/>
+            <input onChange={this.props.handleInputChild('inputPassword')} type="password" style={{border: '1px solid #000'}} />
             </AuthBoxSignUp>}
         </div>
         <AuthButton onClick={this.props.handleSendChild}>

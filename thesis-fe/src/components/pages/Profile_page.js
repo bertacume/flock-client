@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Navigation from '../container/Navigation';
 import styled from 'react-emotion';
 

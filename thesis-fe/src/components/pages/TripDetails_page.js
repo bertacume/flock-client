@@ -14,7 +14,7 @@ const GeneralInfo = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 5vh;
+  padding-top: 2vh;
 `;
 
 class TripDetails_page extends Component {
@@ -48,8 +48,8 @@ class TripDetails_page extends Component {
             <GeneralInfo>
               <TripParticipants info={data.trip.participants} redirectParent={this.redirectParent('participants')} />
               <TripDestination info={data.trip.destination} redirectParent={this.redirectParent('destination')}/>
+              <TripBudget redirectParent={this.redirectParent('budget')} info={data.trip.budget}/>
               <TripCalendar info={data.trip.timeFrame} redirectParent={this.redirectParent('calendar')}/>
-              <TripBudget redirectParent={this.redirectParent('budget')}/>
             </GeneralInfo>
           </div>
           );

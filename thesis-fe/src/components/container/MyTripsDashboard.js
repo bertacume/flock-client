@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'react-emotion'
 import plus from '../../assets/svg/plus.svg';
 
@@ -20,11 +20,12 @@ const ContainerButton = styled('div')`
 const ContainerTrip = styled('div')`
   padding: 1.5rem;
   background-color: green;
-  height: 15vh;
+  min-height: 15vh;
   width:80vw;
   display: flex;
   flex-direction: column;
-  margin: 1.5rem 0;
+  justify-content: space-around;
+  margin: 1rem 0;
 `;
 
 
@@ -32,6 +33,24 @@ const ContainerFriends = styled('div')`
   display: flex;
   width: 80vw;
   flex-direction: row;
+
+`;
+
+const ContainerFriendsInner = styled('div')`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin-left: .5rem;
+`;
+
+const H1 = styled('h1')`
+  font-size: 2rem;
+
+`;
+
+const H2 = styled('h2')`
+  font-size: 1.25rem;
+  margin: 0 0.2rem;
 `;
 
 const AddTripButton = styled('button')`
@@ -55,17 +74,13 @@ const MyTripsDashboard = (props) => {
   }
   const listTrips = props.info.map( obj => (
     <ContainerTrip onClick={redirectToTrip(obj.id)} key={obj.id}>
-      <h1>{obj.name}</h1>
+      <H1>{obj.name}</H1>
       { (obj.destination.chosenDestination.name) ?
-        <h2>{obj.destination.chosenDestination.name}</h2> :
-        (<h2>Destinations to be decided</h2>)
+        <H2>{obj.destination.chosenDestination.name}</H2> :
+        (<H2>Destinations to be decided</H2>)
       }
-      {/* { (obj.timeFrame.chosenTimeframe) ?
-        (<h2>obj.timeFrame.chosenTimeframe</h2>) :
-        (<h2>Timeframe to be decided</h2>)
-      } */}
       { (obj.participants.length >0) ?
-        (<ContainerFriends><h2>Friends attending: </h2>{obj.participants.map( obj => <h2 key={obj.firstName}>{obj.firstName}</h2>)}</ContainerFriends>) :
+        (<ContainerFriends><H2>Attending:</H2><ContainerFriendsInner>{obj.participants.map( obj => <H2 key={obj.firstName}>{obj.firstName}</H2>)}</ContainerFriendsInner></ContainerFriends>) :
         (<ContainerFriends>No friends subscribing</ContainerFriends>)
       }
     </ContainerTrip>
