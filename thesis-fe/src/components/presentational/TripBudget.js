@@ -33,11 +33,10 @@ const MoreInfoButton = styled('button')`
   position: relative;
   font-size: 2rem;
 `;
-// `;
+
 class TripBudget extends Component {
 
   render() {
-    console.log(this.props);
     return (
       <Container>
         {

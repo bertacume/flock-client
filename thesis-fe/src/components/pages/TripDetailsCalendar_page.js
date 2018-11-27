@@ -15,13 +15,20 @@ import CalendarDashboard from '../container/CalendarDashboard';
 
 class TripDetailsCalendar_page extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      tripID : this.props.location.pathname.split('/')[2]
+    }
+  }
+
   render() {
-    const tripID = this.props.location.pathname.split('/')[2];
+
     const CalendarDetailsApollo = () => (
       <Query
       query={GET_CALENDAR_DETAILS}
       errorPolicy="all"
-      variables ={{tripID : tripID}}
+      variables ={{tripID : this.state.tripID}}
     >
       {({ loading, error, data }) => {
         if (loading) return <p>Loading...</p>;

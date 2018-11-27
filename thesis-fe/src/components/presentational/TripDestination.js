@@ -10,7 +10,7 @@ width: 90vw;
 height: 12.5%;
 display: flex;
 flex-direction:row;
-align-items: center;
+justify-content: space-between;
 padding-left: .25rem;
 `;
 
