@@ -14,12 +14,11 @@ import BudgetDashboard from '../container/BudgetDashboard';
 //   padding-top: 5vh;
 // `;
 
-class TripDetailsBudget_page extends Component {
+const TripDetailsBudget_page = () => {
 
-  render() {
-    const tripID = this.props.location.pathname.split('/')[2];
-    const BudgetDetailsApollo = () => (
-      <Query
+  const tripID = this.props.location.pathname.split('/')[2];
+  const BudgetDetailsApollo = () => (
+    <Query
       query={GET_BUDGET_DETAILS}
       errorPolicy="all"
       variables ={{tripID : tripID}}
@@ -31,7 +30,7 @@ class TripDetailsBudget_page extends Component {
           return (
             <div>
               <BudgetDashboard info={data}/>
-          </div>
+            </div>
           );
         }
         else if (!data.trip) {
@@ -41,14 +40,12 @@ class TripDetailsBudget_page extends Component {
             </h1>
           )
         }
-      }
-    }
+      }}
     </Query>
-    );
-    return (
-      <BudgetDetailsApollo />
-    );
-  }
+  );
+  return (
+    <BudgetDetailsApollo />
+  );
 }
 
 export default TripDetailsBudget_page

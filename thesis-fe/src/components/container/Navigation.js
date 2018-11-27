@@ -15,21 +15,19 @@ const NavLogo = styled('div')`
   margin-left: 2rem;
 `;
 
-class Navigation extends Component {
-
-  render() {
-    return (
-      <NavigationContainer>
-        <NavLogo>
-        <h1 onClick={() => window.location.replace('/mytrips')}>Logo</h1>
-        </NavLogo>
-        <h1>
-          {this.props.textContent}
-        </h1>
-        <NavProfile avatarURL ={this.props.avatarURL}/>
-      </NavigationContainer>
-    );
-  }
+const Navigation = (props) => {
+  return (
+    <NavigationContainer>
+      <NavLogo>
+      <h1 onClick={() => window.location.replace('/mytrips')}>Logo</h1>
+      </NavLogo>
+      <h1>
+        {props.textContent}
+      </h1>
+      <NavProfile avatarURL ={props.avatarURL}/>
+    </NavigationContainer>
+  );
 }
+
 
 export default Navigation;

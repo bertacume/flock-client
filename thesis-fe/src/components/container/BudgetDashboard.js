@@ -3,7 +3,7 @@ import styled from 'react-emotion'
 import plus from '../../assets/svg/plus.svg';
 
 
-class MyTripsDashboard extends Component {
+class BudgetDashboard extends Component {
 
   redirectToTripDetails = (id) => {
     return () => {
@@ -21,4 +21,4 @@ class MyTripsDashboard extends Component {
   }
 }
 
-export default MyTripsDashboard;
+export default BudgetDashboard;
