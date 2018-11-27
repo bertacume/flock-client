@@ -5,13 +5,12 @@ import { Query } from "react-apollo";
 import GET_MY_TRIPS from '../apollo/get_my_trips';
 import { baseURL } from '../../helpers/constants'
 
-class MyTrips_page extends Component {
+const MyTrips_page = (props) => {
 
-  render() {
-    const userID = localStorage.getItem('id');
-    if (!userID) window.location.replace(baseURL + '/auth');
-    const MyTripsApollo = () => (
-      <Query
+  const userID = localStorage.getItem('id');
+  if (!userID) window.location.replace(baseURL + '/auth');
+  const MyTripsApollo = () => (
+    <Query
       query={GET_MY_TRIPS}
       variables ={{id : userID}}
       errorPolicy="all"
@@ -21,18 +20,17 @@ class MyTrips_page extends Component {
         return (
           <div>
             <Navigation textContent="My trips" avatarURL={data.User.avatarURL} />
-            <MyTripsDashboard history={this.props.history} info={data.tripsByUserID} />
+            <MyTripsDashboard history={props.history} info={data.tripsByUserID} />
           </div>
         );
       }}
     </Query>
-    );
-
-    return (
-      <MyTripsApollo />
-    );
-  }
+  );
+  return (
+    <MyTripsApollo />
+  );
 }
+
 
 export default MyTrips_page;
 

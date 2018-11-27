@@ -47,44 +47,40 @@ const AddTripButton = styled('button')`
 `;
 
 
-class MyTripsDashboard extends Component {
-
-  redirectToTrip = (id) => {
+const MyTripsDashboard = (props) => {
+  const redirectToTrip = (id) => {
     return () => {
-      this.props.history.push('/tripdetails/' + id)
+      props.history.push('/tripdetails/' + id)
     }
-
   }
-  render() {
-    const listTrips = this.props.info.map( obj => (
-        <ContainerTrip onClick={this.redirectToTrip(obj.id)} key={obj.id}>
-          <h1>{obj.name}</h1>
-          { (obj.destination.chosenDestination.name) ?
-            <h2>{obj.destination.chosenDestination.name}</h2> :
-            (<h2>Destinations to be decided</h2>)
-          }
-          {/* { (obj.timeFrame.chosenTimeframe) ?
-            (<h2>obj.timeFrame.chosenTimeframe</h2>) :
-            (<h2>Timeframe to be decided</h2>)
-          } */}
-          { (obj.participants.length >0) ?
-            (<ContainerFriends><h2>Friends attending: </h2>{obj.participants.map( obj => <h2 key={obj.firstName}>{obj.firstName}</h2>)}</ContainerFriends>) :
-            (<ContainerFriends>No friends subscribing</ContainerFriends>)
-          }
-        </ContainerTrip>
-      )
-    )
-    return (
-      <Container>
-        <ContainerButton>
-          <AddTripButton>
-            <img src={plus} alt="add trip" />
-          </AddTripButton>
-        </ContainerButton>
-        {listTrips}
-      </Container>
-    );
-  }
+  const listTrips = props.info.map( obj => (
+    <ContainerTrip onClick={redirectToTrip(obj.id)} key={obj.id}>
+      <h1>{obj.name}</h1>
+      { (obj.destination.chosenDestination.name) ?
+        <h2>{obj.destination.chosenDestination.name}</h2> :
+        (<h2>Destinations to be decided</h2>)
+      }
+      {/* { (obj.timeFrame.chosenTimeframe) ?
+        (<h2>obj.timeFrame.chosenTimeframe</h2>) :
+        (<h2>Timeframe to be decided</h2>)
+      } */}
+      { (obj.participants.length >0) ?
+        (<ContainerFriends><h2>Friends attending: </h2>{obj.participants.map( obj => <h2 key={obj.firstName}>{obj.firstName}</h2>)}</ContainerFriends>) :
+        (<ContainerFriends>No friends subscribing</ContainerFriends>)
+      }
+    </ContainerTrip>
+  )
+  )
+  return (
+    <Container>
+      <ContainerButton>
+        <AddTripButton>
+          <img src={plus} alt="add trip" />
+        </AddTripButton>
+      </ContainerButton>
+      {listTrips}
+    </Container>
+  );
 }
 
 export default MyTripsDashboard;

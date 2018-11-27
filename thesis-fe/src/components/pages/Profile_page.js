@@ -24,27 +24,25 @@ const ContainerOptions = styled('div')`
   align-items: center;
 `;
 
-class Profile_page extends Component {
-
-  logout = () => {
+const Profile_page = () => {
+  const logout = () => {
     localStorage.setItem('logged','');
     localStorage.setItem('id','');
     window.location.replace('/auth');
-
   }
-  render() {
-    return (
-      <Container>
-        <Navigation />
-        <ContainerOptions>
-        <h1 onClick={this.logout}>Logout</h1>
+
+  return (
+    <Container>
+      <Navigation />
+      <ContainerOptions>
+        <h1 onClick={logout}>Logout</h1>
         <h1>Change avatar</h1>
         <h1>Send us a message</h1>
-        </ContainerOptions>
-      </Container>
-    );
-  }
+      </ContainerOptions>
+    </Container>
+  );
 }
+
 
 export default Profile_page;
 
