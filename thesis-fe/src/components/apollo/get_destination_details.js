@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-const GET_DESTINATION_DETAILS = gql` query GET_TRIP_DETAILS ($tripID: ID!)
+const GET_DESTINATION_DETAILS = gql` query GET_DESTINATION_DETAILS ($tripID: ID!)
   {
     trip (tripID: $tripID) {
       destination {

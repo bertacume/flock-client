@@ -1,68 +1,106 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion'
-import plus from '../../assets/svg/plus.svg';
+import star from '../../assets/svg/star.svg';
+import back from '../../assets/svg/back.svg';
 
-// const Container = styled('div')`
-//   width: 100vw;
-//   height: 90vh;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   padding-top: 5vh;
-// `;
+const BIG = styled('h1')`
+  font-size: 3rem;
+`
 
-// const ContainerButton = styled('div')`
-//   height: 10vh;
-//   width:10vh;
-//   margin-bottom: 2rem;
-// `;
+const Container = styled('div')`
+  width: 100vw;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5vh;
+`;
 
-// const ContainerTrip = styled('div')`
-//   padding: 1.5rem;
-//   background-color: green;
-//   height: 15vh;
-//   width:80vw;
-//   display: flex;
-//   flex-direction: column;
-//   margin: 1.5rem 0;
-// `;
+const ContainerDestination = styled('div')`
+  width: 80vw;
+  height: 10vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+const ContainerDestinations = styled('div')`
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const H1 = styled('h1')`
+  font-size: 2rem;
+  margin-left: 1rem;
+`;
 
+const H2 = styled('h1')`
+  font-size: 1.5rem;
+  margin-left: 1rem;
+`;
 
-// const ContainerFriends = styled('div')`
-//   display: flex;
-//   width: 80vw;
-//   flex-direction: row;
-// `;
-
-// const AddTripButton = styled('button')`
-//   position: relative;
-//   height: 100%;
-//   width: 100%;
-//   font-size: 4rem;
-//   background-color: yellow;
-//   border-radius: 100%;
-//   display: flex;
-//   justify-content: center;
-//   align-item: center;
-// `;
+const GoBackButton = styled('button')`
+  position: absolute;
+  right: 40vw;
+  margin-top: 2rem;
+  margin-right: .25rem;
+  position: relative;
+  font-size: 2rem;
+`;
 
 
 class MyTripsDashboard extends Component {
 
-  redirectToTrip = (id) => {
-    return () => {
-      this.props.history.push('/tripdetails/' + id)
+  constructor(props) {
+    super(props);
+    this.state = {
+      id : this.props.location.pathname.split('/')[2]
     }
+  }
+  redirectToTrip = (id) => {
+
+    this.props.history.push('/tripdetails/' + this.props.location.pathname.split('/')[2])
 
   }
-  render() {
 
-    console.log(this.props);
+  render() {
+    const chosenToShow = ((this.props.info.trip.destination.chosenDestination.name) ? [(
+      <ContainerDestination key='1'>
+        <img src={star} alt="winner" height="25" width="25" />
+        <H1>{this.props.info.trip.destination.chosenDestination.name}</H1>
+        <H1>votes: {this.props.info.trip.destination.chosenDestination.voters.length}</H1>
+        <H1>creator: {this.props.info.trip.destination.chosenDestination.creator.firstName}</H1>
+      </ContainerDestination>
+      )]
+    :
+      [<H1>To be decided</H1>])
+
+
+    const othersToShow = ((this.props.info.trip.destination.suggestions.length > 0) ? [(
+      this.props.info.trip.destination.suggestions.filter(obj => obj.name !== this.props.info.trip.destination.chosenDestination.name).map( obj => (
+        <ContainerDestination key={obj.name + obj.voters.length}>
+          <H2>{obj.name}</H2>
+          <H2>votes: {obj.voters.length}</H2>
+        </ContainerDestination>
+      ))
+      )]
+    :
+      [])
+
 
     return (
-      <h1>
-        helo
-      </h1>
+      <Container>
+        <BIG>
+          Destination
+        </BIG>
+        <ContainerDestinations>
+          {chosenToShow}
+          {othersToShow}
+        </ContainerDestinations>
+        <GoBackButton>
+          <img src={back} alt="go back" height="20" width="20" onClick={this.redirectToTrip}/>
+        </GoBackButton>
+      </Container>
     );
   }
 }

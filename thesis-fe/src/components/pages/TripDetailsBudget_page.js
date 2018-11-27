@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Query } from "react-apollo";
 import GET_BUDGET_DETAILS from '../apollo/get_destination_details';
 import BudgetDashboard from '../container/BudgetDashboard';
@@ -14,39 +14,49 @@ import BudgetDashboard from '../container/BudgetDashboard';
 //   padding-top: 5vh;
 // `;
 
-const TripDetailsBudget_page = (props) => {
+class TripDetailsBudget_page extends Component {
 
-  const tripID = props.location.pathname.split('/')[2]
-  const BudgetDetailsApollo = () => (
-    <Query
-      query={GET_BUDGET_DETAILS}
-      errorPolicy="all"
-      variables ={{tripID : tripID}}
-    >
-      {({ loading, error, data }) => {
-        if (loading) return <p>Loading...</p>;
-        if (error) console.log(error);
-        if (data.trip) {
-          return (
-            <div>
-              <BudgetDashboard info={data}/>
-            </div>
-          );
-        }
-        else if (!data.trip) {
-          return (
-            <h1>
-              Sorry, trip not found
-            </h1>
-          )
-        }
-      }}
-    </Query>
-  );
-  return (
-    <BudgetDetailsApollo />
-  );
+  constructor(props) {
+    super(props);
+    this.state = {
+      tripID : props.location.pathname.split('/')[2]
+    }
+  }
+
+
+  render() {
+    const BudgetDetailsApollo = () => (
+      <Query
+        query={GET_BUDGET_DETAILS}
+        errorPolicy="all"
+        variables={{ tripID: this.state.tripID }}
+      >
+        {({ loading, error, data }) => {
+          if (loading) return <p>Loading...</p>;
+          if (error) console.log(error);
+          if (data.trip) {
+            return (
+              <div>
+                <BudgetDashboard info={data} />
+              </div>
+            );
+          }
+          else if (!data.trip) {
+            return (
+              <h1>
+                Sorry, trip not found
+              </h1>
+            )
+          }
+        }}
+      </Query>
+    );
+    return (
+      <BudgetDetailsApollo />
+    );
+  }
 }
+
 
 export default TripDetailsBudget_page
 

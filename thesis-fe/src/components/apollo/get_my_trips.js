@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-const GET_MY_TRIPS = gql` query GET_USER_ID ($id: ID!)
+const GET_MY_TRIPS = gql` query GET_MY_TRIPS ($id: ID!)
   {
     User (id:$id)
     {
