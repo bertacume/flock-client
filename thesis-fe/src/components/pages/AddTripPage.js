@@ -39,8 +39,9 @@ export class AddTripPage extends Component {
     this.setState({ tripData: { ...this.state.tripData, destination: { ...destinationObj } } });
   }
 
-  setDates = datesObj => {
-    this.setState({ tripData: { ...this.state.tripData, time: { ...datesObj } } });
+  setDates = async datesObj => {
+    await this.setState({ tripData: { ...this.state.tripData, time: { ...datesObj } } });
+    console.log(this.state.tripData)
   }
 
   setBudget = budgetObj => {
@@ -114,6 +115,10 @@ const Container = styled('div')`
   flex-direction column;
   justify-content: space-evenly;
   align-items: center;
+  .DayInRange {
+    background: '#cbf442',
+    color: '#ffffff'
+  },
 `
 const ButtonContainer = styled('div')`
   width: 100%;

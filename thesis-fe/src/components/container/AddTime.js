@@ -3,61 +3,16 @@ import styled from 'react-emotion'
 import { fontFamily } from '../../helpers/constants';
 import { WizardMode } from './WizardMode';
 import { List } from './List';
-
+import { DateRange } from 'react-date-range';
 
 export class AddTime extends Component {
   state = {
-    start: '',
-    end: '',
     dictator: false,
   }
 
   componentDidMount() {
     const chosenTime = this.props.time.chosenOne;
-    if (chosenTime) return this.setState({ start: chosenTime[0], end: chosenTime[1], dictator: true });
-
-  }
-
-  handleStartDate = async (event) => {
-    await this.setState({ start: event.target.value });
-    this.setDates();
-  }
-
-  handleEndDate = async (event) => {
-    await this.setState({ end: event.target.value });
-    this.setDates();
-  }
-
-  handleAddClick = async () => {
-    const parentSuggestions = this.props.time.suggestions;
-    const datesArr = this.datesInputToArray();
-    if (!datesArr) return; //TODO: throw error
-    let suggestions;
-
-    //check if we already have some suggestions
-    if (parentSuggestions) {
-      if (parentSuggestions.includes(datesArr)) return;
-      suggestions = parentSuggestions.slice();
-    } else suggestions = [];
-
-    suggestions.push(datesArr);
-    await this.props.setDates({ suggestions, chosenOne: null });
-
-    this.setState({ start: '', end: '' });
-  }
-
-
-  setDates = () => {
-    if (!this.state.dictator) return;
-    const datesArr = this.datesInputToArray();
-    this.props.setDates({ suggestions: [], chosenOne: datesArr });
-  }
-
-  datesInputToArray = () => {
-    const start = this.state.start;
-    const end = this.state.end;
-    if (!start.length || !end.length) return null;
-    return [start, end];
+    if (chosenTime) return this.setState({ dictator: true });
   }
 
   setMode = (flag) => {
@@ -65,20 +20,56 @@ export class AddTime extends Component {
   }
 
   renderDatesSuggestions = () => {
-    return this.props.time.suggestions.map(el => `From: ${el[0]} To: ${el[1]}`);
+    return this.props.time.suggestions.map(el => `${el[0]} -- ${el[1]}`);
   }
 
   deleteItem = (item) => {
-    const suggestions = this.props.time.suggestions.filter(el => `From: ${el[0]} To: ${el[1]}` !== item);
+    const suggestions = this.props.time.suggestions.filter(el => `${el[0]} -- ${el[1]}` !== item);
+    this.props.setDates({ suggestions, chosenOne: null });
+  }
+
+  checkExistingDates = (arr, range) => {
+    const filtered = arr.filter(subarr => subarr.join('') === range.join(''));
+    return !filtered.length;
+  }
+
+  onCalendarChange = (date) => {
+    const start = date.startDate.format("DD-MM-YYYY");
+    const end = date.endDate.format("DD-MM-YYYY");
+    const range = [start, end];
+    if (!start || !end) return;
+    if (this.state.dictator) return this.props.setDates({ suggestions: [], chosenOne: range });
+    const oldSuggestions = this.props.time.suggestions;
+    let suggestions;
+    if (oldSuggestions) {
+      if (!this.checkExistingDates(oldSuggestions, range)) return; //TODO: throw alert
+      suggestions = oldSuggestions.slice();
+    } else suggestions = [];
+    suggestions.push(range);
     this.props.setDates({ suggestions, chosenOne: null });
   }
 
   renderDemocracy = () => {
     return (<Container>
       <Title>Add multiple dates:</Title>
-      <Input type='date' value={this.state.start} onChange={this.handleStartDate} />
-      <Input type='date' value={this.state.end} onChange={this.handleEndDate} />
-      <Button onClick={this.handleAddClick}>Add</Button>
+        <DateRange
+          onInit={null}
+          startDate={null}
+          endDate={null}
+          onChange={this.onCalendarChange}
+          calendars={1}
+          twoStepChange={true}
+          theme={{
+            DayInRange: {
+              background: '#bcd9d7',
+              color: '#ffffff'
+            }, 
+            DaySelected: {
+              background: '#7ba9a9',
+              color: '#ffffff'
+            },
+          }}
+        />
       {this.props.time.suggestions &&
         <List items={this.renderDatesSuggestions()} deleteItem={(item) => this.deleteItem(item)} />}
     </Container>
@@ -87,9 +78,14 @@ export class AddTime extends Component {
 
   renderDictator = () => {
     return (<Container>
-      <Title>Add Dates:</Title>
-      <Input type='date' value={this.state.start} onChange={this.handleStartDate} />
-      <Input type='date' value={this.state.end} onChange={this.handleEndDate} />
+      <Title>Dates:</Title>
+      <DateRange
+        startDate={this.props.time.chosenOne ? this.props.time.chosenOne[0] : null}
+        endDate={this.props.time.chosenOne ? this.props.time.chosenOne[1] : null}
+        onChange={this.onCalendarChange}
+        twoStepChange={true}
+        calendars={1}
+      />
     </Container>
     );
   }
@@ -120,23 +116,4 @@ const Title = styled('p')`
   color: #afafaf;
   font-family: ${fontFamily};
   font-size: 1.5rem;
-`
-const Input = styled('input')`
-  text-align: center;
-  width: 70vw;
-  height: 5vh;
-  font-family: ${fontFamily};
-  padding: 0 10px;
-  border-width: 0 0 2px 0;
-  border-color: #f3f3f3;
-  background-color: transparent;
-`
-const Button = styled('button')`
-  width: 20vw;
-  height: 5vh;
-  border-width: 2px;
-  border-color: #afafaf;
-  border-radius: 10px;
-  background-color: rgb(255, 255, 255);
-  font-family: ${fontFamily};
 `
