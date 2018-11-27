@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Query } from "react-apollo";
 import GET_PARTICIPANTS_DETAILS from '../apollo/get_participants_details';
-import DestinationDashboard from '../container/CalendarDashboard';
+import ParticipantsDashboard from '../container/ParticipantsDashboard';
 
 
 // const GeneralInfo = styled('div')`
@@ -29,7 +29,7 @@ class TripDetails_page extends Component {
         if (data.trip) {
           return (
             <div>
-              <DestinationDashboard info={data}/>
+              <ParticipantsDashboard info={data}/>
           </div>
           );
         }
