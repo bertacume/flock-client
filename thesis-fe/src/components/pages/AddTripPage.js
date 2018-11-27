@@ -72,7 +72,7 @@ export class AddTripPage extends Component {
     if (this.state.currentView === 0) return next;
     const current = this.relation[this.state.currentView]
     return (this.state.tripData[current].chosenOne ||
-      (this.state.tripData[current].suggestions && 
+      (this.state.tripData[current].suggestions &&
       this.state.tripData[current].suggestions.length)) ?
        next : 'SKIP';
   }
@@ -108,9 +108,10 @@ export class AddTripPage extends Component {
   }
 }
 
+
 const Container = styled('div')`
   width: 100vw;
-  height: 100vh;
+  height: 90vh;
   display: flex;
   flex-direction column;
   justify-content: space-evenly;

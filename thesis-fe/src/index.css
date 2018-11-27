@@ -1,5 +1,12 @@
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
 body {
   margin: 0;
+  padding: 0;
   font-family: 'Century Gothic';
 }
 
@@ -10,3 +17,13 @@ Button {
 Button:active {
   border: 2px solid #afafaf;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit; }
