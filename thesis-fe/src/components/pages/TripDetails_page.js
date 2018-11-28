@@ -14,7 +14,7 @@ const GeneralInfo = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 2vh;
+  padding-top: 5vh;
 `;
 
 class TripDetails_page extends Component {

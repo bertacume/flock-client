@@ -9,14 +9,20 @@ const InnerContainer = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: rgb(255, 255, 255,.6);
+  border-radius: 10px;
 `;
 
 const OuterContainer = styled('div')`
   height: 100vh;
   width: 100vw;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: #ff7e5f;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 `;
 
 class Auth_page extends Component {
@@ -61,8 +67,8 @@ class Auth_page extends Component {
       <OuterContainer>
         <InnerContainer >
           <AuthBox handleInputChild={this.handleInputParent.bind(this)} handleSendChild={this.handleSendParent.bind(this)}/>
-          <FacebookLogin appId={BASE_FACEBOOK_ID} autoLoad={false} fields="name,email,picture" callback={this.handleFBAuthentication}/>
         </InnerContainer>
+        <FacebookLogin appId={BASE_FACEBOOK_ID} autoLoad={false} fields="name,email,picture" callback={this.handleFBAuthentication} />
       </OuterContainer>
     );
   }
