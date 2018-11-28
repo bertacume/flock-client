@@ -4,14 +4,17 @@ import styled from 'react-emotion'
 const AuthBoxContainer = styled('div')`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
-  border: 1px solid #000;
+  margin-bottom: .5rem;
+  height: 45vh;
 `;
 
 const AuthBoxHeader = styled('div')`
+  width: 50vw;
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
   align-items: center;
 `;
 
@@ -19,16 +22,16 @@ const AuthBoxLogin = styled('div')`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 20vh;
+  min-height: 20vh;
 `;
 const AuthBoxSignUp = styled('div')`
   display: flex;
   flex-direction: column;
-  height: 20vh;
+  min-height: 20vh;
 `;
 const AuthButton = styled('button')`
-  border-radius: 50px;
-  background-color: white;
+  border-radius: 25px;
+  background-color: rgb(255, 255, 255,.6);
   padding: 1rem;
 `
 
@@ -89,7 +92,7 @@ class AuthBox extends Component {
             </AuthBoxSignUp>}
         </div>
         <AuthButton onClick={this.props.handleSendChild}>
-          {this.state.shouldShow[0] ? <h2>Log in</h2> : <h2>Sign Up</h2>}
+          <h2>Send</h2>
         </AuthButton>
       </AuthBoxContainer>
     );

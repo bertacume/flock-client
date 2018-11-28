@@ -31,13 +31,22 @@ const Profile_page = () => {
     window.location.replace('/auth');
   }
 
+  const H1 = styled('h1')`
+  font-size: 2.5rem;
+  background: #ff7e5f;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+`;
+
   return (
     <Container>
       <Navigation />
       <ContainerOptions>
-        <h1 onClick={logout}>Logout</h1>
-        <h1>Change avatar</h1>
-        <h1>Send us a message</h1>
+        <H1 onClick={logout}>Logout</H1>
+        <H1>Change avatar</H1>
+        <H1>Send us a message</H1>
       </ContainerOptions>
     </Container>
   );

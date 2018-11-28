@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'react-emotion'
-import plus from '../../assets/svg/plus.svg';
+import plus from '../../assets/plus-gradient.png';
 import { Link } from "react-router-dom";
+import { fontFamily } from '../../helpers/constants';
 
 const Container = styled('div')`
   width: 100vw;
@@ -20,7 +21,6 @@ const ContainerButton = styled('div')`
 
 const ContainerTrip = styled('div')`
   padding: 1.5rem;
-  background-color: green;
   min-height: 15vh;
   width:80vw;
   display: flex;
@@ -54,17 +54,21 @@ const H2 = styled('h2')`
   margin: 0 0.2rem;
 `;
 
-const AddTripButton = styled('button')`
-  position: relative;
+const Button = styled('button')`
+width: 20vw;
+height: 10vh;
+margin: 10px 0 20px 0;
+border-width: 0;
+border-color: #afafaf;
+border-radius: 10px;
+background-color: transparent;
+font-family: ${fontFamily};
+`
+
+const ImgBtn = styled('img')`
   height: 100%;
-  width: 100%;
-  font-size: 4rem;
-  background-color: yellow;
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-item: center;
-`;
+`
+
 
 
 const MyTripsDashboard = (props) => {
@@ -91,9 +95,7 @@ const MyTripsDashboard = (props) => {
     <Container>
       <ContainerButton>
         <Link to='/addtrip'>
-          <AddTripButton>
-            <img src={plus} alt="add trip" />
-          </AddTripButton>
+        <Button ><ImgBtn src={plus} /></Button>
         </Link>
       </ContainerButton>
       {listTrips}

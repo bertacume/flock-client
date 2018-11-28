@@ -1,65 +1,57 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
-import plus from '../../assets/svg/plus.svg'
+import next from '../../assets/next.png'
+import map from '../../assets/map.png'
 
 
 const Container = styled('div')`
+box-sizing: border-box;
 font-size: 1.25rem;
-border: 1px solid #000;
+border-radius: 10px;
 width: 90vw;
-height: 12.5%;
+height: 20%;
 display: flex;
 flex-direction:row;
 justify-content: space-between;
-padding-left: .25rem;
+padding-left: 2rem;
+background: rgba(247,152,98,1);
+margin-bottom: 2vh;
+align-items: center;
 `;
 
 const ContainerDestination = styled('h1')`
-  font-size: 1.25rem;
+font-size: 1.5rem;
+margin-left:.25rem;
+color: white;
+max-width: 20rem;
+align-content: flex-end;
 `;
 
-const ContainerSuggestions = styled('h1')`
-  font-size: 1.25rem;
-`;
-
-const ContainerDestinations = styled('div')`
-  display: flex;
-  flex-direction: column;
-`;
 const MoreInfoButton = styled('button')`
   margin-right: .25rem;
   position: relative;
   font-size: 2rem;
 `;
 
-const Suggestions = styled('span')`
-  margin: 0 .25rem;
-`;
 
 class TripDestination extends Component {
 
   render() {
     return (
       <Container>
+        <img src={map} alt="logo" height="50" width="50"/>
         {
           (this.props.info.isDictated) ?
             <ContainerDestination>
               Destination: {this.props.chosenDestination}
             </ContainerDestination>
           :
-            <ContainerDestinations>
-              <ContainerDestination>
-                Decided destination: {(this.props.info.chosenDestination.name) ? this.props.info.chosenDestination.name : <span>Not yet decided</span>}
-              </ContainerDestination>
-              <ContainerSuggestions>
-              Suggestions: {
-                this.props.info.suggestions.map(obj => <Suggestions key={obj.name}>{obj.name}</Suggestions>)
-              }
-              </ContainerSuggestions>
-            </ContainerDestinations>
+            <ContainerDestination>
+              Decided destination: {(this.props.info.chosenDestination.name) ? this.props.info.chosenDestination.name : <span>Not yet decided</span>}
+            </ContainerDestination>
         }
         <MoreInfoButton>
-          <img src={plus} alt="more info" height="20" width="20" onClick={this.props.redirectParent}/>
+          <img src={next} alt="more info" height="30" width="30" onClick={this.props.redirectParent}/>
         </MoreInfoButton>
       </Container>
     );

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
-import plus from '../../assets/svg/plus.svg'
+import next from '../../assets/next.png';
+import network from '../../assets/network.png';
 
 const MoreInfoButton = styled('button')`
   position: relative;
@@ -10,55 +11,42 @@ const MoreInfoButton = styled('button')`
 
 
 const Container = styled('div')`
+box-sizing: border-box;
   font-size: 1.5rem;
-  border: 1px solid #000;
+  border-radius: 10px;
   width: 90vw;
-  height: 12.5%;
+  height: 20%;
   display: flex;
   flex-direction:row;
   justify-content: space-between;
   align-items: center;
   overflow: scroll;
+  background: rgba(255,175,111,1);
+  margin-bottom: 2vh;
+  padding-left: 2rem;
 `;
 
-const InnerContainer = styled('div')`
-  font-size: 1rem;
+const ContainerParticipants = styled('h1')`
+font-size: 1.5rem;
+margin-left:.25rem;
+color: white;
+max-width: 20rem;
+align-content: flex-end
 `;
 
-const H3 = styled('div')`
-  font-size: 1.25rem;
-  margin-left: .25rem;
-`;
-const Item = styled('h1')`
-  display: inline-block;
-  font-size: 1.5rem;
-  margin: 0.1rem .25rem;
-  border: .1rem solid black;
-  padding: 0 .25rem;
-`;
 
-const ContainerList = styled('div')`
-  width: 100%
-  height: 10%;
-  font-size: 1.5rem;
-  margin-left: .5rem;
-  flex-direction:row;
-  justify-content: space-around;
-  flex-wrap: wrap;
-`;
 class TripParticipants extends Component {
 
   render() {
-    const listParticipants = this.props.info.map(obj => (
-      <Item key={obj.id}>{obj.firstName} {obj.lastName[0]}</Item>
-    ))
+    const numberParticipants = this.props.info.length
     return (
       <Container>
-          <InnerContainer>
-            <H3>Participants: </H3> {<ContainerList>{listParticipants}</ContainerList>}
-          </InnerContainer>
+        <img src={network} alt="logo" height="50" width="50"/>
+        <ContainerParticipants>
+          People attending: {numberParticipants}
+        </ContainerParticipants>
         <MoreInfoButton>
-          <img src={plus} alt="more info" height="20" width="20" onClick={this.props.redirectParent}/>
+          <img src={next} alt="more info" height="30" width="30" onClick={this.props.redirectParent}/>
         </MoreInfoButton>
       </Container>
     );
