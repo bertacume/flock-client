@@ -40,14 +40,9 @@ const H1 = styled('h1')`
   color: white;
 `;
 const H2 = styled('h1')`
-<<<<<<< HEAD
   font-size: 1.25rem;
   margin: 0 1rem;
   color: white;
-=======
-  font-size: 1.5rem;
-  margin: 0 1rem;
->>>>>>> added mutation structure, user functionalities and refactored
 `;
 const GoBackButton = styled('button')`
   position: absolute;
