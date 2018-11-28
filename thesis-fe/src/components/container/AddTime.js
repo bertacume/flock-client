@@ -115,8 +115,11 @@ export class AddTime extends Component {
         deleteItem={(item) => this.deleteItem(item)} 
         styles={{
           itemTitle : ['color: #b75537', 'margin: 0', 'font-size: 1.4rem'], 
-          listContainer : ['max-height: 180px;'],
-          listItem : ['background-color: rgba(255, 255, 255, .3)', 'padding: 5px 35px', 'margin: 3px 0'],
+          // listContainer : ['max-height: 12.6rem;'],
+          listItem : ['background-color: rgba(255, 255, 255, .3)', 
+          'padding: 0 35px',
+          'height: 4rem', 
+          'margin: .2rem 0'],
         }}
         />}
     </SubContainer>
@@ -163,13 +166,14 @@ const Title = styled('p')`
   color: #b75537;
   font-family: ${fontFamily};
   font-size: 1.5rem;
+  margin: 2px;
 `
 
 const SubContainer = styled('div')`
   width: 90%;
   display: flex;
   padding: 10px 0 30px 0;
-  flex-direction column;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   background-color: rgba( 255, 255, 255, .6);

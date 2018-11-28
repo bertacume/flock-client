@@ -27,7 +27,7 @@ const Page = posed.div({
 
 export class AddTripPage extends Component {
   state = {
-    currentView: 2,
+    currentView: 1,
     tripData: {
       name: null,
       destination: {
@@ -159,31 +159,30 @@ const Container = styled('div')`
   flex-direction column;
   justify-content: space-evenly;
   align-items: center;
-  // background: -webkit-linear-gradient(to bottom, #ff5e62, #ff9966);  /* Chrome 10-25, Safari 5.1-6 */
-  // background: linear-gradient(to bottom, #ff5e62, #ff9966); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: #ff7e5f;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to bottom, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to bottom, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-button:active {
+  background: -webkit-linear-gradient(to bottom, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  button:active {
   border-width: 0;
 }
 `
 const WizardPage = styled(Page)`
   width: 100%;
-  height: 100%;
+  height: 90%;
   display: flex;
   flex-direction column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
   margin: 0 0;
 `
 const ButtonContainer = styled('div')`
   width: 100%;
+  height: 10%;
   display: flex;
   flex-direction row;
   justify-content: space-around;
   align-items: center;
-  margin: 0 0 7vh 0;
+  margin: 0 0 4vh 0;
 `
 const Button = styled('button')`
   width: 20vw;

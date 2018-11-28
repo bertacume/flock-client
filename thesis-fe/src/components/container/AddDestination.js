@@ -59,7 +59,12 @@ export class AddDestination extends Component {
         items={this.props.destination.suggestions} 
         deleteItem={(item) => this.deleteItem(item)} 
         styles={{
-          itemTitle : ['color: #b75537', 'margin: 0', 'font-size: 1.7rem'] 
+          itemTitle : ['color: #b75537', 'margin: 0', 'font-size: 1.7rem'] ,
+          // listContainer : ['max-height: .6rem;'],
+          listItem : ['background-color: rgba(255, 255, 255, .3)', 
+          'padding: 10px 35px',
+          'height: 4rem', 
+          'margin: .2rem 0'],
         }}
         />}
       </SubContainer>
