@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { css } from 'emotion';
 import styled from 'react-emotion'
-import { fontFamily } from '../../helpers/constants';
+import { fontFamily, addTrip } from '../../helpers/styleConstants';
 
 
 export class WizardMode extends Component {
@@ -37,10 +37,11 @@ const Button = styled('button')`
   border-width: 0;
   border-radius: 2rem;
   color: #e38163;
-  background-color: rgba( 255, 255, 255, .6);
+  background-color: ${addTrip.containerBackground};
   font-family: ${fontFamily};
 `
 const pressed = css`
   color: white; 
+  font-weight: 500;
   background-color: #e38163;
 `

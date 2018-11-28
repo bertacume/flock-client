@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion'
-import { fontFamily } from '../../helpers/constants';
+import { fontFamily, addTrip } from '../../helpers/styleConstants';
 import { AddName } from '../container/AddName';
 import { AddDestination } from '../container/AddDestination';
 import { AddTime } from '../container/AddTime';
@@ -27,7 +27,7 @@ const Page = posed.div({
 
 export class AddTripPage extends Component {
   state = {
-    currentView: 1,
+    currentView: 0,
     tripData: {
       name: null,
       destination: {
@@ -168,16 +168,22 @@ const Container = styled('div')`
 `
 const WizardPage = styled(Page)`
   width: 100%;
-  height: 90%;
+  height: 95%;
   display: flex;
   flex-direction column;
   justify-content: flex-start;
   align-items: center;
   margin: 0 0;
+  @media (min-width: 600px) {
+    width: 80%;
+  }
+  @media (min-width: 800px) {
+    width: 50%;
+  }
 `
 const ButtonContainer = styled('div')`
   width: 100%;
-  height: 10%;
+  height: 5%;
   display: flex;
   flex-direction row;
   justify-content: space-around;
@@ -199,6 +205,13 @@ const FakeBtn = styled('div')`
 `
 const PointsImg = styled('img')`
   width: 78%;
+
+  @media (min-width: 600px) {
+    width: 70%;
+  }
+  @media (min-width: 800px) {
+    width: 60%;
+  }
 `
 const ImgBtn = styled('img')`
   height: 100%;
