@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700');
+
 html {
   font-size: 62.5%;
   box-sizing: border-box;
@@ -7,7 +9,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Century Gothic';
+  font-family: 'Montserrat';
 }
 
 Button {
