@@ -2,29 +2,25 @@ import gql from "graphql-tag";
 
 const GET_CALENDAR_DETAILS = gql` query GET_CALENDAR_DETAILS ($tripID: ID!)
   {
-    trip (tripID:$tripID) {
-      timeFrame{
-        chosenTimeFrame{
-          startDate,
-          endDate,
-          voters{
-            firstName
-          },
-          creator{
+    trip (tripID: $tripID) {
+      destination {
+        isDictated,
+        chosenDestination {
+          key,
+          name,
+          voters {
             firstName
           }
-        },
-        suggestions{
-          startDate,
-          endDate,
-          voters{
-            firstName
-          },
-          creator{
+          creator {
             firstName
           }
-        },
-        isDictated
+        }
+        suggestions {
+          name,
+          voters {
+            firstName
+          }
+        }
       }
     }
   }
