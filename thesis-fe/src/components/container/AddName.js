@@ -28,7 +28,7 @@ export class AddName extends Component {
     return (
       <Container>
         <Title>Trip's name:</Title>
-        <input className={inputClasses} type="text" placeholder="Title" value={this.state.input} onChange={this.handleInput} />
+        <input className={inputClasses} type="text" placeholder="" value={this.state.input} onChange={this.handleInput} />
       </Container>
     );
   }
@@ -40,9 +40,12 @@ const standarInput = css`
   font-family: ${fontFamily};
   padding: 0 10px;
   border-width: 0 0 2px 0;
+  border-color: white;
+  color: white;
+  background-color: transparent;
 `
 const errorInput = css`
-  border-color: #ff7151;
+  border-color: #ab573f;
 `
 const Container = styled('div')`
   width: 100%;
@@ -51,13 +54,12 @@ const Container = styled('div')`
   flex-direction column;
   justify-content: center;
   align-items: center;
-
+  color: white;
   Input:focus{
     outline: none;
   }
 `
 const Title = styled('p')`
-  color: #afafaf;
   font-family: ${fontFamily};
   font-size: 1.5rem;
 `

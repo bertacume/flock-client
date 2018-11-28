@@ -23,21 +23,24 @@ export class WizardMode extends Component {
 }
 
 const Container = styled('div')`
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction row;
   justify-content: space-evenly;
   align-items: center;
+  margin: 0 0 10px 0;
 `
 const Button = styled('button')`
-  width: 20vw;
-  height: 5vh;
-  border-width: 2px;
-  border-color: #afafaf;
-  border-radius: 10px;
-  background-color: rgb(255, 255, 255);
+  margin: 0 5px;
+  width: 100%;
+  height: 7vh;
+  border-width: 0;
+  border-radius: 2rem;
+  color: #e38163;
+  background-color: rgba( 255, 255, 255, .6);
   font-family: ${fontFamily};
 `
 const pressed = css`
-  background-color: grey;
+  color: white; 
+  background-color: #e38163;
 `
