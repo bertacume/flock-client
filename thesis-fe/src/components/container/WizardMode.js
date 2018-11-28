@@ -37,7 +37,7 @@ const Button = styled('button')`
   border-width: 0;
   border-radius: 2rem;
   color: #e38163;
-  background-color: rgba( 255, 255, 255, .6);
+  background-color: rgba( 255, 255, 255, .4);
   font-family: ${fontFamily};
 `
 const pressed = css`

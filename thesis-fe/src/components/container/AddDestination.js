@@ -93,7 +93,6 @@ const Container = styled('div')`
   flex-direction column;
   justify-content: flex-start;
   align-items: center;
-
 `
 const SubContainer = styled('div')`
   width: 90%;
@@ -102,7 +101,7 @@ const SubContainer = styled('div')`
   flex-direction column;
   justify-content: flex-start;
   align-items: center;
-  background-color: rgba( 255, 255, 255, .6);
+  background-color: rgba( 255, 255, 255, .4);
   border-radius: 3rem;
 
   Input:focus{
@@ -114,18 +113,16 @@ const Title = styled('p')`
   color: #b75537;
   font-family: ${fontFamily};
   font-size: 1.5rem;
-  font-weight: 500;
+  font-weight: 400;
   margin: 2px;
 `
 const Button = styled('button')`
-width: 20vw;
-height: 5vh;
-margin: 10px 0 20px 0;
-border-width: 0;
-border-color: #afafaf;
-border-radius: 10px;
-background-color: transparent;
-font-family: ${fontFamily};
+  width: 20vw;
+  height: 5vh;
+  margin: 10px 0 20px 0;
+  border-width: 0;
+  background-color: transparent;
+  font-family: ${fontFamily};
 `
 const Input = styled('input')`
   width: 80%;

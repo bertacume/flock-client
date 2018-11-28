@@ -21,13 +21,14 @@ export class AddName extends Component {
   }
 
   render() {
-    let inputClasses = cx(
+    const inputClasses = cx(
       standarInput,
       {[errorInput]: this.props.nameRequired},
     );
     return (
       <Container>
-        <Title>Trip's name:</Title>
+        <Title>Welcome</Title>
+        <SubTitle>Add trip's name:</SubTitle>
         <input className={inputClasses} type="text" placeholder="" value={this.state.input} onChange={this.handleInput} />
       </Container>
     );
@@ -35,7 +36,7 @@ export class AddName extends Component {
 }
 
 const standarInput = css`
-  width: 80%;
+  width: 70%;
   height: 5vh;
   font-family: ${fontFamily};
   padding: 0 10px;
@@ -45,11 +46,12 @@ const standarInput = css`
   background-color: transparent;
 `
 const errorInput = css`
-  border-color: #ab573f;
+  border-color: #ff7151;
 `
 const Container = styled('div')`
   width: 100%;
-  height: 80%;
+  height: 60%;
+  padding: 10%;
   display: flex;
   flex-direction column;
   justify-content: center;
@@ -61,5 +63,16 @@ const Container = styled('div')`
 `
 const Title = styled('p')`
   font-family: ${fontFamily};
+  font-size: 1.7rem;
+  font-weight: 300;
+  letter-spacing: .5rem;
+  text-transform: uppercase;
+  color: #ce7355;
+`
+const SubTitle = styled('p')`
+  font-family: ${fontFamily};
   font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: .2rem;
+  color: #ffffff;
 `

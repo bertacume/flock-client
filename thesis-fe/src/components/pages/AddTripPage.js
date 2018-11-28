@@ -27,7 +27,7 @@ const Page = posed.div({
 
 export class AddTripPage extends Component {
   state = {
-    currentView: 1,
+    currentView: 0,
     tripData: {
       name: null,
       destination: {
@@ -168,7 +168,7 @@ const Container = styled('div')`
 `
 const WizardPage = styled(Page)`
   width: 100%;
-  height: 90%;
+  height: 95%;
   display: flex;
   flex-direction column;
   justify-content: flex-start;
@@ -183,7 +183,7 @@ const WizardPage = styled(Page)`
 `
 const ButtonContainer = styled('div')`
   width: 100%;
-  height: 10%;
+  height: 5%;
   display: flex;
   flex-direction row;
   justify-content: space-around;

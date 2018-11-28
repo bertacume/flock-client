@@ -59,55 +59,7 @@ export class AddTime extends Component {
           onChange={this.onCalendarChange}
           calendars={1}
           twoStepChange={true}
-          theme={{
-            DayInRange: {
-              background: 'rgba(255, 255, 255, .6)',
-              color: '#b75537'
-            }, 
-            DaySelected: {
-              background: '#ffffff',
-              color: '#b75537'
-            },
-            Calendar: {
-              width: 280,
-              padding: 10,
-              background: 'transparent',
-              borderRadius: '3rem',
-              display: 'inline-block',
-              boxSizing: 'border-box',
-              letterSpacing: 0,
-              color: '#b75537'
-            },
-            DateRange: {
-              display: 'block',
-              boxSizing: 'border-box',
-              background: 'transparent',
-              borderRadius: '2px'
-            },
-            MonthButton: {
-              display: 'block',
-              boxSizing: 'border-box',
-              height: 18,
-              width: 18,
-              padding: 0,
-              margin: '0 10px',
-              border: 'none',
-              background: 'rgba(255, 255, 255, .4)',
-              boxShadow: 'none',
-              outline: 'none',
-              borderRadius: '50%'
-            },
-            MonthArrowPrev: {
-              borderRightWidth: '6px',
-              borderRightColor: '#b75537',
-              marginLeft: 1
-            },
-            MonthArrowNext: {
-              borderLeftWidth: '6px',
-              borderLeftColor: '#b75537',
-              marginLeft: 7
-            },
-          }}
+          theme={CalendarTheme}
         />
       {this.props.time.suggestions &&
         <List 
@@ -115,10 +67,10 @@ export class AddTime extends Component {
         deleteItem={(item) => this.deleteItem(item)} 
         styles={{
           itemTitle : ['color: #b75537', 'margin: 0', 'font-size: 1.4rem'], 
-          // listContainer : ['max-height: 12.6rem;'],
+          listContainer : ['max-height: 9.6rem;'],
           listItem : ['background-color: rgba(255, 255, 255, .3)', 
           'padding: 0 35px',
-          'height: 4rem', 
+          'height: 2.8rem', 
           'margin: .2rem 0'],
         }}
         />}
@@ -150,6 +102,58 @@ export class AddTime extends Component {
   }
 }
 
+//STYLES
+
+const CalendarTheme = {
+  DayInRange: {
+    background: 'rgba(255, 255, 255, .6)',
+    color: '#b75537'
+  }, 
+  DaySelected: {
+    background: '#ffffff',
+    color: '#b75537'
+  },
+  Calendar: {
+    width: 240,
+    padding: 0,
+    background: 'transparent',
+    borderRadius: '3rem',
+    display: 'inline-block',
+    boxSizing: 'border-box',
+    letterSpacing: 0,
+    color: '#b75537'
+  },
+  DateRange: {
+    display: 'block',
+    boxSizing: 'border-box',
+    background: 'transparent',
+    borderRadius: '2px'
+  },
+  MonthButton: {
+    display: 'block',
+    boxSizing: 'border-box',
+    height: 25,
+    width: 25,
+    padding: 0,
+    margin: '0 10px',
+    border: 'none',
+    background: 'rgba(255, 255, 255, .4)',
+    boxShadow: 'none',
+    outline: 'none',
+    borderRadius: '50%'
+  },
+  MonthArrowPrev: {
+    borderRightWidth: '6px',
+    borderRightColor: '#b75537',
+    marginLeft: 4
+  },
+  MonthArrowNext: {
+    borderLeftWidth: '6px',
+    borderLeftColor: '#b75537',
+    marginLeft: 10
+  }
+}
+
 const Container = styled('div')`
   width: 100%;
   height: 80%;
@@ -176,6 +180,6 @@ const SubContainer = styled('div')`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background-color: rgba( 255, 255, 255, .6);
+  background-color: rgba( 255, 255, 255, .4);
   border-radius: 3rem;
 `

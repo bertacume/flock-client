@@ -27,7 +27,7 @@ export class AddMembers extends Component {
       if (parentMembers.includes(member)) return this.setState({ error: 'Already added' });
       members = parentMembers.slice();
     } else members = [];
-    
+
     members.push(member);
     this.setState({ input: '' });
     this.props.setMembers(members);
@@ -59,45 +59,60 @@ export class AddMembers extends Component {
           {!!this.state.error.length && this.renderError()}
         </ErrorDiv>
         <input className={inputClasses} type="text" placeholder="" value={this.state.input} onChange={this.handleInput}></input>
-        <Button onClick={this.handleAddClick}>Add</Button>
-        {this.props.members && <List items={this.props.members} deleteItem={(item) => this.deleteItem(item)} />}
+        <Button onClick={this.handleAddClick}><ImgBtn src={require('../../assets/plus.png')} /></Button>
+        {this.props.members &&
+          <List items={this.props.members}
+            deleteItem={(item) => this.deleteItem(item)}
+            styles={{
+              itemTitle: ['color: #b75537', 'margin: 0', 'font-size: 1.5rem'],
+              listContainer: ['max-height: 21rem'],
+              listItem: ['background-color: rgba(255, 255, 255, .3)',
+                'padding: 0 35px',
+                'height: 4rem',
+                'margin: .2rem 0'],
+            }}
+          />}
       </Container>
     );
   }
 }
 
 const Container = styled('div')`
-  width: 100%;
-  height: 80%;
+  width: 90%;
+  padding: 20px 0 30px 0;
   display: flex;
   flex-direction column;
   justify-content: flex-start;
   align-items: center;
+  background-color: rgba( 255, 255, 255, .4);
+  border-radius: 3rem;
 
   Input:focus{
     outline: none;
   }
 `
 const Title = styled('p')`
-color: #afafaf;
+color: #b75537;
 font-family: ${fontFamily};
 font-size: 1.5rem;
 `
 const Button = styled('button')`
 width: 20vw;
 height: 5vh;
-border-width: 2px;
-border-color: #afafaf;
-border-radius: 10px;
-background-color: rgb(255, 255, 255);
+margin: 10px 0 20px 0;
+border-width: 0;
+background-color: transparent;
 font-family: ${fontFamily};
 `
 const standarInput = css`
-  width: 70vw;
+  width: 70%;
   height: 5vh;
   font-family: ${fontFamily};
   padding: 0 10px;
   border-width: 0 0 2px 0;
+  color: #b75537;
+  border-color: white;
+  background-color: transparent;
 `
 const errorInput = css`
   border-color: #ff7151;
@@ -113,4 +128,7 @@ const ErrorDiv = styled('div')`
 const Error = styled('p')`
   color: red;
   font-size: 1rem;
+`
+const ImgBtn = styled('img')`
+  height: 100%;
 `
