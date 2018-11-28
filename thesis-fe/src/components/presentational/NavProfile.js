@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
-import { BrowserRouter as  Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 const NavProfileImage = styled('div')`

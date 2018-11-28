@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Query } from "react-apollo";
-import GET_CALENDAR_DETAILS from '../apollo/get_calendar_details';
+import GET_CALENDAR_DETAILS from '../apollo/queries/get_calendar_details';
 import CalendarDashboard from '../container/CalendarDashboard';
 
 

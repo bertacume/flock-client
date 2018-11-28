@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'react-emotion'
 import NavProfile from '../presentational/NavProfile';
-import { BrowserRouter as  Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const NavigationContainer = styled('div')`
   height: 10vh;
@@ -27,7 +27,7 @@ const Navigation = (props) => {
       <h1>
         {props.textContent}
       </h1>
-      <NavProfile avatarURL ={props.avatarURL}/>
+      <NavProfile avatarURL={props.avatarURL}/>
     </NavigationContainer>
   );
 }

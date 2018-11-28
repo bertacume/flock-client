@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Navigation from '../../components/container/Navigation';
 import MyTripsDashboard from '../../components/container/MyTripsDashboard';
 import { Query } from "react-apollo";
-import GET_MY_TRIPS from '../apollo/get_my_trips';
-import { baseURL } from '../../helpers/constants'
+import GET_MY_TRIPS from '../apollo/queries/get_my_trips';
+
 
 class MyTrips_page extends Component {
 
@@ -16,7 +16,6 @@ class MyTrips_page extends Component {
 
 
   render() {
-    console.log(this.state);
     const MyTripsApollo = () => (
       <Query
         query={GET_MY_TRIPS}

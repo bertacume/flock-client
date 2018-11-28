@@ -62,14 +62,18 @@ class ParticipantsDetails extends Component {
   }
   render() {
 
-    const image = (ad) => ( {
-      backgroundImage:`url(${ad})`,
+    const image = (imgURL) => ( {
+      backgroundImage:`url(${imgURL})`,
       backgroundSize: "cover",
       height: 60,
       width: 60,
       borderRadius: 50
       }
     );
+    const InviteFriends = styled('div')`
+      display:flex;
+      flex-direction: row;
+    `;
     const participants = this.props.info.trip.participants.map(obj => (
       <Participant key={obj.firstName + obj.lastName}>
         <div style={image('https://img.clipartxtras.com/2f24590138d32260c0e35e81b46a196d_drawing-dinosaur-drawing-easy-as-well-as-cute-dinosaur-drawing-dinosaur-cute-drawing_600-800.jpeg')}></div>
@@ -84,6 +88,10 @@ class ParticipantsDetails extends Component {
         <BIG>
           Participants
         </BIG>
+        <InviteFriends>
+        <input placeholder="Invite your friends"/>
+        <button>Add</button>
+        </InviteFriends>
         {participants}
         <GoBackButton>
           <img src={back} alt="go back" height="20" width="20" onClick={this.redirectToTrip}/>
