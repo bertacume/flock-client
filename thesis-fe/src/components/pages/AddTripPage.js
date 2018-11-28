@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion'
-import { fontFamily } from '../../helpers/constants';
+import { fontFamily, addTrip } from '../../helpers/styleConstants';
 import { AddName } from '../container/AddName';
 import { AddDestination } from '../container/AddDestination';
 import { AddTime } from '../container/AddTime';

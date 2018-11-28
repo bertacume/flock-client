@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { css } from 'emotion';
 import styled from 'react-emotion';
-import { fontFamily } from '../../helpers/constants';
+import { fontFamily, addTrip } from '../../helpers/styleConstants';
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
 import { WizardMode } from './WizardMode';
@@ -168,7 +168,7 @@ const SubContainer = styled('div')`
   flex-direction column;
   justify-content: flex-start;
   align-items: center;
-  background-color: rgba( 255, 255, 255, .4);
+  background-color: ${addTrip.containerBackground};
   border-radius: 3rem;
 `
 const SliderContainer = styled('div')`
