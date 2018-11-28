@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Query } from "react-apollo";
-import GET_BUDGET_DETAILS from '../apollo/get_destination_details';
+import GET_BUDGET_DETAILS from '../apollo/queries/get_budget_details';
 import BudgetDashboard from '../container/BudgetDashboard';
 
 

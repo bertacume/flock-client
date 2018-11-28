@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'react-emotion'
 import plus from '../../assets/svg/plus.svg';
-import { BrowserRouter as  Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Container = styled('div')`
   width: 100vw;

@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import styled from 'react-emotion'
 import star from '../../assets/svg/star.svg';
 import back from '../../assets/svg/back.svg';
+import plus from '../../assets/svg/plus.svg';
+import { Mutation } from "react-apollo";
+import ADD_SUGGESTED_DESTINATION_LIKES from '../apollo/mutations/add_suggested_destination_likes';
 
 const BIG = styled('h1')`
   font-size: 3rem;
-`
-
+`;
 const Container = styled('div')`
   width: 100vw;
   height: 90vh;
@@ -15,7 +17,6 @@ const Container = styled('div')`
   align-items: center;
   padding-top: 5vh;
 `;
-
 const ContainerDestination = styled('div')`
   width: 80vw;
   height: 10vh;
@@ -33,12 +34,10 @@ const H1 = styled('h1')`
   font-size: 2rem;
   margin-left: 1rem;
 `;
-
 const H2 = styled('h1')`
   font-size: 1.5rem;
-  margin-left: 1rem;
+  margin: 0 1rem;
 `;
-
 const GoBackButton = styled('button')`
   position: absolute;
   right: 40vw;
@@ -47,24 +46,22 @@ const GoBackButton = styled('button')`
   position: relative;
   font-size: 2rem;
 `;
-
-
 class MyTripsDashboard extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      id : this.props.location.pathname.split('/')[2]
+      tripID : this.props.location.pathname.split('/')[2]
     }
   }
   redirectToTrip = (id) => {
-
     this.props.history.push('/tripdetails/' + this.props.location.pathname.split('/')[2])
-
   }
 
+  render
+
   render() {
-    const chosenToShow = ((this.props.info.trip.destination.chosenDestination.name) ? [(
+    const isDecided = this.props.info.trip.destination.chosenDestination.name
+    const chosenToShow = ((isDecided) ? [(
       <ContainerDestination key='1'>
         <img src={star} alt="winner" height="25" width="25" />
         <H1>{this.props.info.trip.destination.chosenDestination.name}</H1>
@@ -81,11 +78,19 @@ class MyTripsDashboard extends Component {
         <ContainerDestination key={obj.name + obj.voters.length}>
           <H2>{obj.name}</H2>
           <H2>votes: {obj.voters.length}</H2>
+          {!isDecided &&
+            <Mutation mutation={ADD_SUGGESTED_DESTINATION_LIKES} variables ={{input : {
+              tripID : this.state.tripID,
+              name: obj.name
+            }}}>
+              {addDestinationLikes => <img src={plus} alt="winner" height="10" width="10" onClick={addDestinationLikes} id={obj.name}/>}
+            </Mutation>
+          }
         </ContainerDestination>
       ))
       )]
     :
-      [])
+      null)
 
 
     return (
