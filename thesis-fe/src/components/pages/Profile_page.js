@@ -20,7 +20,7 @@ const ContainerOptions = styled('div')`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 3rem;
+  padding-top: 3rem;
   align-items: center;
 `;
 
