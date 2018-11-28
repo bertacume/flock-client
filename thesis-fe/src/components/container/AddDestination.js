@@ -93,6 +93,7 @@ const Container = styled('div')`
   flex-direction column;
   justify-content: flex-start;
   align-items: center;
+
 `
 const SubContainer = styled('div')`
   width: 90%;
@@ -107,6 +108,7 @@ const SubContainer = styled('div')`
   Input:focus{
     outline: none;
   }
+
 `
 const Title = styled('p')`
   color: #b75537;
@@ -126,7 +128,7 @@ background-color: transparent;
 font-family: ${fontFamily};
 `
 const Input = styled('input')`
-  width: 70vw;
+  width: 80%;
   height: 5vh;
   font-family: ${fontFamily};
   padding: 0 10px;

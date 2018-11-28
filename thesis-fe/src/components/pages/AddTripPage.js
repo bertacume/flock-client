@@ -174,6 +174,12 @@ const WizardPage = styled(Page)`
   justify-content: flex-start;
   align-items: center;
   margin: 0 0;
+  @media (min-width: 600px) {
+    width: 80%;
+  }
+  @media (min-width: 800px) {
+    width: 50%;
+  }
 `
 const ButtonContainer = styled('div')`
   width: 100%;
@@ -201,10 +207,10 @@ const PointsImg = styled('img')`
   width: 78%;
 
   @media (min-width: 600px) {
-    width: 60%;
+    width: 70%;
   }
   @media (min-width: 800px) {
-    width: 40%;
+    width: 60%;
   }
 `
 const ImgBtn = styled('img')`

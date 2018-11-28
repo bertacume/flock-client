@@ -35,7 +35,7 @@ export class AddName extends Component {
 }
 
 const standarInput = css`
-  width: 70vw;
+  width: 80%;
   height: 5vh;
   font-family: ${fontFamily};
   padding: 0 10px;
