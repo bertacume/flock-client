@@ -25,8 +25,8 @@ export class List extends Component {
   renderItems = () => {
     return this.props.items.map(item => {
       return (
-        <ListItem key={item} styles={this.props.styles.listItem && this.props.styles.listItem.join('; ')}>
-          <ItemTitle styles={this.props.styles.itemTitle && this.props.styles.itemTitle.join('; ')}>{item}</ItemTitle>
+        <ListItem key={item} styles={this.props.styles && this.props.styles.listItem && this.props.styles.listItem.join('; ')}>
+          <ItemTitle styles={this.props.styles && this.props.styles.itemTitle && this.props.styles.itemTitle.join('; ')}>{item}</ItemTitle>
           <button onClick={() => this.props.deleteItem(item)}>
             <ImgBtn src={require('../../assets/delete.png')} />
           </button>
@@ -38,7 +38,7 @@ export class List extends Component {
   render() {
     return (
       <Container>
-        <ListContainer styles={this.props.styles.listContainer && this.props.styles.listContainer.join('; ')}>
+        <ListContainer styles={this.props.styles && this.props.styles.listContainer && this.props.styles.listContainer.join('; ')}>
           {this.renderItems()}
           <div ref={this.listEnd} />
         </ListContainer>
