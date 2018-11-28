@@ -42,5 +42,6 @@ const Button = styled('button')`
 `
 const pressed = css`
   color: white; 
+  font-weight: 500;
   background-color: #e38163;
 `

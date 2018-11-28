@@ -59,10 +59,10 @@ export class AddDestination extends Component {
         items={this.props.destination.suggestions} 
         deleteItem={(item) => this.deleteItem(item)} 
         styles={{
-          itemTitle : ['color: #b75537', 'margin: 0', 'font-size: 1.7rem'] ,
-          // listContainer : ['max-height: .6rem;'],
+          itemTitle : ['color: #b75537', 'margin: 0', 'font-size: 1.5rem'] ,
+          listContainer : ['max-height: 21rem'],
           listItem : ['background-color: rgba(255, 255, 255, .3)', 
-          'padding: 10px 35px',
+          'padding: 0 35px',
           'height: 4rem', 
           'margin: .2rem 0'],
         }}
@@ -97,7 +97,7 @@ const Container = styled('div')`
 const SubContainer = styled('div')`
   width: 90%;
   display: flex;
-  padding: 10px 0 30px 0;
+  padding: 20px 0 30px 0;
   flex-direction column;
   justify-content: flex-start;
   align-items: center;
@@ -111,7 +111,9 @@ const SubContainer = styled('div')`
 const Title = styled('p')`
   color: #b75537;
   font-family: ${fontFamily};
-  font-size: 1.7rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 2px;
 `
 const Button = styled('button')`
 width: 20vw;
@@ -132,7 +134,7 @@ const Input = styled('input')`
   color: #b75537;
   border-color: white;
   background-color: transparent;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
 `
 const ImgBtn = styled('img')`
   height: 100%;

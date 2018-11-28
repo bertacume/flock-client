@@ -199,6 +199,13 @@ const FakeBtn = styled('div')`
 `
 const PointsImg = styled('img')`
   width: 78%;
+
+  @media (min-width: 600px) {
+    width: 60%;
+  }
+  @media (min-width: 800px) {
+    width: 40%;
+  }
 `
 const ImgBtn = styled('img')`
   height: 100%;
