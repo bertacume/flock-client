@@ -23,7 +23,3 @@ Button:active {
 }
 
 
-*,
-*::before,
-*::after {
-  box-sizing: inherit; }

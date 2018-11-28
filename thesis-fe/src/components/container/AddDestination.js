@@ -50,12 +50,19 @@ export class AddDestination extends Component {
 
   renderDemocracy = () => {
     return (
-      <Container>
+      <SubContainer>
+        <Title>Add Final Destination:</Title>
         <Input type="text" placeholder="" value={this.state.input} onChange={this.handleInput}></Input>
-        <Button onClick={this.handleAddClick}>Add</Button>
+        <Button onClick={this.handleAddClick}><ImgBtn src={require('../../assets/plus.png')} /></Button>
         {this.props.destination.suggestions &&
-        <List items={this.props.destination.suggestions} deleteItem={(item) => this.deleteItem(item)} />}
-      </Container>
+        <List 
+        items={this.props.destination.suggestions} 
+        deleteItem={(item) => this.deleteItem(item)} 
+        styles={{
+          itemTitle : ['color: #b75537', 'margin: 0', 'font-size: 1.7rem'] 
+        }}
+        />}
+      </SubContainer>
     );
   }
 
@@ -63,9 +70,12 @@ export class AddDestination extends Component {
     return (
       <Container>
         <WizardMode mode={this.state.dictator} setMode={(flag) => this.setMode(flag)} />
-        <Title>Add Destination:</Title>
         {this.state.dictator ?
-          <Input type="text" placeholder="" value={this.state.input} onChange={this.handleInput}></Input> : this.renderDemocracy()}
+        <SubContainer>
+        <Title>Add Final Destination:</Title>
+          <Input type="text" placeholder="" value={this.state.input} onChange={this.handleInput}></Input> 
+        </SubContainer> :
+        this.renderDemocracy()}
       </Container>
     );
   }
@@ -78,23 +88,34 @@ const Container = styled('div')`
   flex-direction column;
   justify-content: flex-start;
   align-items: center;
+`
+const SubContainer = styled('div')`
+  width: 90%;
+  display: flex;
+  padding: 10px 0 30px 0;
+  flex-direction column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: rgba( 255, 255, 255, .6);
+  border-radius: 3rem;
 
   Input:focus{
     outline: none;
   }
 `
 const Title = styled('p')`
-  color: #afafaf;
+  color: #b75537;
   font-family: ${fontFamily};
-  font-size: 1.5rem;
+  font-size: 1.7rem;
 `
 const Button = styled('button')`
 width: 20vw;
 height: 5vh;
-border-width: 2px;
+margin: 10px 0 20px 0;
+border-width: 0;
 border-color: #afafaf;
 border-radius: 10px;
-background-color: rgb(255, 255, 255);
+background-color: transparent;
 font-family: ${fontFamily};
 `
 const Input = styled('input')`
@@ -103,4 +124,11 @@ const Input = styled('input')`
   font-family: ${fontFamily};
   padding: 0 10px;
   border-width: 0 0 2px 0;
+  color: #b75537;
+  border-color: white;
+  background-color: transparent;
+  font-size: 1.7rem;
+`
+const ImgBtn = styled('img')`
+  height: 100%;
 `

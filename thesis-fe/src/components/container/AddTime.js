@@ -50,7 +50,7 @@ export class AddTime extends Component {
   }
 
   renderDemocracy = () => {
-    return (<Container>
+    return (<SubContainer>
       <Title>Add multiple dates:</Title>
         <DateRange
           onInit={null}
@@ -61,23 +61,70 @@ export class AddTime extends Component {
           twoStepChange={true}
           theme={{
             DayInRange: {
-              background: '#bcd9d7',
-              color: '#ffffff'
+              background: 'rgba(255, 255, 255, .6)',
+              color: '#b75537'
             }, 
             DaySelected: {
-              background: '#7ba9a9',
-              color: '#ffffff'
+              background: '#ffffff',
+              color: '#b75537'
+            },
+            Calendar: {
+              width: 280,
+              padding: 10,
+              background: 'transparent',
+              borderRadius: '3rem',
+              display: 'inline-block',
+              boxSizing: 'border-box',
+              letterSpacing: 0,
+              color: '#b75537'
+            },
+            DateRange: {
+              display: 'block',
+              boxSizing: 'border-box',
+              background: 'transparent',
+              borderRadius: '2px'
+            },
+            MonthButton: {
+              display: 'block',
+              boxSizing: 'border-box',
+              height: 18,
+              width: 18,
+              padding: 0,
+              margin: '0 10px',
+              border: 'none',
+              background: 'rgba(255, 255, 255, .4)',
+              boxShadow: 'none',
+              outline: 'none',
+              borderRadius: '50%'
+            },
+            MonthArrowPrev: {
+              borderRightWidth: '6px',
+              borderRightColor: '#b75537',
+              marginLeft: 1
+            },
+            MonthArrowNext: {
+              borderLeftWidth: '6px',
+              borderLeftColor: '#b75537',
+              marginLeft: 7
             },
           }}
         />
       {this.props.time.suggestions &&
-        <List items={this.renderDatesSuggestions()} deleteItem={(item) => this.deleteItem(item)} />}
-    </Container>
+        <List 
+        items={this.renderDatesSuggestions()} 
+        deleteItem={(item) => this.deleteItem(item)} 
+        styles={{
+          itemTitle : ['color: #b75537', 'margin: 0', 'font-size: 1.4rem'], 
+          listContainer : ['max-height: 180px;'],
+          listItem : ['background-color: rgba(255, 255, 255, .3)', 'padding: 5px 35px', 'margin: 3px 0'],
+        }}
+        />}
+    </SubContainer>
     );
   }
 
   renderDictator = () => {
-    return (<Container>
+    return (<SubContainer>
       <Title>Dates:</Title>
       <DateRange
         startDate={this.props.time.chosenOne ? this.props.time.chosenOne[0] : null}
@@ -86,7 +133,7 @@ export class AddTime extends Component {
         twoStepChange={true}
         calendars={1}
       />
-    </Container>
+    </SubContainer>
     );
   }
 
@@ -113,7 +160,18 @@ const Container = styled('div')`
   }
 `
 const Title = styled('p')`
-  color: #afafaf;
+  color: #b75537;
   font-family: ${fontFamily};
   font-size: 1.5rem;
+`
+
+const SubContainer = styled('div')`
+  width: 90%;
+  display: flex;
+  padding: 10px 0 30px 0;
+  flex-direction column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: rgba( 255, 255, 255, .6);
+  border-radius: 3rem;
 `
