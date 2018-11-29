@@ -95,55 +95,59 @@ export class AddTripPage extends Component {
       next : <ImgBtn src={require('../../assets/skip.png')} />;
   }
 
+  renderViews = () => {
+    const { currentView, tripData } = this.state;
+    switch (currentView) {
+      case 0:
+        return (<WizardPage key={0} flipMove={false}>
+          <PointsImg src={require('../../assets/0.png')} />
+          <AddName
+            name={tripData.name} setName={input => this.setName(input)}
+            nameRequired={this.state.isNextAviable} />
+        </WizardPage>);
+      case 1:
+        return (<WizardPage key={1} flipMove={false}>
+          <PointsImg src={require('../../assets/1.png')} />
+          <AddDestination destination={tripData.destination} setDestination={input => this.setDestination(input)} />
+        </WizardPage>);
+
+      case 2:
+        return (<WizardPage key={2} flipMove={false}>
+          <PointsImg src={require('../../assets/2.png')} />
+          <AddTime
+            time={tripData.time} setDates={dates => this.setDates(dates)} />
+        </WizardPage>);
+
+      case 3:
+        return (<WizardPage key={3} flipMove={false}>
+          <PointsImg src={require('../../assets/3.png')} />
+          <AddBudget
+            budget={tripData.budget} setBudget={budget => this.setBudget(budget)} />
+        </WizardPage>);
+
+      case 4:
+        return (<WizardPage key={4} flipMove={false}>
+          <PointsImg src={require('../../assets/4.png')} />
+          <AddMembers
+            members={tripData.members} setMembers={members => this.setMembers(members)} />
+        </WizardPage>);
+
+      default:
+        break;
+    }
+  }
+
   render() {
-    const tripData = this.state.tripData;
     return (
       <Container>
         <PoseGroup>
-          {(this.state.currentView === 0) &&
-            <WizardPage key={0} flipMove={false}>
-              <PointsImg src={require('../../assets/0.png')} />
-              <AddName
-                name={tripData.name} setName={input => this.setName(input)}
-                nameRequired={this.state.isNextAviable} />
-            </WizardPage>
-          }
-
-          {(this.state.currentView === 1) &&
-            <WizardPage key={1} flipMove={false}>
-              <PointsImg src={require('../../assets/1.png')} />
-              <AddDestination destination={tripData.destination} setDestination={input => this.setDestination(input)} />
-            </WizardPage>}
-
-          {(this.state.currentView === 2) &&
-            <WizardPage key={2} flipMove={false}>
-              <PointsImg src={require('../../assets/2.png')} />
-              <AddTime
-                time={tripData.time} setDates={dates => this.setDates(dates)} />
-            </WizardPage>
-          }
-
-          {(this.state.currentView === 3) &&
-            <WizardPage key={3} flipMove={false}>
-              <PointsImg src={require('../../assets/3.png')} />
-              <AddBudget
-                budget={tripData.budget} setBudget={budget => this.setBudget(budget)} />
-            </WizardPage>
-          }
-          {(this.state.currentView === 4) &&
-            <WizardPage key={4} flipMove={false}>
-              <PointsImg src={require('../../assets/4.png')} />
-              <AddMembers
-                members={tripData.members} setMembers={members => this.setMembers(members)} />
-            </WizardPage>
-          }
-
+          {this.renderViews()}
         </PoseGroup>
         <ButtonContainer>
-          {!(this.state.currentView === 0) ? 
-          <Button onClick={this.handleBackClick}><ImgBtn src={require('../../assets/before.png')} /></Button> :
-          <FakeBtn></FakeBtn>}
-          {!(this.state.currentView === 4) ?
+          {this.state.currentView !== 0 ?
+            <Button onClick={this.handleBackClick}><ImgBtn src={require('../../assets/before.png')} /></Button> :
+            <FakeBtn></FakeBtn>}
+          {this.state.currentView !== 4 ?
             <Button onClick={this.handleNextClick}>{this.getNextBtnTxt()}</Button> :
             <Button onClick={this.handleCreateTripClick}>CREATE TRIP</Button>}
         </ButtonContainer>
