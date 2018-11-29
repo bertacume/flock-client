@@ -8,6 +8,7 @@ import ADD_SUGGESTED_DESTINATION_LIKES from '../apollo/mutations/add_suggested_d
 
 const BIG = styled('h1')`
   font-size: 3rem;
+  color: white;
 `;
 const Container = styled('div')`
   width: 100vw;
@@ -16,6 +17,9 @@ const Container = styled('div')`
   flex-direction: column;
   align-items: center;
   padding-top: 5vh;
+  background: #ff7e5f;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 `;
 const ContainerDestination = styled('div')`
   width: 80vw;
@@ -31,12 +35,14 @@ const ContainerDestinations = styled('div')`
   align-items: center;
 `;
 const H1 = styled('h1')`
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin-left: 1rem;
+  color: white;
 `;
 const H2 = styled('h1')`
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   margin: 0 1rem;
+  color: white;
 `;
 const GoBackButton = styled('button')`
   position: absolute;
@@ -61,7 +67,7 @@ class MyTripsDashboard extends Component {
 
   render() {
     const isDecided = this.props.info.trip.destination.chosenDestination.name
-    const chosenToShow = ((isDecided) ? [(
+    const chosenToShow = ((!isDecided) ? [(
       <ContainerDestination key='1'>
         <img src={star} alt="winner" height="25" width="25" />
         <H1>{this.props.info.trip.destination.chosenDestination.name}</H1>
@@ -78,12 +84,12 @@ class MyTripsDashboard extends Component {
         <ContainerDestination key={obj.name + obj.voters.length}>
           <H2>{obj.name}</H2>
           <H2>votes: {obj.voters.length}</H2>
-          {!isDecided &&
+          {isDecided &&
             <Mutation mutation={ADD_SUGGESTED_DESTINATION_LIKES} variables ={{input : {
               tripID : this.state.tripID,
               name: obj.name
             }}}>
-              {addDestinationLikes => <img src={plus} alt="winner" height="10" width="10" onClick={addDestinationLikes} id={obj.name}/>}
+              {addDestinationLikes => <img src={star} alt="winner" height="15" width="15" onClick={addDestinationLikes} id={obj.name}/>}
             </Mutation>
           }
         </ContainerDestination>
@@ -103,7 +109,7 @@ class MyTripsDashboard extends Component {
           {othersToShow}
         </ContainerDestinations>
         <GoBackButton>
-          <img src={back} alt="go back" height="20" width="20" onClick={this.redirectToTrip}/>
+          <img src={back} alt="go back" height="40" width="40" onClick={this.redirectToTrip}/>
         </GoBackButton>
       </Container>
     );
