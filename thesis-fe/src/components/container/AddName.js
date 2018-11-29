@@ -16,7 +16,7 @@ export class AddName extends Component {
   handleInput = async (event) => {
     let name;
     await this.setState({ input: event.target.value });
-    this.state.input.length ? name = this.state.input : name = null;
+    name = this.state.input.length ? this.state.input : null;
     this.props.setName(name);
   }
 
