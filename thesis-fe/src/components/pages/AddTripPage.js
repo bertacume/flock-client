@@ -39,8 +39,8 @@ export class AddTripPage extends Component {
         suggestions: [],
       },
       budget: {
+        isDictated: false,
         suggestions: [],
-        chosenOne: null,
       },
       members: [],
     },
