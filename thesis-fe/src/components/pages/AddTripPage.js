@@ -82,17 +82,13 @@ export class AddTripPage extends Component {
     this.setState({ currentView: this.state.currentView + 1 });
   }
 
-  handleCreateTripClick = () => {
+  handleSkipTripClick = (current) => {
+    const { tripData } = this.state;
+    if (tripData[current].isDictated) this.setDestination({ ...tripData.destination, isDictated: false });
+    this.handleNextClick();
   }
 
-  getNextBtnTxt = () => {
-    const next = <ImgBtn src={require('../../assets/next.png')} />;
-    if (this.state.currentView === 0) return next;
-    const current = this.relation[this.state.currentView]
-    return (this.state.tripData[current].chosenOne ||
-      (this.state.tripData[current].suggestions &&
-        this.state.tripData[current].suggestions.length)) ?
-      next : <ImgBtn src={require('../../assets/skip.png')} />;
+  handleCreateTripClick = () => {
   }
 
   renderViews = () => {
@@ -128,14 +124,32 @@ export class AddTripPage extends Component {
       default:
         return (
           <WizardPage key={0} flipMove={false}>
-          <PointsImg src={require('../../assets/0.png')} />
-          <AddName
-            name={tripData.name} setName={input => this.setName(input)}
-            nameRequired={this.state.isNextAviable} />
-        </WizardPage>
+            <PointsImg src={require('../../assets/0.png')} />
+            <AddName
+              name={tripData.name} setName={input => this.setName(input)}
+              nameRequired={this.state.isNextAviable} />
+          </WizardPage>
         );
     }
   }
+
+  renderNavigateLeftBtns = () => {
+    return (this.state.currentView !== 0 ?
+      <Button onClick={this.handleBackClick}><ImgBtn src={require('../../assets/before.png')} /></Button> :
+      <FakeBtn></FakeBtn>);
+  }
+
+  renderNavigateRightBtns = () => {
+    const { currentView, tripData } = this.state;
+    if (currentView === 4) return <Button onClick={this.handleCreateTripClick}>CREATE TRIP</Button>;
+    const current = this.relation[currentView]
+    if (currentView === 0 ||
+      (tripData[current].suggestions && tripData[current].suggestions.length)) {
+      return <Button onClick={this.handleNextClick}><ImgBtn src={require('../../assets/next.png')} /></Button>;
+    }
+    return <Button onClick={() => this.handleSkipTripClick(current)}><ImgBtn src={require('../../assets/skip.png')} /></Button>;
+  }
+
 
   render() {
     return (
@@ -144,12 +158,8 @@ export class AddTripPage extends Component {
           {this.renderViews()}
         </PoseGroup>
         <ButtonContainer>
-          {this.state.currentView !== 0 ?
-            <Button onClick={this.handleBackClick}><ImgBtn src={require('../../assets/before.png')} /></Button> :
-            <FakeBtn></FakeBtn>}
-          {this.state.currentView !== 4 ?
-            <Button onClick={this.handleNextClick}>{this.getNextBtnTxt()}</Button> :
-            <Button onClick={this.handleCreateTripClick}>CREATE TRIP</Button>}
+          {this.renderNavigateLeftBtns()}
+          {this.renderNavigateRightBtns()}
         </ButtonContainer>
       </Container>
     );
