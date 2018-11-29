@@ -5,7 +5,7 @@ import { AddName } from '../container/AddName';
 import { AddDestination } from '../container/AddDestination';
 import { AddTime } from '../container/AddTime';
 import { AddBudget } from '../container/AddBudget';
-import { AddMembers } from '../container/AddMembers';
+import { AddParticipants } from '../container/AddParticipants';
 import posed, { PoseGroup } from 'react-pose';
 
 const Page = posed.div({
@@ -42,12 +42,12 @@ export class AddTripPage extends Component {
         isDictated: false,
         suggestions: [],
       },
-      members: [],
+      participants: [],
     },
     isNextAviable: false,
   }
 
-  relation = ['name', 'destination', 'timeFrame', 'budget', 'members'];
+  relation = ['name', 'destination', 'timeFrame', 'budget', 'participants'];
 
   setName = input => {
     this.setState({ tripData: { ...this.state.tripData, name: input }, isNextAviable: false });
@@ -65,8 +65,8 @@ export class AddTripPage extends Component {
     this.setState({ tripData: { ...this.state.tripData, budget: { ...budgetObj } } });
   }
 
-  setMembers = members => {
-    this.setState({ tripData: { ...this.state.tripData, members } });
+  setParticipants = participants => {
+    this.setState({ tripData: { ...this.state.tripData, participants } });
   }
 
   resetCurrentState = current => {
@@ -121,8 +121,8 @@ export class AddTripPage extends Component {
       case 4:
         return (<WizardPage key={4} flipMove={false}>
           <PointsImg src={require('../../assets/4.png')} />
-          <AddMembers
-            members={tripData.members} setMembers={members => this.setMembers(members)} />
+          <AddParticipants
+            participants={tripData.participants} setParticipants={participants => this.setParticipants(participants)} />
         </WizardPage>);
 
       default:

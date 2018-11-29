@@ -5,7 +5,7 @@ import { fontFamily, addTrip } from '../../helpers/styleConstants';
 import { List } from './List';
 
 
-export class AddMembers extends Component {
+export class AddParticipants extends Component {
   state = {
     error: '',
     input: '',
@@ -16,21 +16,21 @@ export class AddMembers extends Component {
   }
 
   handleAddClick = () => {
-    const member = this.state.input;
-    if (!this.validateEmail(member)) return this.setState({ error: 'Not an email' });
+    const participant = this.state.input;
+    if (!this.validateEmail(participant)) return this.setState({ error: 'Not an email' });
 
-    const parentMembers = this.props.members;
-    let members;
+    const parentParticipants= this.props.participants;
+    let participants;
 
     //check if we already have some suggestions
-    if (parentMembers) {
-      if (parentMembers.includes(member)) return this.setState({ error: 'Already added' });
-      members = parentMembers.slice();
-    } else members = [];
+    if (parentParticipants) {
+      if (parentParticipants.includes(participant)) return this.setState({ error: 'Already added' });
+      participants = parentParticipants.slice();
+    } else participants = [];
 
-    members.push(member);
+    participants.push(participant);
     this.setState({ input: '' });
-    this.props.setMembers(members);
+    this.props.setParticipants(participants);
   }
 
   validateEmail = (email) => {
@@ -43,8 +43,8 @@ export class AddMembers extends Component {
   }
 
   deleteItem = (item) => {
-    const members = this.props.members.filter(el => el !== item);
-    this.props.setMembers(members);
+    const participants = this.props.participants.filter(el => el !== item);
+    this.props.setParticipants(participants);
   }
 
   render() {
@@ -60,8 +60,8 @@ export class AddMembers extends Component {
         </ErrorDiv>
         <input className={inputClasses} type="text" placeholder="" value={this.state.input} onChange={this.handleInput} />
         <Button onClick={this.handleAddClick}><ImgBtn src={require('../../assets/plus.png')} /></Button>
-        {this.props.members &&
-          <List items={this.props.members}
+        {this.props.participants &&
+          <List items={this.props.participants}
             deleteItem={(item) => this.deleteItem(item)}
             styles={{
               itemTitle: ['color: #b75537', 'margin: 0', 'font-size: 1.5rem'],

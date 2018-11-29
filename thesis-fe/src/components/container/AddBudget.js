@@ -21,9 +21,7 @@ export class AddBudget extends Component {
   
   componentDidMount() {
     const { budget } = this.props;
-    console.log(budget);
     if (budget.suggestions.length) this.setState({ value: budget.suggestions[0], isAdded: true }, () => {
-      console.log(budget, this.state);
       if (this.state.max < this.state.value) {
         const newMax = Math.ceil(this.state.value / maxDefault) * maxDefault;
         this.setState({ max: newMax });
