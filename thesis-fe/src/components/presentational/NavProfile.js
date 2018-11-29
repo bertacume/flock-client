@@ -15,6 +15,7 @@ margin-right: 2rem;
 
 class Navigation extends Component {
   render() {
+    console.log(this);
     return (
         <Link to="/profile">
           <NavProfileImage  />
