@@ -12,21 +12,21 @@ export class AddTime extends Component {
   }
 
   deleteItem = (item) => {
-    const suggestions = this.props.timeFrame.suggestions.filter(el => `${el[0]} -- ${el[1]}` !== item);
+    const suggestions = this.props.timeFrame.suggestions.filter(obj => `${obj.startDate} -- ${obj.endDate}` !== item);
     this.props.setDates({ ...this.props.timeFrame, suggestions });
   }
 
   checkExistingDates = (arr, range) => {
-    const filtered = arr.filter(subarr => subarr.join('') === range.join(''));
+    const filtered = arr.filter(obj => range.startDate === obj.startDate && range.endDate === obj.endDate);
     return !filtered.length;
   }
 
   onCalendarChange = (date) => {
     const { timeFrame } = this.props;
-    const start = date.startDate.format("DD-MM-YYYY");
-    const end = date.endDate.format("DD-MM-YYYY");
-    if (!start || !end) return;
-    const range = [start, end];
+    const startDate = date.startDate.format("DD-MM-YYYY");
+    const endDate = date.endDate.format("DD-MM-YYYY");
+    if (!startDate || !endDate) return;
+    const range = { startDate, endDate };
     if (timeFrame.isDictated) return this.props.setDates({ ...this.props.timeFrame, suggestions: [range] });
     if (!this.checkExistingDates(timeFrame.suggestions, range)) return; //TODO: throw alert
     const suggestions = timeFrame.suggestions.slice();
@@ -39,8 +39,8 @@ export class AddTime extends Component {
     return (<SubContainer>
       <Title>Add multiple dates:</Title>
       <DateRange
-       startDate={this.getDateInit(0)}
-       endDate={this.getDateInit(1)}
+       startDate={this.getDateInit('startDate')}
+       endDate={this.getDateInit('endDate')}
         onChange={this.onCalendarChange}
         calendars={1}
         twoStepChange={true}
@@ -48,7 +48,7 @@ export class AddTime extends Component {
       />
       {!!timeFrame.suggestions &&
         <List
-          items={timeFrame.suggestions.map(el => `${el[0]} -- ${el[1]}`)}
+          items={timeFrame.suggestions.map(obj => `${obj.startDate} -- ${obj.endDate}`)}
           deleteItem={this.deleteItem}
           styles={{
             itemTitle: ['color: #b75537', 'margin: 0', 'font-size: 1.4rem'],
@@ -63,10 +63,10 @@ export class AddTime extends Component {
     );
   }
 
-  getDateInit = (index) => {
+  getDateInit = (key) => {
     const { timeFrame } = this.props;
     if (timeFrame.suggestions.length && timeFrame.suggestions[0]) {
-      return timeFrame.suggestions[0][index];
+      return timeFrame.suggestions[0][key];
     }
     return moment();
   }
@@ -75,8 +75,8 @@ export class AddTime extends Component {
     return (<SubContainer>
       <Title>Dates:</Title>
       <DateRange
-        startDate={this.getDateInit(0)}
-        endDate={this.getDateInit(1)}
+        startDate={this.getDateInit('startDate')}
+        endDate={this.getDateInit('endDate')}
         onChange={this.onCalendarChange}
         twoStepChange={true}
         theme={CalendarTheme}
