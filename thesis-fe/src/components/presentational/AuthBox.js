@@ -7,7 +7,7 @@ const AuthBoxContainer = styled('div')`
   justify-content: space-between;
   align-items: center;
   margin-bottom: .5rem;
-  height: 45vh;
+  height: 50vh;
 `;
 
 const AuthBoxHeader = styled('div')`
@@ -27,12 +27,14 @@ const AuthBoxLogin = styled('div')`
 const AuthBoxSignUp = styled('div')`
   display: flex;
   flex-direction: column;
-  min-height: 20vh;
+  min-height: 10vh;
 `;
 const AuthButton = styled('button')`
+  max-height: 7.5vh;
   border-radius: 25px;
   background-color: rgb(255, 255, 255,.6);
-  padding: 1rem;
+  aligin-content: center;
+  aligin-text: center;
 `
 
 class AuthBox extends Component {
@@ -78,9 +80,13 @@ class AuthBox extends Component {
         <div>
           {this.state.shouldShow[1] && <AuthBoxSignUp>
             <h2>
-              Username
+              Name
             </h2>
-            <input onChange={this.props.handleInputChild('inputUsername')} style={{border: '1px solid #000'}}/>
+            <input onChange={this.props.handleInputChild('inputName')} style={{border: '1px solid #000'}}/>
+            <h2>
+              Last name
+            </h2>
+            <input onChange={this.props.handleInputChild('inputLastname')} style={{border: '1px solid #000'}}/>
             <h2>
               Email
             </h2>
