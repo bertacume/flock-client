@@ -1,15 +1,14 @@
 import gql from "graphql-tag";
 
-const GET_MY_TRIPS = gql` query GET_MY_TRIPS ($id: ID!)
+const GET_MY_TRIPS = gql` query GET_MY_TRIPS
   {
-    User (id:$id)
+    self
     {
-      avatarURL
+      email,
+      firstName,
+      lastName,
     }
-    tripsByUserID (userID:1) {
-      id,
-      name,
-    }
+
   }
 `;
 

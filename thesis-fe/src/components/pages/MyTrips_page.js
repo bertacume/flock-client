@@ -24,12 +24,15 @@ class MyTrips_page extends Component {
       >
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
-          return (
-            <div>
-              <Navigation textContent="My trips" avatarURL={data.User.avatarURL} />
-              <MyTripsDashboard history={this.props.history} info={data.tripsByUserID} />
-            </div>
-          );
+          if (error) window.location.replace('/auth');
+          if (data) {
+            return (
+              <div>
+                <Navigation textContent="My trips" avatarURL={data.self.avatarURL} />
+                <MyTripsDashboard history={this.props.history} info={[]} />
+              </div>
+            );
+          }
         }}
       </Query>
     );

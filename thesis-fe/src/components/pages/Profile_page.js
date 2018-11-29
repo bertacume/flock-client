@@ -26,8 +26,7 @@ const ContainerOptions = styled('div')`
 
 const Profile_page = () => {
   const logout = () => {
-    localStorage.setItem('logged','');
-    localStorage.setItem('id','');
+    localStorage.setItem('token','');
     window.location.replace('/auth');
   }
 
@@ -46,6 +45,7 @@ const Profile_page = () => {
       <ContainerOptions>
         <H1 onClick={logout}>Logout</H1>
         <H1>Change avatar</H1>
+        <H1>Invite friends</H1>
         <H1>Send us a message</H1>
       </ContainerOptions>
     </Container>
