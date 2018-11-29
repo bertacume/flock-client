@@ -48,7 +48,7 @@ export class AddMembers extends Component {
   }
 
   render() {
-    let inputClasses = cx(
+    const inputClasses = cx(
       standarInput,
       { [errorInput]: this.state.error.length },
     );
@@ -58,7 +58,7 @@ export class AddMembers extends Component {
         <ErrorDiv>
           {!!this.state.error.length && this.renderError()}
         </ErrorDiv>
-        <input className={inputClasses} type="text" placeholder="" value={this.state.input} onChange={this.handleInput}></input>
+        <input className={inputClasses} type="text" placeholder="" value={this.state.input} onChange={this.handleInput} />
         <Button onClick={this.handleAddClick}><ImgBtn src={require('../../assets/plus.png')} /></Button>
         {this.props.members &&
           <List items={this.props.members}
