@@ -34,7 +34,7 @@ export class AddTripPage extends Component {
         isDictated: false,
         suggestions: [],
       },
-      time: {
+      timeFrame: {
         isDictated: false,
         suggestions: [],
       },
@@ -47,7 +47,7 @@ export class AddTripPage extends Component {
     isNextAviable: false,
   }
 
-  relation = ['name', 'destination', 'time', 'budget', 'members'];
+  relation = ['name', 'destination', 'timeFrame', 'budget', 'members'];
 
   setName = input => {
     this.setState({ tripData: { ...this.state.tripData, name: input }, isNextAviable: false });
@@ -58,7 +58,7 @@ export class AddTripPage extends Component {
   }
 
   setDates = datesObj => {
-    this.setState({ tripData: { ...this.state.tripData, time: { ...datesObj } } });
+    this.setState({ tripData: { ...this.state.tripData, timeFrame: { ...datesObj } } });
   }
 
   setBudget = budgetObj => {
@@ -108,7 +108,7 @@ export class AddTripPage extends Component {
         return (<WizardPage key={2} flipMove={false}>
           <PointsImg src={require('../../assets/2.png')} />
           <AddTime
-            time={tripData.time} setDates={dates => this.setDates(dates)} />
+            timeFrame={tripData.timeFrame} setDates={dates => this.setDates(dates)} />
         </WizardPage>);
 
       case 3:

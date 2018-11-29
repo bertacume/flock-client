@@ -12,8 +12,8 @@ export class AddTime extends Component {
   }
 
   deleteItem = (item) => {
-    const suggestions = this.props.time.suggestions.filter(el => `${el[0]} -- ${el[1]}` !== item);
-    this.props.setDates({ ...this.props.time, suggestions });
+    const suggestions = this.props.timeFrame.suggestions.filter(el => `${el[0]} -- ${el[1]}` !== item);
+    this.props.setDates({ ...this.props.timeFrame, suggestions });
   }
 
   checkExistingDates = (arr, range) => {
@@ -22,20 +22,20 @@ export class AddTime extends Component {
   }
 
   onCalendarChange = (date) => {
-    const { time } = this.props;
+    const { timeFrame } = this.props;
     const start = date.startDate.format("DD-MM-YYYY");
     const end = date.endDate.format("DD-MM-YYYY");
     if (!start || !end) return;
     const range = [start, end];
-    if (this.props.time.isDictated) return this.props.setDates({ ...this.props.time, suggestions: [range] });
-    if (!this.checkExistingDates(time.suggestions, range)) return; //TODO: throw alert
-    const suggestions = time.suggestions.slice();
+    if (timeFrame.isDictated) return this.props.setDates({ ...this.props.timeFrame, suggestions: [range] });
+    if (!this.checkExistingDates(timeFrame.suggestions, range)) return; //TODO: throw alert
+    const suggestions = timeFrame.suggestions.slice();
     suggestions.push(range);
-    this.props.setDates({ ...this.props.time, suggestions});
+    this.props.setDates({ ...this.props.timeFrame, suggestions});
   }
 
   renderDemocracy = () => {
-    const { time } = this.props;
+    const { timeFrame } = this.props;
     return (<SubContainer>
       <Title>Add multiple dates:</Title>
       <DateRange
@@ -46,9 +46,9 @@ export class AddTime extends Component {
         twoStepChange={true}
         theme={CalendarTheme}
       />
-      {!!time.suggestions &&
+      {!!timeFrame.suggestions &&
         <List
-          items={time.suggestions.map(el => `${el[0]} -- ${el[1]}`)}
+          items={timeFrame.suggestions.map(el => `${el[0]} -- ${el[1]}`)}
           deleteItem={this.deleteItem}
           styles={{
             itemTitle: ['color: #b75537', 'margin: 0', 'font-size: 1.4rem'],
@@ -64,8 +64,9 @@ export class AddTime extends Component {
   }
 
   getDateInit = (index) => {
-    if (this.props.time.suggestions.length && this.props.time.suggestions[0]) {
-      return this.props.time.suggestions[0][index];
+    const { timeFrame } = this.props;
+    if (timeFrame.suggestions.length && timeFrame.suggestions[0]) {
+      return timeFrame.suggestions[0][index];
     }
     return moment();
   }
@@ -88,8 +89,8 @@ export class AddTime extends Component {
   render() {
     return (
       <Container>
-        <WizardMode mode={this.props.time.isDictated} setMode={this.setMode} />
-        {this.props.time.isDictated ? this.renderDictator() : this.renderDemocracy()}
+        <WizardMode mode={this.props.timeFrame.isDictated} setMode={this.setMode} />
+        {this.props.timeFrame.isDictated ? this.renderDictator() : this.renderDemocracy()}
       </Container>
     );
   }
