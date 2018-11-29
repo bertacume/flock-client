@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import AuthBox from '../presentational/AuthBox';
 import FacebookLogin from 'react-facebook-login';
 import { BASE_FACEBOOK_ID } from '../../helpers/constants';
-import styled from 'react-emotion'
+import styled from 'react-emotion';
+import { Mutation } from "react-apollo";
+import REGISTER from '../apollo/mutations/register';
 
 const InnerContainer = styled('div')`
   transform: translateY(-10vh);
@@ -29,7 +31,8 @@ class Auth_page extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputUsername : '',
+      inputName : '',
+      inputLastname : '',
       inputEmail : '',
       inputPassword : ''
     }
@@ -62,11 +65,20 @@ class Auth_page extends Component {
     </button>
   );
 
+
   render() {
     return (
       <OuterContainer>
         <InnerContainer >
-          <AuthBox handleInputChild={this.handleInputParent.bind(this)} handleSendChild={this.handleSendParent.bind(this)}/>
+        <Mutation mutation={REGISTER} variables ={{
+          email: this.state.inputEmail,
+          password: this.state.inputPassword,
+          firstName: this.state.inputName,
+          lastName: this.state.inputLastname,
+          avatarURL: 'test'
+        }}>
+          { register => <AuthBox handleInputChild={this.handleInputParent.bind(this)} handleSendChild={register}/> }
+        </Mutation>
         </InnerContainer>
         <FacebookLogin appId={BASE_FACEBOOK_ID} autoLoad={false} fields="name,email,picture" callback={this.handleFBAuthentication} />
       </OuterContainer>
