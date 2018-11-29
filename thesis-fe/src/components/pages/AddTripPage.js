@@ -98,13 +98,6 @@ export class AddTripPage extends Component {
   renderViews = () => {
     const { currentView, tripData } = this.state;
     switch (currentView) {
-      case 0:
-        return (<WizardPage key={0} flipMove={false}>
-          <PointsImg src={require('../../assets/0.png')} />
-          <AddName
-            name={tripData.name} setName={input => this.setName(input)}
-            nameRequired={this.state.isNextAviable} />
-        </WizardPage>);
       case 1:
         return (<WizardPage key={1} flipMove={false}>
           <PointsImg src={require('../../assets/1.png')} />
@@ -133,7 +126,14 @@ export class AddTripPage extends Component {
         </WizardPage>);
 
       default:
-        break;
+        return (
+          <WizardPage key={0} flipMove={false}>
+          <PointsImg src={require('../../assets/0.png')} />
+          <AddName
+            name={tripData.name} setName={input => this.setName(input)}
+            nameRequired={this.state.isNextAviable} />
+        </WizardPage>
+        );
     }
   }
 
