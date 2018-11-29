@@ -8,79 +8,85 @@ import { List } from './List';
 export class AddDestination extends Component {
   state = {
     input: '',
-    dictator: false,
   }
 
   componentDidMount() {
-    if (this.props.destination.chosenOne) this.setState({ dictator: true});
-    this.props.destination.chosenOne &&
-    this.setState({ input: this.props.destination.chosenOne });
+    this.props.destination.isDictated &&
+      this.setState({ input: this.props.destination.suggestions[0] });
   }
 
   handleInput = async (event) => {
-    let chosenOne;
     await this.setState({ input: event.target.value });
-    if (this.state.dictator) {
-      this.state.input.length ? chosenOne = this.state.input : chosenOne = null;
-      this.props.setDestination({ suggestions: [], chosenOne });
+    if (this.props.destination.isDictated) {
+      this.state.input.length ? 
+      this.props.setDestination({
+         ...this.props.destination, 
+         suggestions: [this.state.input] 
+      }) :
+      this.props.setDestination({ 
+        ...this.props.destination, 
+        suggestions: [] 
+      });
     }
   }
 
   handleAddClick = async () => {
-    const parentSuggestions = this.props.destination.suggestions;
+    if (!this.state.input.length) return;
+    const oldSuggestions = this.props.destination.suggestions;
     const destinationInput = this.state.input;
-    let suggestions;
-    if (parentSuggestions){
-      if (parentSuggestions.includes(destinationInput)) return;
-      suggestions = parentSuggestions.slice();
-    } else suggestions = [];
+    if (oldSuggestions.includes(destinationInput)) return; //TODO: alert already exists
+    const suggestions = oldSuggestions.slice();
     suggestions.push(destinationInput);
     await this.setState({ input: '' });
-    this.props.setDestination({ suggestions, chosenOne: null});
-  }
-
-  setMode = flag => {
-    this.setState({ dictator: flag });
+    this.props.setDestination({ ...this.props.destination, suggestions });
   }
 
   deleteItem = (item) => {
     const suggestions = this.props.destination.suggestions.filter(el => el !== item);
-    this.props.setDestination({ suggestions, chosenOne: null });
+    this.props.setDestination({ ...this.props.destination, suggestions });
+  }
+
+  setMode = (isDictated) => {
+    this.props.setDestination({ ...this.props.destination, isDictated });
   }
 
   renderDemocracy = () => {
     return (
       <SubContainer>
-        <Title>Add Final Destination:</Title>
+        <Title>Add your destination suggestions:</Title>
         <Input type="text" placeholder="" value={this.state.input} onChange={this.handleInput}></Input>
         <Button onClick={this.handleAddClick}><ImgBtn src={require('../../assets/plus.png')} /></Button>
         {this.props.destination.suggestions &&
-        <List 
-        items={this.props.destination.suggestions} 
-        deleteItem={(item) => this.deleteItem(item)} 
-        styles={{
-          itemTitle : ['color: #b75537', 'margin: 0', 'font-size: 1.5rem'] ,
-          listContainer : ['max-height: 21rem'],
-          listItem : ['background-color: rgba(255, 255, 255, .3)', 
-          'padding: 0 35px',
-          'height: 4rem', 
-          'margin: .2rem 0'],
-        }}
-        />}
+          <List
+            items={this.props.destination.suggestions}
+            deleteItem={(item) => this.deleteItem(item)}
+            styles={{
+              itemTitle: ['color: #b75537', 'margin: 0', 'font-size: 1.5rem'],
+              listContainer: ['max-height: 21rem'],
+              listItem: ['background-color: rgba(255, 255, 255, .3)',
+                'padding: 0 35px',
+                'height: 4rem',
+                'margin: .2rem 0'],
+            }}
+          />}
       </SubContainer>
     );
+  }
+
+  renderDictator = () => {
+    return (<SubContainer>
+      <Title>Add Final Destination:</Title>
+      <Input type="text" placeholder="" value={this.state.input} onChange={this.handleInput}></Input>
+    </SubContainer>);
   }
 
   render() {
     return (
       <Container>
-        <WizardMode mode={this.state.dictator} setMode={this.setMode} />
-        {this.state.dictator ?
-        <SubContainer>
-        <Title>Add Final Destination:</Title>
-          <Input type="text" placeholder="" value={this.state.input} onChange={this.handleInput}></Input> 
-        </SubContainer> :
-        this.renderDemocracy()}
+        <WizardMode mode={this.props.destination.isDictated} setMode={this.setMode} />
+        {this.props.destination.isDictated ?
+          this.renderDictator() :
+          this.renderDemocracy()}
       </Container>
     );
   }

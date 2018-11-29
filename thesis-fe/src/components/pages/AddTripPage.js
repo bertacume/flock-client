@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion'
-import { fontFamily, addTrip } from '../../helpers/styleConstants';
+import { fontFamily } from '../../helpers/styleConstants';
 import { AddName } from '../container/AddName';
 import { AddDestination } from '../container/AddDestination';
 import { AddTime } from '../container/AddTime';
@@ -31,8 +31,8 @@ export class AddTripPage extends Component {
     tripData: {
       name: null,
       destination: {
+        isDictated: false,
         suggestions: [],
-        chosenOne: null,
       },
       time: {
         suggestions: [],
