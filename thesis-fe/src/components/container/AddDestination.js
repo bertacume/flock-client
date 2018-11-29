@@ -36,13 +36,14 @@ export class AddDestination extends Component {
     const destinationInput = this.state.input;
     if (oldSuggestions.includes(destinationInput)) return; //TODO: alert already exists
     const suggestions = oldSuggestions.slice();
-    suggestions.push(destinationInput);
+    suggestions.push({ name: destinationInput });
     await this.setState({ input: '' });
     this.props.setDestination({ ...this.props.destination, suggestions });
   }
 
   deleteItem = (item) => {
-    const suggestions = this.props.destination.suggestions.filter(el => el !== item);
+    const suggestionsArr = this.props.destination.suggestions.map(obj => obj.name);
+    const suggestions = suggestionsArr.filter(el => el !== item).map(el => ({name: el}));
     this.props.setDestination({ ...this.props.destination, suggestions });
   }
 
@@ -51,14 +52,15 @@ export class AddDestination extends Component {
   }
 
   renderDemocracy = () => {
+    const { suggestions } = this.props.destination;
     return (
       <SubContainer>
         <Title>Add your destination suggestions:</Title>
         <Input type="text" placeholder="" value={this.state.input} onChange={this.handleInput}></Input>
         <Button onClick={this.handleAddClick}><ImgBtn src={require('../../assets/plus.png')} /></Button>
-        {this.props.destination.suggestions &&
+        {!!suggestions.length &&
           <List
-            items={this.props.destination.suggestions}
+            items={suggestions.map(obj => obj.name)}
             deleteItem={(item) => this.deleteItem(item)}
             styles={{
               itemTitle: ['color: #b75537', 'margin: 0', 'font-size: 1.5rem'],
