@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'react-emotion'
 import plus from '../../assets/plus-gradient.png';
+import confirm from '../../assets/svg/confirm.svg';
 import { Link } from "react-router-dom";
 import { fontFamily } from '../../helpers/constants';
 
@@ -26,24 +27,19 @@ const ContainerTrip = styled('div')`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
   margin: 1rem 0;
+  background: #ff7e5f;
+  border-radius: 20px;
+  color: white;
 `;
-
-
-const ContainerFriends = styled('div')`
+const ContainerConfirmation = styled('div')`
   display: flex;
-  width: 80vw;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
 
 `;
-
-const ContainerFriendsInner = styled('div')`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  margin-left: .5rem;
-`;
-
 const H1 = styled('h1')`
   font-size: 2rem;
 
@@ -51,7 +47,7 @@ const H1 = styled('h1')`
 
 const H2 = styled('h2')`
   font-size: 1.25rem;
-  margin: 0 0.2rem;
+  margin: 0 1rem;
 `;
 
 const Button = styled('button')`
@@ -69,8 +65,6 @@ const ImgBtn = styled('img')`
   height: 100%;
 `
 
-
-
 const MyTripsDashboard = (props) => {
   const redirectToTrip = (id) => {
     return () => {
@@ -80,14 +74,10 @@ const MyTripsDashboard = (props) => {
   const listTrips = props.info.map( obj => (
     <ContainerTrip onClick={redirectToTrip(obj.id)} key={obj.id}>
       <H1>{obj.name}</H1>
-      { (obj.destination.chosenDestination.name) ?
-        <H2>{obj.destination.chosenDestination.name}</H2> :
-        (<H2>Destinations to be decided</H2>)
-      }
-      { (obj.participants.length >0) ?
-        (<ContainerFriends><H2>Attending:</H2><ContainerFriendsInner>{obj.participants.map( obj => <H2 key={obj.firstName}>{obj.firstName}</H2>)}</ContainerFriendsInner></ContainerFriends>) :
-        (<ContainerFriends>No friends subscribing</ContainerFriends>)
-      }
+      <ContainerConfirmation>
+      <img src={confirm} alt="confirm" height="20" width="20"/>
+      <H2>Confirmed</H2>
+      </ContainerConfirmation>
     </ContainerTrip>
   )
   )

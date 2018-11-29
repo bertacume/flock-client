@@ -23,12 +23,11 @@ class TripDetailsCalendar_page extends Component {
   }
 
   render() {
-
     const CalendarDetailsApollo = () => (
       <Query
       query={GET_CALENDAR_DETAILS}
       errorPolicy="all"
-      variables ={{tripID : this.state.tripID}}
+      variables ={{tripID: this.state.tripID}}
     >
       {({ loading, error, data }) => {
         if (loading) return <p>Loading...</p>;
@@ -36,7 +35,7 @@ class TripDetailsCalendar_page extends Component {
         if (data.trip) {
           return (
             <div>
-              <CalendarDashboard info={data}/>
+              <CalendarDashboard info={data} location={this.props.location} history={this.props.history}/>
           </div>
           );
         }

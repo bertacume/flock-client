@@ -9,14 +9,6 @@ const GET_MY_TRIPS = gql` query GET_MY_TRIPS ($id: ID!)
     tripsByUserID (userID:1) {
       id,
       name,
-      participants {
-        firstName
-      },
-      destination {
-        chosenDestination {
-          name
-        }
-      }
     }
   }
 `;
