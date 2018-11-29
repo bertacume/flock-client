@@ -10,6 +10,7 @@ import TripDetailsParticipantsPage from './components/pages/TripDetailsParticipa
 import TripDetailsCalendarPage from './components/pages/TripDetailsCalendar_page';
 import TripDetailsBudgetPage from './components/pages/TripDetailsBudget_page';
 import { AddTripPage } from './components/pages/AddTripPage';
+import { CreateTrip } from './components/container/MutationTest';
 
 
 class App extends Component {
@@ -28,6 +29,7 @@ class App extends Component {
             <Guard path="/tripdetails/:id/budget" component={TripDetailsBudgetPage} />
             <Guard path="/addtrip" component={AddTripPage} />
             <Guard path="/profile" component={ProfilePage} />
+            <Guard path="/mutation" component={CreateTrip} />
             <Redirect to='/mytrips' />
           </Switch>
         </div>
