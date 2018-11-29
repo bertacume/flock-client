@@ -3,11 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 
 const isLogged = () => {
-  const res = localStorage.getItem('logged');
-  if (!res) {
-    localStorage.setItem('logged',true);
-    localStorage.setItem('id',0);
-  }
+  const res = localStorage.getItem('token');
   return res;
 }
 

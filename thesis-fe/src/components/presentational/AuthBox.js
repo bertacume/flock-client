@@ -31,6 +31,7 @@ const AuthBoxSignUp = styled('div')`
 `;
 const AuthButton = styled('button')`
   max-height: 7.5vh;
+  width: 30vw;
   border-radius: 25px;
   background-color: rgb(255, 255, 255,.6);
   aligin-content: center;
@@ -48,9 +49,11 @@ class AuthBox extends Component {
 
   displayLogin = () => {
     this.setState({shouldShow: [true,false]})
+    this.props.handleChildType('login')
   }
 
   displaySignUp = () => {
+    this.props.handleChildType('signup')
     this.setState({shouldShow: [false,true]})
   }
 
@@ -68,9 +71,9 @@ class AuthBox extends Component {
           <div>
             {this.state.shouldShow[0] && <AuthBoxLogin>
               <h2>
-                Username
+                Email
               </h2>
-              <input onChange={this.props.handleInputChild('inputUsername')} style={{border: '1px solid #000'}} />
+              <input onChange={this.props.handleInputChild('inputEmail')} style={{border: '1px solid #000'}} />
               <h2>
                 Password
               </h2>
