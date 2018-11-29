@@ -2,6 +2,7 @@ import gql from "graphql-tag";
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> first mutation mock data
 // const CREATE_TRIP = gql` mutation CreateTrip($trip: TripInput!){
@@ -11,6 +12,8 @@ import gql from "graphql-tag";
 //   }
 // }
 // `;
+=======
+>>>>>>> add mutation in AddTripPage
 const CREATE_TRIP = gql`mutation createTrip($trip: TripInput!) {
   createTrip(trip: $trip, userID: "5bffbe8ff59a127f1afadf18") {
     creator {

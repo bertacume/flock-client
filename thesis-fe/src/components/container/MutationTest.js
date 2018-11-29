@@ -2,7 +2,11 @@ import React from 'react';
 import { Mutation } from "react-apollo";
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import CREATE_TRIP from '../apollo/mutations/add_trip'
+=======
+import CREATE_TRIP from '../apollo/mutations/add_trip';
+>>>>>>> add mutation in AddTripPage
 
 export const CreateTrip = () => {
   const trip = {
@@ -31,6 +35,7 @@ export const CreateTrip = () => {
               createTrip({ variables: {trip: trip}});
               console.log(trip);
             }
+<<<<<<< HEAD
 =======
 import ADD_TRIP from '../apollo/mutations/add_trip'
 =======
@@ -80,6 +85,9 @@ export const CreateTrip = () => {
             }
 >>>>>>> first mutation mock data
             } >Create Trip</button>
+=======
+            }>Create Trip</button>
+>>>>>>> add mutation in AddTripPage
         </div>
     )}
     </Mutation>

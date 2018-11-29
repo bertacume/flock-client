@@ -7,6 +7,8 @@ import { AddTime } from '../container/AddTime';
 import { AddBudget } from '../container/AddBudget';
 import { AddParticipants } from '../container/AddParticipants';
 import posed, { PoseGroup } from 'react-pose';
+import { Mutation } from "react-apollo";
+import CREATE_TRIP from '../apollo/mutations/add_trip';
 
 const Page = posed.div({
   enter: {
@@ -91,8 +93,27 @@ export class AddTripPage extends Component {
     if (tripData[current].isDictated) this.resetCurrentState(current);
     this.handleNextClick();
   }
-
-  handleCreateTripClick = () => {
+  handleCreateTripClick = (createTrip) => {
+    const { name, destination, time, budget, members } = this.state.tripData;
+    //TODO: Match state tripData with trip
+    const trip = {
+      name,
+      participants: members,
+      destination: {
+        isDictated: false,
+        suggestions: destination.suggestions
+      },
+      budget: {
+        isDictated: false,
+        suggestions: budget.suggestions
+      },
+      timeFrame: {
+        isDictated: false,
+        suggestions: [{ startDate: "2008-12-18", endDate: "2018-12-24" }]
+      }
+    }
+    createTrip({ variables: { trip: trip } });
+    console.log(trip);
   }
 
   renderViews = () => {
@@ -154,6 +175,19 @@ export class AddTripPage extends Component {
     return <Button onClick={() => this.handleSkipTripClick(current)}><ImgBtn src={require('../../assets/skip.png')} /></Button>;
   }
 
+  renderCreateTripbtn = () => {
+    return (
+      <Mutation
+        mutation={CREATE_TRIP}>
+        {(createTrip, { data }) => (
+          <div>
+            <Button onClick={() => this.handleCreateTripClick(createTrip)}>CREATE TRIP</Button>
+          </div>
+        )}
+      </Mutation>
+    );
+
+  }
 
   render() {
     return (
