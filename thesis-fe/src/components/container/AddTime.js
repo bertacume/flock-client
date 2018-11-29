@@ -64,7 +64,7 @@ export class AddTime extends Component {
       {this.props.time.suggestions &&
         <List 
         items={this.renderDatesSuggestions()} 
-        deleteItem={(item) => this.deleteItem(item)} 
+        deleteItem={this.deleteItem} 
         styles={{
           itemTitle : ['color: #b75537', 'margin: 0', 'font-size: 1.4rem'], 
           listContainer : ['max-height: 9.6rem;'],
@@ -95,8 +95,8 @@ export class AddTime extends Component {
   render() {
     return (
       <Container>
-        <WizardMode mode={this.state.dictator} setMode={(flag) => this.setMode(flag)} />
-        {!this.state.dictator ? this.renderDemocracy() : this.renderDictator()}
+        <WizardMode mode={this.state.dictator} setMode={this.setMode} />
+        {this.state.dictator ? this.renderDictator() : this.renderDemocracy()}
       </Container>
     );
   }
