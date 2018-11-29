@@ -15,6 +15,10 @@ export class AddDestination extends Component {
       this.setState({ input: this.props.destination.suggestions[0] });
   }
 
+  setMode = (isDictated) => {
+    this.props.setDestination({ ...this.props.destination, isDictated });
+  }
+
   handleInput = event => {
     this.setState({ input: event.target.value }, () => {
       if (this.props.destination.isDictated) {
@@ -47,10 +51,6 @@ export class AddDestination extends Component {
     const suggestionsArr = this.props.destination.suggestions.map(obj => obj.name);
     const suggestions = suggestionsArr.filter(el => el !== item).map(el => ({ name: el }));
     this.props.setDestination({ ...this.props.destination, suggestions });
-  }
-
-  setMode = (isDictated) => {
-    this.props.setDestination({ ...this.props.destination, isDictated });
   }
 
   renderDemocracy = () => {

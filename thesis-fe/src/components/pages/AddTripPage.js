@@ -35,8 +35,8 @@ export class AddTripPage extends Component {
         suggestions: [],
       },
       time: {
+        isDictated: false,
         suggestions: [],
-        chosenOne: null,
       },
       budget: {
         suggestions: [],
@@ -69,6 +69,11 @@ export class AddTripPage extends Component {
     this.setState({ tripData: { ...this.state.tripData, members } });
   }
 
+  resetCurrentState = current => {
+    const { tripData } = this.state;
+    this.setState({ tripData: { ...tripData, [current]: { suggestions: [], isDictated: false } } });
+  }
+
   handleBackClick = () => {
     this.setState({ currentView: this.state.currentView - 1 });
   }
@@ -81,9 +86,9 @@ export class AddTripPage extends Component {
     this.setState({ currentView: this.state.currentView + 1 });
   }
 
-  handleSkipTripClick = (current) => {
+  handleSkipTripClick = current => {
     const { tripData } = this.state;
-    if (tripData[current].isDictated) this.setDestination({ ...tripData.destination, isDictated: false });
+    if (tripData[current].isDictated) this.resetCurrentState(current);
     this.handleNextClick();
   }
 
