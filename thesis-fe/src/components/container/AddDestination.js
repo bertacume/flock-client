@@ -39,8 +39,8 @@ export class AddDestination extends Component {
     this.props.setDestination({ suggestions, chosenOne: null});
   }
 
-  setMode = async (flag) => {
-    await this.setState({ dictator: flag });
+  setMode = flag => {
+    this.setState({ dictator: flag });
   }
 
   deleteItem = (item) => {
@@ -74,7 +74,7 @@ export class AddDestination extends Component {
   render() {
     return (
       <Container>
-        <WizardMode mode={this.state.dictator} setMode={(flag) => this.setMode(flag)} />
+        <WizardMode mode={this.state.dictator} setMode={this.setMode} />
         {this.state.dictator ?
         <SubContainer>
         <Title>Add Final Destination:</Title>

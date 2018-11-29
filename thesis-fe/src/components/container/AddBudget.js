@@ -20,13 +20,14 @@ export class AddBudget extends Component {
     dictator: false,
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     if (this.props.budget.chosenOne) {
-      await this.setState({ value: this.props.budget.chosenOne, isAdded: true, dictator: true });
-      if (this.state.max < this.state.value) {
-        const newMax = Math.ceil(this.state.value / maxDefault) * maxDefault;
-        this.setState({ max: newMax });
-      }
+      this.setState({ value: this.props.budget.chosenOne, isAdded: true, dictator: true }, () => {
+        if (this.state.max < this.state.value) {
+          const newMax = Math.ceil(this.state.value / maxDefault) * maxDefault;
+          this.setState({ max: newMax });
+        }
+      });
     }
   }
 
