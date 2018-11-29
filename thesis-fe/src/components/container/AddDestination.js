@@ -15,35 +15,37 @@ export class AddDestination extends Component {
       this.setState({ input: this.props.destination.suggestions[0] });
   }
 
-  handleInput = async (event) => {
-    await this.setState({ input: event.target.value });
-    if (this.props.destination.isDictated) {
-      this.state.input.length ? 
-      this.props.setDestination({
-         ...this.props.destination, 
-         suggestions: [this.state.input] 
-      }) :
-      this.props.setDestination({ 
-        ...this.props.destination, 
-        suggestions: [] 
-      });
-    }
+  handleInput = event => {
+    this.setState({ input: event.target.value }, () => {
+      if (this.props.destination.isDictated) {
+        this.state.input.length ?
+          this.props.setDestination({
+            ...this.props.destination,
+            suggestions: [this.state.input]
+          }) :
+          this.props.setDestination({
+            ...this.props.destination,
+            suggestions: []
+          });
+      }
+    });
   }
 
-  handleAddClick = async () => {
+  handleAddClick = () => {
     if (!this.state.input.length) return;
     const oldSuggestions = this.props.destination.suggestions;
     const destinationInput = this.state.input;
     if (oldSuggestions.includes(destinationInput)) return; //TODO: alert already exists
     const suggestions = oldSuggestions.slice();
     suggestions.push({ name: destinationInput });
-    await this.setState({ input: '' });
-    this.props.setDestination({ ...this.props.destination, suggestions });
+    this.setState({ input: '' }, () => {
+      this.props.setDestination({ ...this.props.destination, suggestions });
+    });
   }
 
   deleteItem = (item) => {
     const suggestionsArr = this.props.destination.suggestions.map(obj => obj.name);
-    const suggestions = suggestionsArr.filter(el => el !== item).map(el => ({name: el}));
+    const suggestions = suggestionsArr.filter(el => el !== item).map(el => ({ name: el }));
     this.props.setDestination({ ...this.props.destination, suggestions });
   }
 

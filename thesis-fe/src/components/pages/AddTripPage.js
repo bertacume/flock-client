@@ -57,9 +57,8 @@ export class AddTripPage extends Component {
     this.setState({ tripData: { ...this.state.tripData, destination: { ...destinationObj } } });
   }
 
-  setDates = async datesObj => {
-    await this.setState({ tripData: { ...this.state.tripData, time: { ...datesObj } } });
-    console.log(this.state.tripData)
+  setDates = datesObj => {
+    this.setState({ tripData: { ...this.state.tripData, time: { ...datesObj } } });
   }
 
   setBudget = budgetObj => {
@@ -74,9 +73,9 @@ export class AddTripPage extends Component {
     this.setState({ currentView: this.state.currentView - 1 });
   }
 
-  handleNextClick = async () => {
+  handleNextClick = () => {
     if (this.state.currentView === 0 && !this.state.tripData.name) {
-      await this.setState({ isNextAviable: true });
+      this.setState({ isNextAviable: true });
       return;
     }
     this.setState({ currentView: this.state.currentView + 1 });
