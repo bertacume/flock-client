@@ -2,12 +2,12 @@ import gql from "graphql-tag";
 
 const GET_BUDGET_DETAILS = gql` query GET_BUDGET_DETAILS ($tripID: ID!)
   {
-    trip (tripID: $tripID) {
-      destination {
+    trip (id: $tripID) {
+      budget {
         isDictated,
-        chosenDestination {
-          key,
-          name,
+        chosenBudget {
+          value,
+          id,
           voters {
             firstName
           }
@@ -16,7 +16,7 @@ const GET_BUDGET_DETAILS = gql` query GET_BUDGET_DETAILS ($tripID: ID!)
           }
         }
         suggestions {
-          name,
+          value,
           voters {
             firstName
           }

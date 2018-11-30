@@ -49,7 +49,8 @@ export class AddTime extends Component {
       {!!timeFrame.suggestions &&
         <List
           items={timeFrame.suggestions.map(obj => `${obj.startDate} -- ${obj.endDate}`)}
-          deleteItem={this.deleteItem}
+          handleClick={this.deleteItem}
+          buttonResponse = 'delete'
           styles={{
             itemTitle: ['color: #b75537', 'margin: 0', 'font-size: 1.4rem'],
             listContainer: ['max-height: 9.6rem;'],

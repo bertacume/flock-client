@@ -2,7 +2,11 @@ import gql from "graphql-tag";
 
 const GET_CALENDAR_DETAILS = gql` query GET_CALENDAR_DETAILS ($tripID: ID!)
   {
-    trip (tripID:$tripID) {
+    self {
+      email,
+      firstName
+    }
+    trip (id:$tripID) {
       timeFrame{
         chosenTimeFrame{
           startDate,
