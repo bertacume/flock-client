@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 
 const GET_DESTINATION_DETAILS = gql` query GET_DESTINATION_DETAILS ($tripID: ID!)
   {
-    trip (tripID: $tripID) {
+    trip (id: $tripID) {
       destination {
         isDictated,
         chosenDestination {

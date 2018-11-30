@@ -2,10 +2,10 @@ import gql from "graphql-tag";
 
 const GET_MY_TRIPS = gql` query GET_TRIP_DETAILS ($tripID: ID!)
   {
-    trip (tripID: $tripID) {
+    trip (id: $tripID) {
       name,
       participants {
-        id,
+        email,
         lastName,
       },
       destination {

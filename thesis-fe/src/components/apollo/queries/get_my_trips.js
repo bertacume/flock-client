@@ -5,9 +5,16 @@ const GET_MY_TRIPS = gql` query GET_MY_TRIPS
     self
     {
       email,
-      firstName,
-      lastName,
+      avatarURL
     }
+    allTrips {
+      id,
+      name,
+      creator {
+        firstName
+      }
+    }
+
 
   }
 `;

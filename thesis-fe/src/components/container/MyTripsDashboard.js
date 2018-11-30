@@ -66,6 +66,7 @@ const ImgBtn = styled('img')`
 `
 
 const MyTripsDashboard = (props) => {
+  console.log(props);
   const redirectToTrip = (id) => {
     return () => {
       props.history.push('/tripdetails/' + id)

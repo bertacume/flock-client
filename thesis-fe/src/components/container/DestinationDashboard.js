@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import styled from 'react-emotion'
 import star from '../../assets/svg/star.svg';
 import back from '../../assets/svg/back.svg';
-import plus from '../../assets/svg/plus.svg';
 import { Mutation } from "react-apollo";
 import ADD_SUGGESTED_DESTINATION_LIKES from '../apollo/mutations/add_suggested_destination_likes';
 
@@ -66,8 +65,9 @@ class MyTripsDashboard extends Component {
   render
 
   render() {
-    const isDecided = this.props.info.trip.destination.chosenDestination.name
-    const chosenToShow = ((!isDecided) ? [(
+    console.log(this.props);
+    const isDecided = this.props.info.trip.destination.chosenDestination
+    const chosenToShow = ((isDecided) ? [(
       <ContainerDestination key='1'>
         <img src={star} alt="winner" height="25" width="25" />
         <H1>{this.props.info.trip.destination.chosenDestination.name}</H1>
@@ -77,10 +77,10 @@ class MyTripsDashboard extends Component {
       )]
     :
       [<H1>To be decided</H1>])
-
-
+    console.log(this.props.info.trip.destination.suggestions.length);
+    const chosenDestination = (isDecided) ? isDecided.name : null;
     const othersToShow = ((this.props.info.trip.destination.suggestions.length > 0) ? [(
-      this.props.info.trip.destination.suggestions.filter(obj => obj.name !== this.props.info.trip.destination.chosenDestination.name).map( obj => (
+      this.props.info.trip.destination.suggestions.filter(obj => obj.name !== chosenDestination).map( obj => (
         <ContainerDestination key={obj.name + obj.voters.length}>
           <H2>{obj.name}</H2>
           <H2>votes: {obj.voters.length}</H2>

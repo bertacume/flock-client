@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 
 const GET_PARTICIPANTS_DETAILS = gql` query GET_PARTICIPANT_DETAILS ($tripID: ID!)
   {
-    trip (tripID: $tripID) {
+    trip (id: $tripID) {
       participants {
         avatarURL,
         firstName,

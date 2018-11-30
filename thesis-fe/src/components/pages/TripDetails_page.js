@@ -42,6 +42,7 @@ class TripDetails_page extends Component {
         if (loading) return <p>Loading...</p>;
         if (error) console.log(error);
         if (data.trip) {
+          console.log(data);
           return (
             <div>
             <Navigation textContent={data.trip.name}/>
