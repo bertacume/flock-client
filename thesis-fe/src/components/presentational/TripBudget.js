@@ -49,7 +49,7 @@ class TripBudget extends Component {
           :
             <ContainerBudgets>
               <ContainerBudget>
-                Decided budget : {(this.props.info.chosenBudget) ? this.props.info.chosenBudget.value : <span>Not yet decided</span>}
+                Budget : {(this.props.info.chosenBudget) ? this.props.info.chosenBudget.value : <span>Not yet decided</span>}
               </ContainerBudget>
             </ContainerBudgets>
         }
