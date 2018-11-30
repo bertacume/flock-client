@@ -18,6 +18,10 @@ export class List extends Component {
   }
 
   scrollToBottom = () => {
+<<<<<<< HEAD
+=======
+    // console.log('here');
+>>>>>>> b9f31cea83fe3234f728a7b76d0586cbeab4e125
     this.listEnd.current.scrollIntoView({ behavior: "smooth" });
   }
 
