@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
-const GET_CALENDAR_DETAILS = gql` query GET_TRIP_DETAILS ($tripID: ID!)
+const GET_DESTINATION_DETAILS = gql` query GET_DESTINATION_DETAILS ($tripID: ID!)
   {
-    trip (tripID: $tripID) {
+    trip (id: $tripID) {
       destination {
         isDictated,
         chosenDestination {
@@ -26,4 +26,4 @@ const GET_CALENDAR_DETAILS = gql` query GET_TRIP_DETAILS ($tripID: ID!)
   }
 `;
 
-export default GET_CALENDAR_DETAILS;
+export default GET_DESTINATION_DETAILS;

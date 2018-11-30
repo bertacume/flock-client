@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Query } from "react-apollo";
-import GET_DESTINATION_DETAILS from '../apollo/get_destination_details';
-import DestinationDashboard from '../container/CalendarDashboard';
+import GET_DESTINATION_DETAILS from '../apollo/queries/get_destination_details';
+import DestinationDashboard from '../container/DestinationDashboard';
 
 
 // const GeneralInfo = styled('div')`
@@ -15,13 +15,20 @@ import DestinationDashboard from '../container/CalendarDashboard';
 
 class TripDetailsDestination_page extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      tripID : this.props.location.pathname.split('/')[2]
+    }
+  }
+
   render() {
-    const tripID = this.props.location.pathname.split('/')[2];
+
     const DestinationDetailsApollo = () => (
       <Query
       query={GET_DESTINATION_DETAILS}
       errorPolicy="all"
-      variables ={{tripID : tripID}}
+      variables ={{tripID : this.state.tripID}}
     >
       {({ loading, error, data }) => {
         if (loading) return <p>Loading...</p>;
@@ -29,7 +36,7 @@ class TripDetailsDestination_page extends Component {
         if (data.trip) {
           return (
             <div>
-              <DestinationDashboard info={data}/>
+              <DestinationDashboard info={data} location={this.props.location} history={this.props.history}/>
           </div>
           );
         }

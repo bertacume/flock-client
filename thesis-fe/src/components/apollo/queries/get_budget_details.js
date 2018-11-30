@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-const GET_DESTINATION_DETAILS = gql` query GET_TRIP_DETAILS ($tripID: ID!)
+const GET_BUDGET_DETAILS = gql` query GET_BUDGET_DETAILS ($tripID: ID!)
   {
     trip (tripID: $tripID) {
       destination {
@@ -26,4 +26,4 @@ const GET_DESTINATION_DETAILS = gql` query GET_TRIP_DETAILS ($tripID: ID!)
   }
 `;
 
-export default GET_DESTINATION_DETAILS;
+export default GET_BUDGET_DETAILS;

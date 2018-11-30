@@ -4,14 +4,17 @@ import styled from 'react-emotion'
 const AuthBoxContainer = styled('div')`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
-  border: 1px solid #000;
+  margin-bottom: .5rem;
+  height: 50vh;
 `;
 
 const AuthBoxHeader = styled('div')`
+  width: 50vw;
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
   align-items: center;
 `;
 
@@ -19,17 +22,20 @@ const AuthBoxLogin = styled('div')`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 20vh;
+  min-height: 20vh;
 `;
 const AuthBoxSignUp = styled('div')`
   display: flex;
   flex-direction: column;
-  height: 20vh;
+  min-height: 10vh;
 `;
 const AuthButton = styled('button')`
-  border-radius: 50px;
-  background-color: white;
-  padding: 1rem;
+  max-height: 7.5vh;
+  width: 30vw;
+  border-radius: 25px;
+  background-color: rgb(255, 255, 255,.6);
+  aligin-content: center;
+  aligin-text: center;
 `
 
 class AuthBox extends Component {
@@ -43,9 +49,11 @@ class AuthBox extends Component {
 
   displayLogin = () => {
     this.setState({shouldShow: [true,false]})
+    this.props.handleChildType('login')
   }
 
   displaySignUp = () => {
+    this.props.handleChildType('signup')
     this.setState({shouldShow: [false,true]})
   }
 
@@ -63,9 +71,9 @@ class AuthBox extends Component {
           <div>
             {this.state.shouldShow[0] && <AuthBoxLogin>
               <h2>
-                Username
+                Email
               </h2>
-              <input onChange={this.props.handleInputChild('inputUsername')} style={{border: '1px solid #000'}} />
+              <input onChange={this.props.handleInputChild('inputEmail')} style={{border: '1px solid #000'}} />
               <h2>
                 Password
               </h2>
@@ -75,9 +83,13 @@ class AuthBox extends Component {
         <div>
           {this.state.shouldShow[1] && <AuthBoxSignUp>
             <h2>
-              Username
+              Name
             </h2>
-            <input onChange={this.props.handleInputChild('inputUsername')} style={{border: '1px solid #000'}}/>
+            <input onChange={this.props.handleInputChild('inputName')} style={{border: '1px solid #000'}}/>
+            <h2>
+              Last name
+            </h2>
+            <input onChange={this.props.handleInputChild('inputLastname')} style={{border: '1px solid #000'}}/>
             <h2>
               Email
             </h2>
@@ -89,7 +101,7 @@ class AuthBox extends Component {
             </AuthBoxSignUp>}
         </div>
         <AuthButton onClick={this.props.handleSendChild}>
-          {this.state.shouldShow[0] ? <h2>Log in</h2> : <h2>Sign Up</h2>}
+          <h2>Send</h2>
         </AuthButton>
       </AuthBoxContainer>
     );

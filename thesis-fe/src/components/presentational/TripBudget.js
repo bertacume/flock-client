@@ -1,31 +1,32 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
-import plus from '../../assets/svg/plus.svg'
+import next from '../../assets/next.png';
+import money from '../../assets/money.png'
 
 
 const Container = styled('div')`
+box-sizing: border-box;
 font-size: 1.25rem;
-border: 1px solid #000;
+border-radius: 10px;
 width: 90vw;
-height: 12.5%;
+height: 20%;
 display: flex;
 flex-direction:row;
 align-items: center;
 justify-content: space-between;
+background: rgba(255,138,94,1);
+margin-bottom 2vh;
+padding-left: 2rem;
 `;
 
 const ContainerBudget = styled('h1')`
-font-size: 1.25rem;
+font-size: 1.5rem;
 margin-left:.25rem;
+color: white;
 `;
 const ContainerBudgets = styled('div')`
 display: flex;
 flex-direction: column;
-`;
-
-const ContainerSuggestions = styled('h1')`
-font-size: 1rem;
-margin-left: .25rem;
 `;
 
 const MoreInfoButton = styled('button')`
@@ -33,13 +34,13 @@ const MoreInfoButton = styled('button')`
   position: relative;
   font-size: 2rem;
 `;
-// `;
+
 class TripBudget extends Component {
 
   render() {
-    console.log(this.props);
     return (
       <Container>
+        <img src={money} alt="logo" height="50" width="50"/>
         {
           (this.props.info.isDictated) ?
             <ContainerBudget>
@@ -48,15 +49,12 @@ class TripBudget extends Component {
           :
             <ContainerBudgets>
               <ContainerBudget>
-                Decided budget : {(this.props.info.chosenBudget.value) ? this.props.info.chosenBudget.value : <span>Not yet decided</span>}
+                Decided budget : {(this.props.info.chosenBudget) ? this.props.info.chosenBudget.value : <span>Not yet decided</span>}
               </ContainerBudget>
-              <ContainerSuggestions>
-                Do the cool thing
-              </ContainerSuggestions>
             </ContainerBudgets>
         }
         <MoreInfoButton>
-          <img src={plus} alt="more info" height="20" width="20" onClick={this.props.redirectParent}/>
+          <img src={next} alt="more info" height="30" width="30" onClick={this.props.redirectParent}/>
         </MoreInfoButton>
       </Container>
     );

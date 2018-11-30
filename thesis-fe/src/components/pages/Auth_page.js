@@ -2,30 +2,41 @@ import React, { Component } from 'react';
 import AuthBox from '../presentational/AuthBox';
 import FacebookLogin from 'react-facebook-login';
 import { BASE_FACEBOOK_ID } from '../../helpers/constants';
-import styled from 'react-emotion'
+import styled from 'react-emotion';
+import { Mutation } from "react-apollo";
+import REGISTER from '../apollo/mutations/register';
+import LOGIN from '../apollo/mutations/login';
 
 const InnerContainer = styled('div')`
   transform: translateY(-10vh);
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: rgb(255, 255, 255,.6);
+  border-radius: 10px;
 `;
 
 const OuterContainer = styled('div')`
   height: 100vh;
   width: 100vw;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: #ff7e5f;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 `;
 
 class Auth_page extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputUsername : '',
+      inputName : '',
+      inputLastname : '',
       inputEmail : '',
-      inputPassword : ''
+      inputPassword : '',
+      childType: 'login'
     }
   }
 
@@ -33,6 +44,10 @@ class Auth_page extends Component {
     return (e) => {
       this.setState({[type] : e.target.value});
     }
+  }
+
+  handleParentType = (type) => {
+    this.setState({childType : type})
   }
 
   handleSendParent = () => {
@@ -56,13 +71,38 @@ class Auth_page extends Component {
     </button>
   );
 
+
   render() {
     return (
       <OuterContainer>
         <InnerContainer >
-          <AuthBox handleInputChild={this.handleInputParent.bind(this)} handleSendChild={this.handleSendParent.bind(this)}/>
-          <FacebookLogin appId={BASE_FACEBOOK_ID} autoLoad={false} fields="name,email,picture" callback={this.handleFBAuthentication}/>
+        { (this.state.childType === 'signup') ?
+          <Mutation mutation={REGISTER} variables ={{
+            email: this.state.inputEmail,
+            password: this.state.inputPassword,
+            firstName: this.state.inputName,
+            lastName: this.state.inputLastname,
+            avatarURL: 'test'
+            }}
+            onCompleted={(res) => console.log(res)}
+            >
+            { register => <AuthBox handleInputChild={this.handleInputParent.bind(this)} handleChildType={this.handleParentType} handleSendChild={register}  /> }
+          </Mutation>
+          :
+          <Mutation mutation={LOGIN} variables ={{
+            email: this.state.inputEmail,
+            password: this.state.inputPassword
+          }}
+          onCompleted={(res) => {
+            localStorage.setItem('token',res.login);
+            this.props.history.push('/mytrips');
+          }}
+          >
+            { login => <AuthBox handleInputChild={this.handleInputParent.bind(this)} handleChildType={this.handleParentType} handleSendChild={login}  /> }
+          </Mutation>
+        }
         </InnerContainer>
+        <FacebookLogin appId={BASE_FACEBOOK_ID} autoLoad={false} fields="name,email,picture" callback={this.handleFBAuthentication}  />
       </OuterContainer>
     );
   }

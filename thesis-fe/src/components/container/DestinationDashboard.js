@@ -1,68 +1,117 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion'
-import plus from '../../assets/svg/plus.svg';
+import star from '../../assets/svg/star.svg';
+import back from '../../assets/svg/back.svg';
+import { Mutation } from "react-apollo";
+import ADD_SUGGESTED_DESTINATION_LIKES from '../apollo/mutations/add_suggested_destination_likes';
 
-// const Container = styled('div')`
-//   width: 100vw;
-//   height: 90vh;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   padding-top: 5vh;
-// `;
-
-// const ContainerButton = styled('div')`
-//   height: 10vh;
-//   width:10vh;
-//   margin-bottom: 2rem;
-// `;
-
-// const ContainerTrip = styled('div')`
-//   padding: 1.5rem;
-//   background-color: green;
-//   height: 15vh;
-//   width:80vw;
-//   display: flex;
-//   flex-direction: column;
-//   margin: 1.5rem 0;
-// `;
-
-
-// const ContainerFriends = styled('div')`
-//   display: flex;
-//   width: 80vw;
-//   flex-direction: row;
-// `;
-
-// const AddTripButton = styled('button')`
-//   position: relative;
-//   height: 100%;
-//   width: 100%;
-//   font-size: 4rem;
-//   background-color: yellow;
-//   border-radius: 100%;
-//   display: flex;
-//   justify-content: center;
-//   align-item: center;
-// `;
-
-
+const BIG = styled('h1')`
+  font-size: 3rem;
+  color: white;
+`;
+const Container = styled('div')`
+  width: 100vw;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5vh;
+  background: #ff7e5f;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+`;
+const ContainerDestination = styled('div')`
+  width: 80vw;
+  height: 10vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+const ContainerDestinations = styled('div')`
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const H1 = styled('h1')`
+  font-size: 1.5rem;
+  margin-left: 1rem;
+  color: white;
+`;
+const H2 = styled('h1')`
+  font-size: 1.25rem;
+  margin: 0 1rem;
+  color: white;
+`;
+const GoBackButton = styled('button')`
+  position: absolute;
+  right: 40vw;
+  margin-top: 2rem;
+  margin-right: .25rem;
+  position: relative;
+  font-size: 2rem;
+`;
 class MyTripsDashboard extends Component {
-
-  redirectToTrip = (id) => {
-    return () => {
-      this.props.history.push('/tripdetails/' + id)
+  constructor(props) {
+    super(props);
+    this.state = {
+      tripID : this.props.location.pathname.split('/')[2]
     }
-
   }
-  render() {
+  redirectToTrip = (id) => {
+    this.props.history.push('/tripdetails/' + this.props.location.pathname.split('/')[2])
+  }
 
+  render
+
+  render() {
     console.log(this.props);
+    const isDecided = this.props.info.trip.destination.chosenDestination
+    const chosenToShow = ((isDecided) ? [(
+      <ContainerDestination key='1'>
+        <img src={star} alt="winner" height="25" width="25" />
+        <H1>{this.props.info.trip.destination.chosenDestination.name}</H1>
+        <H1>votes: {this.props.info.trip.destination.chosenDestination.voters.length}</H1>
+        <H1>creator: {this.props.info.trip.destination.chosenDestination.creator.firstName}</H1>
+      </ContainerDestination>
+      )]
+    :
+      [<H1>To be decided</H1>])
+    console.log(this.props.info.trip.destination.suggestions.length);
+    const chosenDestination = (isDecided) ? isDecided.name : null;
+    const othersToShow = ((this.props.info.trip.destination.suggestions.length > 0) ? [(
+      this.props.info.trip.destination.suggestions.filter(obj => obj.name !== chosenDestination).map( obj => (
+        <ContainerDestination key={obj.name + obj.voters.length}>
+          <H2>{obj.name}</H2>
+          <H2>votes: {obj.voters.length}</H2>
+          {isDecided &&
+            <Mutation mutation={ADD_SUGGESTED_DESTINATION_LIKES} variables ={{input : {
+              tripID : this.state.tripID,
+              name: obj.name
+            }}}>
+              {addDestinationLikes => <img src={star} alt="winner" height="15" width="15" onClick={addDestinationLikes} id={obj.name}/>}
+            </Mutation>
+          }
+        </ContainerDestination>
+      ))
+      )]
+    :
+      null)
+
 
     return (
-      <h1>
-        helo
-      </h1>
+      <Container>
+        <BIG>
+          Destination
+        </BIG>
+        <ContainerDestinations>
+          {chosenToShow}
+          {othersToShow}
+        </ContainerDestinations>
+        <GoBackButton>
+          <img src={back} alt="go back" height="40" width="40" onClick={this.redirectToTrip}/>
+        </GoBackButton>
+      </Container>
     );
   }
 }

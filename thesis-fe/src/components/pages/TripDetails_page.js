@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Navigation from '../container/Navigation';
 import styled from 'react-emotion'
 import { Query } from "react-apollo";
-import GET_TRIP_DETAILS from '../apollo/get_trip_details';
+import GET_TRIP_DETAILS from '../apollo/queries/get_trip_details';
 import TripParticipants from '../presentational/TripParticipants';
 import TripDestination from '../presentational/TripDestination';
 import TripCalendar from '../presentational/TripCalendar';
@@ -14,7 +14,7 @@ const GeneralInfo = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 2vh;
+  padding-top: 5vh;
 `;
 
 class TripDetails_page extends Component {
@@ -42,6 +42,7 @@ class TripDetails_page extends Component {
         if (loading) return <p>Loading...</p>;
         if (error) console.log(error);
         if (data.trip) {
+          console.log(data);
           return (
             <div>
             <Navigation textContent={data.trip.name}/>

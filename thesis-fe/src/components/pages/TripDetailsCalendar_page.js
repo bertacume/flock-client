@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Query } from "react-apollo";
-import GET_CALENDAR_DETAILS from '../apollo/get_calendar_details';
+import GET_CALENDAR_DETAILS from '../apollo/queries/get_calendar_details';
 import CalendarDashboard from '../container/CalendarDashboard';
 
 
@@ -15,13 +15,19 @@ import CalendarDashboard from '../container/CalendarDashboard';
 
 class TripDetailsCalendar_page extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      tripID : this.props.location.pathname.split('/')[2]
+    }
+  }
+
   render() {
-    const tripID = this.props.location.pathname.split('/')[2];
     const CalendarDetailsApollo = () => (
       <Query
       query={GET_CALENDAR_DETAILS}
       errorPolicy="all"
-      variables ={{tripID : tripID}}
+      variables ={{tripID: this.state.tripID}}
     >
       {({ loading, error, data }) => {
         if (loading) return <p>Loading...</p>;
@@ -29,7 +35,7 @@ class TripDetailsCalendar_page extends Component {
         if (data.trip) {
           return (
             <div>
-              <CalendarDashboard info={data}/>
+              <CalendarDashboard info={data} location={this.props.location} history={this.props.history}/>
           </div>
           );
         }
