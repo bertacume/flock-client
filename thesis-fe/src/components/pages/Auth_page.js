@@ -50,6 +50,14 @@ class Auth_page extends Component {
     this.setState({childType : type})
   }
 
+  handleLoginError = (error) => {
+    console.log('ERROR ON AUTHENTICATION: ', error)
+    const list = document.getElementsByTagName("input");
+    for (let i = 0; i < list.length; i++) {
+      list[i].value = '';
+    }
+  }
+
   handleSendParent = () => {
     if (!this.state.inputEmail) console.log('do graphql query for login and send: ', this.state.inputUsername, this.state.inputPassword)
     else console.log('do graphql query for signup and send: ',this.state.inputEmail)
@@ -97,6 +105,7 @@ class Auth_page extends Component {
             localStorage.setItem('token',res.login);
             this.props.history.push('/mytrips');
           }}
+          onError={(res) => this.handleLoginError(res)}
           >
             { login => <AuthBox handleInputChild={this.handleInputParent.bind(this)} handleChildType={this.handleParentType} handleSendChild={login}  /> }
           </Mutation>
