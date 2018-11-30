@@ -161,7 +161,7 @@ export class AddTripPage extends Component {
         onCompleted={(res) => this.props.history.push(`/tripdetails/${res.createTrip.id}`)}>
         {(createTrip, { data }) => (
           <div>
-            <Button onClick={() => createTrip({ variables: { trip:tripData } })}>CREATE TRIP</Button>
+            <Button onClick={() => createTrip({ variables: { trip: tripData } })}>CREATE TRIP</Button>
           </div>
         )}
       </Mutation>
