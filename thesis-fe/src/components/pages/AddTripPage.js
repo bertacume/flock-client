@@ -8,7 +8,7 @@ import { AddBudget } from '../container/AddBudget';
 import { AddParticipants } from '../container/AddParticipants';
 import posed, { PoseGroup } from 'react-pose';
 import { Mutation } from "react-apollo";
-import CREATE_TRIP from '../apollo/mutations/add_trip';
+import CREATE_TRIP from '../apollo/mutations/create_trip';
 
 const Page = posed.div({
   enter: {
@@ -157,10 +157,11 @@ export class AddTripPage extends Component {
     const { tripData } = this.state;
     return (
       <Mutation
-        mutation={CREATE_TRIP}>
+        mutation={CREATE_TRIP}
+        onCompleted={(res) => this.props.history.push(`/tripdetails/${res.createTrip.id}`)}>
         {(createTrip, { data }) => (
           <div>
-            <Button onClick={() => createTrip(tripData)}>CREATE TRIP</Button>
+            <Button onClick={() => createTrip({ variables: { trip:tripData } })}>CREATE TRIP</Button>
           </div>
         )}
       </Mutation>
