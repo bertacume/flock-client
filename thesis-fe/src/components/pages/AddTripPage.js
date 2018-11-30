@@ -93,28 +93,6 @@ export class AddTripPage extends Component {
     if (tripData[current].isDictated) this.resetCurrentState(current);
     this.handleNextClick();
   }
-  handleCreateTripClick = (createTrip) => {
-    const { name, destination, time, budget, members } = this.state.tripData;
-    //TODO: Match state tripData with trip
-    const trip = {
-      name,
-      participants: members,
-      destination: {
-        isDictated: false,
-        suggestions: destination.suggestions
-      },
-      budget: {
-        isDictated: false,
-        suggestions: budget.suggestions
-      },
-      timeFrame: {
-        isDictated: false,
-        suggestions: [{ startDate: "2008-12-18", endDate: "2018-12-24" }]
-      }
-    }
-    createTrip({ variables: { trip: trip } });
-    console.log(trip);
-  }
 
   renderViews = () => {
     const { currentView, tripData } = this.state;
@@ -166,7 +144,7 @@ export class AddTripPage extends Component {
 
   renderNavigateRightBtns = () => {
     const { currentView, tripData } = this.state;
-    if (currentView === 4) return <Button onClick={this.handleCreateTripClick}>CREATE TRIP</Button>;
+    if (currentView === 4) return this.renderCreateTripbtn();
     const current = this.relation[currentView]
     if (currentView === 0 ||
       (tripData[current].suggestions && tripData[current].suggestions.length)) {
@@ -176,12 +154,13 @@ export class AddTripPage extends Component {
   }
 
   renderCreateTripbtn = () => {
+    const { tripData } = this.state;
     return (
       <Mutation
         mutation={CREATE_TRIP}>
         {(createTrip, { data }) => (
           <div>
-            <Button onClick={() => this.handleCreateTripClick(createTrip)}>CREATE TRIP</Button>
+            <Button onClick={() => createTrip(tripData)}>CREATE TRIP</Button>
           </div>
         )}
       </Mutation>
