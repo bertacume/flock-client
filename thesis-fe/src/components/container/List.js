@@ -26,9 +26,11 @@ export class List extends Component {
       return (
         <ListItem key={item} styles={this.props.styles && this.props.styles.listItem && this.props.styles.listItem.join('; ')}>
           <ItemTitle styles={this.props.styles && this.props.styles.itemTitle && this.props.styles.itemTitle.join('; ')}>{item}</ItemTitle>
-          <button onClick={() => this.props.deleteItem(item)}>
-            <ImgBtn src={require('../../assets/delete.png')} />
-          </button>
+          {!(this.props.isNotTheChosen) &&
+            <button onClick={() => this.props.handleClick(item)}>
+              <ImgBtn src={require('../../assets/' + this.props.buttonResponse + '.png')} />
+            </button>
+          }
         </ListItem>
       );
     });

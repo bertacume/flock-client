@@ -11,7 +11,7 @@ const BIG = styled('h1')`
 `;
 const Container = styled('div')`
   width: 100vw;
-  height: 90vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,7 +65,6 @@ class MyTripsDashboard extends Component {
   render
 
   render() {
-    console.log(this.props);
     const isDecided = this.props.info.trip.destination.chosenDestination
     const chosenToShow = ((isDecided) ? [(
       <ContainerDestination key='1'>
@@ -76,8 +75,7 @@ class MyTripsDashboard extends Component {
       </ContainerDestination>
       )]
     :
-      [<H1>To be decided</H1>])
-    console.log(this.props.info.trip.destination.suggestions.length);
+      [<H1 key='1'>To be decided</H1>])
     const chosenDestination = (isDecided) ? isDecided.name : null;
     const othersToShow = ((this.props.info.trip.destination.suggestions.length > 0) ? [(
       this.props.info.trip.destination.suggestions.filter(obj => obj.name !== chosenDestination).map( obj => (

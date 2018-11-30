@@ -3,20 +3,26 @@ import styled from 'react-emotion'
 import back from '../../assets/svg/back.svg';
 import { DateRange } from 'react-date-range';
 import { List } from '../container/List';
+import moment from 'moment';
 
 const Container = styled('div')`
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   background: #ff7e5f;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 `
+const BIG = styled('h1')`
+  font-size: 3rem;
+  color: white;
+`;
 
 const ContainerUsers = styled('div')`
-  margin-top: 5rem;
+  margin-bottom: 3rem;
   margin-left: 5rem;
   width: 80vw;
   height: 10vh;
@@ -24,7 +30,6 @@ const ContainerUsers = styled('div')`
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 2rem;
 `
 const ContainerList = styled('div')`
   max-height: 30rem;
@@ -93,6 +98,7 @@ class MyTripsDashboard extends Component {
     })
   }
   render() {
+    console.log(this.props);
     const mock = {};
     mock.Arturo = ['18-12-2018','31-12-2018']
     mock.Damien = ['12-12-2018','25-12-2018']
@@ -102,6 +108,9 @@ class MyTripsDashboard extends Component {
     const toShow = this.state.listInfo.length > 0 && (this.state.selectedUser)
     return (
       <Container>
+        <BIG>
+          Calendar
+        </BIG>
         <ContainerUsers>
         {this.state.listInfo}
         </ContainerUsers>
@@ -109,9 +118,10 @@ class MyTripsDashboard extends Component {
           Checking {this.state.selectedUser}'s avaiability
         </H2>
         <DateRange
-          startDate={(toShow && mock[toShow][0]) || null}
-          endDate={(toShow && mock[toShow][1]) || null}
-          onInit={null}
+          minDate={(toShow && moment(this.state.usersInfo[toShow].startDate).format('DD-MM-YYYY')) || null}
+          maxDate={(toShow && moment(this.state.usersInfo[toShow].endDate).format('DD-MM-YYYY')) || null}
+          startDate={(toShow && moment(this.state.usersInfo[toShow].startDate).format('DD-MM-YYYY')) || null}
+          endDate={(toShow && moment(this.state.usersInfo[toShow].endDate).format('DD-MM-YYYY')) || null}
           calendars={1}
           twoStepChange={true}
           theme={{
@@ -167,6 +177,9 @@ class MyTripsDashboard extends Component {
         <ContainerList>
           {mock[toShow] &&
             <List
+            handleClick={(e) => console.log(e)}
+            buttonResponse={'plus'}
+            isNotTheChosen={this.state.selectedUser !== this.props.info.self.firstName}
             items={(mock[toShow] && [mock[toShow][0].concat([' - '],mock[toShow][1])])}
             styles={{
             maxHeight:'5rem',
