@@ -47,7 +47,7 @@ class TripDestination extends Component {
             </ContainerDestination>
           :
             <ContainerDestination>
-              Decided destination: {(this.props.info.chosenDestination.name) ? this.props.info.chosenDestination.name : <span>Not yet decided</span>}
+              Decided destination: {(this.props.info.chosenDestination) ? this.props.info.chosenDestination.name : <span>Not yet decided</span>}
             </ContainerDestination>
         }
         <MoreInfoButton>

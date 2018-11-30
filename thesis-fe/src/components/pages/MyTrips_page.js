@@ -24,20 +24,12 @@ class MyTrips_page extends Component {
       >
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
-<<<<<<< HEAD
           if (error) console.log(error);
-=======
-          if (error) window.location.replace('/auth');
->>>>>>> b9f31cea83fe3234f728a7b76d0586cbeab4e125
           if (data) {
             return (
               <div>
                 <Navigation textContent="My trips" avatarURL={data.self.avatarURL} />
-<<<<<<< HEAD
                 <MyTripsDashboard history={this.props.history} info={data.allTrips} />
-=======
-                <MyTripsDashboard history={this.props.history} info={[]} />
->>>>>>> b9f31cea83fe3234f728a7b76d0586cbeab4e125
               </div>
             );
           }
