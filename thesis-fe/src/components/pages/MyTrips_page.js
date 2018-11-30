@@ -16,6 +16,7 @@ class MyTrips_page extends Component {
 
 
   render() {
+    console.log(this.props)
     const MyTripsApollo = () => (
       <Query
         query={GET_MY_TRIPS}
@@ -24,7 +25,7 @@ class MyTrips_page extends Component {
       >
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
-          if (error) console.log(error);
+          if (error) window.location.replace('/auth');
           if (data) {
             return (
               <div>

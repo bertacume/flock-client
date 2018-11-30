@@ -31,7 +31,11 @@ class TripDetailsCalendar_page extends Component {
     >
       {({ loading, error, data }) => {
         if (loading) return <p>Loading...</p>;
-        if (error) console.log(error);
+        if (error) {
+          console.log('aaa')
+          console.log(error);
+          window.location.replace('/auth');
+        }
         if (data.trip) {
           return (
             <div>

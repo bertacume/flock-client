@@ -81,6 +81,7 @@ class Auth_page extends Component {
 
 
   render() {
+    console.log(this.props);
     return (
       <OuterContainer>
         <InnerContainer >

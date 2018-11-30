@@ -85,7 +85,10 @@ class MyTripsDashboard extends Component {
   }
 
   componentDidMount () {
+    if(this.props.info.timeFrame){
     this.generateObj();
+    }
+    else console.log(this.props)
   }
 
   redirectToTrip = () => {

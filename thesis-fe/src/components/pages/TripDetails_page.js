@@ -24,6 +24,7 @@ class TripDetails_page extends Component {
     }
   }
   render() {
+    console.log('oliver',this.props)
     const TripDetailsApollo = () => (
       <Container>
         <Query

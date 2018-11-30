@@ -7,7 +7,7 @@ const isLogged = () => {
   return res;
 }
 
-const Guard = ({component: Component}, ...rest) => (
+const Guard = ({component: Component, ...rest}) => (
   <Route {...rest} render={(props) => (
     (isLogged()) ?
       <Component {...props} />
