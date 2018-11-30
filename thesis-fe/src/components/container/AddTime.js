@@ -4,88 +4,82 @@ import { fontFamily, addTrip } from '../../helpers/styleConstants';
 import { WizardMode } from './WizardMode';
 import { List } from './List';
 import { DateRange } from 'react-date-range';
+import moment from 'moment'
 
 export class AddTime extends Component {
-  state = {
-    dictator: false,
-  }
-
-  componentDidMount() {
-    const chosenTime = this.props.time.chosenOne;
-    if (chosenTime) return this.setState({ dictator: true });
-  }
-
-  setMode = (flag) => {
-    this.setState({ dictator: flag });
-  }
-
-  renderDatesSuggestions = () => {
-    return this.props.time.suggestions.map(el => `${el[0]} -- ${el[1]}`);
+  setMode = (isDictated) => {
+    this.props.setDates({ suggestions: [], isDictated });
   }
 
   deleteItem = (item) => {
-    const suggestions = this.props.time.suggestions.filter(el => `${el[0]} -- ${el[1]}` !== item);
-    this.props.setDates({ suggestions, chosenOne: null });
+    const suggestions = this.props.timeFrame.suggestions.filter(obj => `${obj.startDate} -- ${obj.endDate}` !== item);
+    this.props.setDates({ ...this.props.timeFrame, suggestions });
   }
 
   checkExistingDates = (arr, range) => {
-    const filtered = arr.filter(subarr => subarr.join('') === range.join(''));
+    const filtered = arr.filter(obj => range.startDate === obj.startDate && range.endDate === obj.endDate);
     return !filtered.length;
   }
 
   onCalendarChange = (date) => {
-    const start = date.startDate.format("DD-MM-YYYY");
-    const end = date.endDate.format("DD-MM-YYYY");
-    const range = [start, end];
-    if (!start || !end) return;
-    if (this.state.dictator) return this.props.setDates({ suggestions: [], chosenOne: range });
-    const oldSuggestions = this.props.time.suggestions;
-    let suggestions;
-    if (oldSuggestions) {
-      if (!this.checkExistingDates(oldSuggestions, range)) return; //TODO: throw alert
-      suggestions = oldSuggestions.slice();
-    } else suggestions = [];
+    const { timeFrame } = this.props;
+    const startDate = date.startDate.format("DD-MM-YYYY");
+    const endDate = date.endDate.format("DD-MM-YYYY");
+    if (!startDate || !endDate) return;
+    const range = { startDate, endDate };
+    if (timeFrame.isDictated) return this.props.setDates({ ...this.props.timeFrame, suggestions: [range] });
+    if (!this.checkExistingDates(timeFrame.suggestions, range)) return; //TODO: throw alert
+    const suggestions = timeFrame.suggestions.slice();
     suggestions.push(range);
-    this.props.setDates({ suggestions, chosenOne: null });
+    this.props.setDates({ ...this.props.timeFrame, suggestions});
   }
 
   renderDemocracy = () => {
+    const { timeFrame } = this.props;
     return (<SubContainer>
       <Title>Add multiple dates:</Title>
-        <DateRange
-          onInit={null}
-          startDate={null}
-          endDate={null}
-          onChange={this.onCalendarChange}
-          calendars={1}
-          twoStepChange={true}
-          theme={CalendarTheme}
-        />
-      {this.props.time.suggestions &&
-        <List 
-        items={this.renderDatesSuggestions()} 
-        deleteItem={(item) => this.deleteItem(item)} 
-        styles={{
-          itemTitle : ['color: #b75537', 'margin: 0', 'font-size: 1.4rem'], 
-          listContainer : ['max-height: 9.6rem;'],
-          listItem : ['background-color: rgba(255, 255, 255, .3)', 
-          'padding: 0 35px',
-          'height: 2.8rem', 
-          'margin: .2rem 0'],
-        }}
+      <DateRange
+       startDate={this.getDateInit('startDate')}
+       endDate={this.getDateInit('endDate')}
+        onChange={this.onCalendarChange}
+        calendars={1}
+        twoStepChange={true}
+        theme={CalendarTheme}
+      />
+      {!!timeFrame.suggestions &&
+        <List
+          items={timeFrame.suggestions.map(obj => `${obj.startDate} -- ${obj.endDate}`)}
+          deleteItem={this.deleteItem}
+          styles={{
+            itemTitle: ['color: #b75537', 'margin: 0', 'font-size: 1.4rem'],
+            listContainer: ['max-height: 9.6rem;'],
+            listItem: ['background-color: rgba(255, 255, 255, .3)',
+              'padding: 0 35px',
+              'height: 2.8rem',
+              'margin: .2rem 0'],
+          }}
         />}
     </SubContainer>
     );
+  }
+
+  getDateInit = (key) => {
+    const { timeFrame } = this.props;
+    if (timeFrame.suggestions.length && timeFrame.suggestions[0]) {
+      return timeFrame.suggestions[0][key];
+    }
+    return moment();
   }
 
   renderDictator = () => {
     return (<SubContainer>
       <Title>Dates:</Title>
       <DateRange
-        startDate={this.props.time.chosenOne ? this.props.time.chosenOne[0] : null}
-        endDate={this.props.time.chosenOne ? this.props.time.chosenOne[1] : null}
+        startDate={this.getDateInit('startDate')}
+        endDate={this.getDateInit('endDate')}
         onChange={this.onCalendarChange}
         twoStepChange={true}
+        theme={CalendarTheme}
         calendars={1}
       />
     </SubContainer>
@@ -95,8 +89,8 @@ export class AddTime extends Component {
   render() {
     return (
       <Container>
-        <WizardMode mode={this.state.dictator} setMode={(flag) => this.setMode(flag)} />
-        {!this.state.dictator ? this.renderDemocracy() : this.renderDictator()}
+        <WizardMode mode={this.props.timeFrame.isDictated} setMode={this.setMode} />
+        {this.props.timeFrame.isDictated ? this.renderDictator() : this.renderDemocracy()}
       </Container>
     );
   }
@@ -108,7 +102,7 @@ const CalendarTheme = {
   DayInRange: {
     background: 'rgba(255, 255, 255, .6)',
     color: '#b75537'
-  }, 
+  },
   DaySelected: {
     background: '#ffffff',
     color: '#b75537'

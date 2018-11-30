@@ -15,7 +15,7 @@ export class WizardMode extends Component {
   render() {
     return (
       <Container>
-        <Button className={!this.props.mode ? pressed : null} onClick={() => this.handleClick('democracy')}>Democracy</Button>
+        <Button className={this.props.mode ? null : pressed} onClick={() => this.handleClick('democracy')}>Democracy</Button>
         <Button className={this.props.mode ? pressed : null} onClick={() => this.handleClick('dictator')}>Dictator</Button>
       </Container>
     );

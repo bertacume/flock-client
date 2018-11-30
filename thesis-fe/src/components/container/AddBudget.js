@@ -17,55 +17,34 @@ export class AddBudget extends Component {
     max: maxDefault,
     value: valueDefault,
     isAdded: false,
-    dictator: false,
   }
-
-  async componentDidMount() {
-    if (this.props.budget.chosenOne) {
-      await this.setState({ value: this.props.budget.chosenOne, isAdded: true, dictator: true });
+  
+  componentDidMount() {
+    const { budget } = this.props;
+    if (budget.suggestions.length) this.setState({ value: budget.suggestions[0], isAdded: true }, () => {
       if (this.state.max < this.state.value) {
         const newMax = Math.ceil(this.state.value / maxDefault) * maxDefault;
         this.setState({ max: newMax });
       }
-    }
+    });
+  }
+  
+  setMode = isDictated => {
+    this.props.setBudget({ suggestions: [], isDictated });
+    this.clearBudget();
   }
 
-  handleInput = async (value) => {
-    await this.setState({ value });
-    this.dictator &&
-      this.props.setBudget({ suggestions: [], chosenOne: this.state.value });
-  }
-
-  handleSetClick = async () => {
-    await this.setState({ isAdded: !this.state.isAdded });
-    this.state.isAdded ?
-      this.props.setBudget({ suggestions: [], chosenOne: this.state.value }) :
-      this.clearBudget();
-  }
-
-  handleAddClick = () => {
-    const parentSuggestions = this.props.budget.suggestions;
-    const value = this.state.value;
-    let suggestions;
-
-    //check if we already have some suggestions
-    if (parentSuggestions) {
-      if (parentSuggestions.includes(value)) return; //TODO: throw err
-      suggestions = parentSuggestions.slice();
-    } else suggestions = [];
-
-    suggestions.push(value);
-    this.props.setBudget({ suggestions, chosenOne: null });
-
-    this.setState({ value: valueDefault });
+  handleInput = value => {
+    this.setState({ value, isAdded: true });
+    this.props.setBudget({ ...this.props.budget, suggestions: [value] });
   }
 
   clearBudget = () => {
-    this.props.setBudget({ suggestions: [], chosenOne: null });
     this.setState({
       min: minDefault,
       max: maxDefault,
       value: (maxDefault - minDefault) / 2,
+      isAdded: false,
     })
   }
 
@@ -74,18 +53,19 @@ export class AddBudget extends Component {
     else this.setState({ max: this.state.max / 2 })
   }
 
-  setMode = async (flag) => {
-    await this.setState({ dictator: flag });
-  }
 
   renderSlider = () => {
     const { min, max, value } = this.state;
     return (
       <SliderContainer>
-        <SubTitle>{value}</SubTitle>
+        <SubTitleContainer>
+        {this.state.isAdded ?
+        <SubTitle>{value}</SubTitle>:
+        <Title>Drag to set the price</Title>}
+        </SubTitleContainer>
         <SliderWrapper>
           <InputRange
-            formatLabel={value => ``}
+            formatLabel={() => ``}
             maxValue={max}
             minValue={min}
             step={10}
@@ -112,32 +92,18 @@ export class AddBudget extends Component {
     );
   }
 
-  deleteItem = (item) => {
-    const suggestions = this.props.budget.suggestions.filter(el => el !== item);
-    this.props.setBudget({ suggestions, chosenOne: null });
-  }
-
-  renderSuggestions = () => {
-    return this.props.budget.suggestions.sort((a, b) => a - b);
-  }
-
   renderDemocracy = () => {
-    const { suggestions } = this.props.budget;
     return (<SubContainer>
-      <Title>Budget suggestions:</Title>
+      <Title>Budget suggestion:</Title>
       {this.renderSlider()}
-      <Button onClick={this.handleAddClick}>Add</Button>
-      {suggestions && <List items={this.renderSuggestions()} deleteItem={(item) => this.deleteItem(item)} />}
     </SubContainer>
     );
   }
 
   renderDictator = () => {
-    const { isAdded } = this.state;
     return (<Container>
       <Title>Budget:</Title>
-      <Button onClick={this.handleSetClick}>{isAdded ? 'X' : 'Set'}</Button>
-      {isAdded && this.renderSlider()}
+      {this.renderSlider()}
     </Container>
     );
   }
@@ -145,7 +111,7 @@ export class AddBudget extends Component {
   render() {
     return (
       <Container>
-        <WizardMode mode={this.state.dictator} setMode={(flag) => this.setMode(flag)} />
+        <WizardMode mode={this.props.budget.isDictated} setMode={this.setMode} />
         {!this.state.dictator ?
           this.renderDemocracy() :
           this.renderDictator()}
@@ -170,6 +136,14 @@ const SubContainer = styled('div')`
   align-items: center;
   background-color: ${addTrip.containerBackground};
   border-radius: 3rem;
+`
+const SubTitleContainer = styled('div')`
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  flex-direction row;
+  justify-content: center;
+  align-items: center;
 `
 const SliderContainer = styled('div')`
   width: 100%;
@@ -215,11 +189,6 @@ const SubTitle = styled('p')`
 color: #ffffff;
 font-family: ${fontFamily};
 font-size: 3rem;
-`
-const Button = styled('button')`
-width: 20vw;
-height: 5vh;
-
 `
 const BtnContainer = styled('div')`
 display: flex;
