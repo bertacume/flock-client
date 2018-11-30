@@ -21,7 +21,7 @@ export class AddBudget extends Component {
   
   componentDidMount() {
     const { budget } = this.props;
-    if (budget.suggestions.length) this.setState({ value: budget.suggestions[0], isAdded: true }, () => {
+    if (budget.suggestions.length) this.setState({ value: budget.suggestions[0].value, isAdded: true }, () => {
       if (this.state.max < this.state.value) {
         const newMax = Math.ceil(this.state.value / maxDefault) * maxDefault;
         this.setState({ max: newMax });
@@ -36,7 +36,7 @@ export class AddBudget extends Component {
 
   handleInput = value => {
     this.setState({ value, isAdded: true });
-    this.props.setBudget({ ...this.props.budget, suggestions: [value] });
+    this.props.setBudget({ ...this.props.budget, suggestions: [{value: value}] });
   }
 
   clearBudget = () => {
