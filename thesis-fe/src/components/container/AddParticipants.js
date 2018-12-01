@@ -63,6 +63,8 @@ export class AddParticipants extends Component {
         {this.props.participants &&
           <List items={this.props.participants}
             deleteItem={(item) => this.deleteItem(item)}
+            handleClick={this.deleteItem}
+            buttonResponse='delete'
             styles={{
               itemTitle: ['color: #b75537', 'margin: 0', 'font-size: 1.5rem'],
               listContainer: ['max-height: 21rem'],

@@ -63,7 +63,8 @@ export class AddDestination extends Component {
         {!!suggestions.length &&
           <List
             items={suggestions.map(obj => obj.name)}
-            deleteItem={(item) => this.deleteItem(item)}
+            handleClick={this.deleteItem}
+            buttonResponse='delete'
             styles={{
               itemTitle: ['color: #b75537', 'margin: 0', 'font-size: 1.5rem'],
               listContainer: ['max-height: 21rem'],

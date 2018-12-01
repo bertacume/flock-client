@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { cx, css } from 'emotion';
 import styled from 'react-emotion'
-import { fontFamily, addTrip } from '../../helpers/styleConstants';
+import { fontFamily } from '../../helpers/styleConstants';
 
 
 export class AddName extends Component {

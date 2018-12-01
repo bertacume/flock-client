@@ -23,8 +23,8 @@ export class AddTime extends Component {
 
   onCalendarChange = (date) => {
     const { timeFrame } = this.props;
-    const startDate = date.startDate.format("DD-MM-YYYY");
-    const endDate = date.endDate.format("DD-MM-YYYY");
+    const startDate = date.startDate.format("YYYY-MM-DD");
+    const endDate = date.endDate.format("YYYY-MM-DD");
     if (!startDate || !endDate) return;
     const range = { startDate, endDate };
     if (timeFrame.isDictated) return this.props.setDates({ ...this.props.timeFrame, suggestions: [range] });
@@ -67,7 +67,7 @@ export class AddTime extends Component {
   getDateInit = (key) => {
     const { timeFrame } = this.props;
     if (timeFrame.suggestions.length && timeFrame.suggestions[0]) {
-      return timeFrame.suggestions[0][key];
+      return moment(timeFrame.suggestions[0][key]);
     }
     return moment();
   }
