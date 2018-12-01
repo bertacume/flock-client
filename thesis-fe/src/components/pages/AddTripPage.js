@@ -9,6 +9,7 @@ import { AddParticipants } from '../container/AddParticipants';
 import posed, { PoseGroup } from 'react-pose';
 import { Mutation } from "react-apollo";
 import CREATE_TRIP from '../apollo/mutations/create_trip';
+import GET_MY_TRIPS from '../apollo/queries/get_my_trips';
 
 const Page = posed.div({
   enter: {
@@ -158,6 +159,13 @@ export class AddTripPage extends Component {
     return (
       <Mutation
         mutation={CREATE_TRIP}
+        update={(cache, { data: { createTrip } }) => {
+          const cachedTrips = cache.readQuery({ query: GET_MY_TRIPS });
+          cache.writeQuery({
+            query: GET_MY_TRIPS,
+            data: { allTrips: cachedTrips.allTrips.concat([createTrip]), self: cachedTrips.self }
+          });
+        }}  
         onCompleted={(res) => this.props.history.push(`/tripdetails/${res.createTrip.id}`)}>
         {(createTrip, { data }) => (
           <div>

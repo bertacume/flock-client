@@ -2,7 +2,11 @@ import gql from "graphql-tag";
 
 const CREATE_TRIP = gql`mutation createTrip($trip: TripInput!) {
   createTrip(trip: $trip) {
-    id
+    id,
+    name,
+    creator {
+      firstName
+    }
   }
 }
 `;
