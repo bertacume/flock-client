@@ -17,7 +17,6 @@ class TripDetails_page extends Component {
 
 
   render() {
-    console.log(this);
     const ParticipantsDetailsApollo = () => (
       <Query
       query={GET_PARTICIPANTS_DETAILS}

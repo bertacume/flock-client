@@ -88,8 +88,6 @@ class ParticipantsDetails extends Component {
     this.props.history.push('/tripdetails/' + this.props.match.params.id)
   }
   render() {
-
-    console.log(this.state);
     const image = (imgURL) => ( {
       backgroundImage:`url(${imgURL})`,
       backgroundSize: "cover",
@@ -108,7 +106,7 @@ class ParticipantsDetails extends Component {
         <div style={image('https://img.clipartxtras.com/2f24590138d32260c0e35e81b46a196d_drawing-dinosaur-drawing-easy-as-well-as-cute-dinosaur-drawing-dinosaur-cute-drawing_600-800.jpeg')}></div>
         <ContainerInfo>
           <Personal>
-          <H1>{obj.firstName + ' ' + obj.lastName}</H1>
+          <H1>{(obj.firstName || 'Unregistered') + ' ' + (obj.lastName || 'user') }</H1>
           <H2>Email: {obj.email}</H2>
           </Personal>
           <img src={confirm} alt="confirm" height="20" width="20"/>
@@ -131,7 +129,9 @@ class ParticipantsDetails extends Component {
               participants : this.state.input
             }}
             onCompleted={(res) => {
-              console.log(res);
+              this.setState({
+                input: ''
+              })
             }}
             onError={(error) => console.log(error)}
           >

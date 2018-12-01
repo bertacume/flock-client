@@ -16,7 +16,6 @@ class MyTrips_page extends Component {
 
 
   render() {
-    console.log(this.props)
     const MyTripsApollo = () => (
       <Query
         query={GET_MY_TRIPS}

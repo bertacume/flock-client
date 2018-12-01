@@ -30,9 +30,7 @@ class TripDetailsCalendar_page extends Component {
           console.log(error);
           window.location.replace('/auth');
         }
-        console.log('aaaaaaab');
         if (data.trip) {
-          console.log('bbbbbb');
           return (
             <div>
               <CalendarDashboard info={data} location={this.props.location} history={this.props.history} match={this.props.match} />

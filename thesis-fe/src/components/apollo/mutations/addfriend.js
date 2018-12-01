@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-const REGISTER = gql` mutation addParticipant ($tripID:ID!, $participants: [String]! )
+const ADD_FRIEND = gql` mutation addParticipant ($tripID:ID!, $participants: [String]! )
   {
     addParticipant (tripID: $tripID, participants: $participants ) {
       name,
@@ -12,4 +12,4 @@ const REGISTER = gql` mutation addParticipant ($tripID:ID!, $participants: [Stri
   }
 `;
 
-export default REGISTER;
+export default ADD_FRIEND;
