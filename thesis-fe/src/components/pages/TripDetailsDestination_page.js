@@ -34,9 +34,10 @@ class TripDetailsDestination_page extends Component {
         if (loading) return <p>Loading...</p>;
         if (error) console.log(error);
         if (data.trip) {
+          console.log('data', data)
           return (
-            <div>
-              <DestinationDashboard info={data} location={this.props.location} history={this.props.history}/>
+            <div style={{width: '100vw', height:  '100vh', background: 'pink', margin: 0, padding: 0}}>
+              <DestinationDashboard trip={data.trip} location={this.props.location} history={this.props.history}/>
           </div>
           );
         }
