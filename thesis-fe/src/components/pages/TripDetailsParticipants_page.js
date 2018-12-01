@@ -15,12 +15,6 @@ import ParticipantsDashboard from '../container/ParticipantsDashboard';
 
 class TripDetails_page extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      tripID : this.props.location.pathname.split('/')[2]
-    }
-  }
 
   render() {
     console.log(this);
@@ -28,7 +22,7 @@ class TripDetails_page extends Component {
       <Query
       query={GET_PARTICIPANTS_DETAILS}
       errorPolicy="all"
-      variables ={{tripID : this.state.tripID}}
+      variables ={{tripID : this.props.match.params.id}}
     >
       {({ loading, error, data }) => {
         if (loading) return <p>Loading...</p>;
@@ -36,7 +30,7 @@ class TripDetails_page extends Component {
         if (data.trip) {
           return (
             <div>
-              <ParticipantsDashboard info={data} location={this.props.location} history={this.props.history} />
+              <ParticipantsDashboard info={data} location={this.props.location} history={this.props.history} match={this.props.match}/>
           </div>
           );
         }

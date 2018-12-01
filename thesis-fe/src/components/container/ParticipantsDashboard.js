@@ -69,7 +69,6 @@ class ParticipantsDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id : this.props.location.pathname.split('/')[2],
       input : ''
     }
   }
@@ -86,7 +85,7 @@ class ParticipantsDetails extends Component {
     return input[0] && input[0].value
   }
   redirectToTrip = (id) => {
-    this.props.history.push('/tripdetails/' + this.props.location.pathname.split('/')[2])
+    this.props.history.push('/tripdetails/' + this.props.match.params.id)
   }
   render() {
 
@@ -128,7 +127,7 @@ class ParticipantsDetails extends Component {
           <input key='aaaa' value={this.state.input} placeholder="Invite more friends" style={{fontSize:"15px", borderRadius:"5px", borderStyle: 'none'}} type="text" id="input" onChange={(e) => this.setState({input:e.target.value})} />
         }
           <Mutation mutation={ADD_FRIEND} variables ={{
-              tripID: this.state.id,
+              tripID: this.props.match.params.id,
               participants : this.state.input
             }}
             onCompleted={(res) => {

@@ -61,7 +61,6 @@ const H2 = styled('h1')`
 class MyTripsDashboard extends Component {
 
   state = {
-    tripID : this.props.location.pathname.split('/')[2],
     usersInfo : {},
     listInfo : [],
     selectedUser :  null
@@ -85,6 +84,7 @@ class MyTripsDashboard extends Component {
   }
 
   componentDidMount () {
+    console.log('ccccc')
     if(this.props.info.timeFrame){
     this.generateObj();
     }
@@ -92,7 +92,7 @@ class MyTripsDashboard extends Component {
   }
 
   redirectToTrip = () => {
-    this.props.history.push('/tripdetails/' + this.state.tripID)
+    this.props.history.push('/tripdetails/' + this.props.match.params.id)
   }
 
   showTimeframe = (e) => {

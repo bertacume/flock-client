@@ -15,19 +15,13 @@ import CalendarDashboard from '../container/CalendarDashboard';
 
 class TripDetailsCalendar_page extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      tripID : this.props.location.pathname.split('/')[2]
-    }
-  }
 
   render() {
     const CalendarDetailsApollo = () => (
       <Query
       query={GET_CALENDAR_DETAILS}
       errorPolicy="all"
-      variables ={{tripID: this.state.tripID}}
+      variables ={{tripID: this.props.match.params.id}}
     >
       {({ loading, error, data }) => {
         if (loading) return <p>Loading...</p>;
@@ -36,10 +30,12 @@ class TripDetailsCalendar_page extends Component {
           console.log(error);
           window.location.replace('/auth');
         }
+        console.log('aaaaaaab');
         if (data.trip) {
+          console.log('bbbbbb');
           return (
             <div>
-              <CalendarDashboard info={data} location={this.props.location} history={this.props.history}/>
+              <CalendarDashboard info={data} location={this.props.location} history={this.props.history} match={this.props.match} />
           </div>
           );
         }

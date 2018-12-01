@@ -35,7 +35,7 @@ class DestinationDashboard extends Component {
   }
 
   deleteItem = (item) => {
-    //TODO: mutation that check and deletes item 
+    //TODO: mutation that check and deletes item
   }
 
   renderDictated = () => {
@@ -81,7 +81,7 @@ class DestinationDashboard extends Component {
     const { destination } = this.props.info.trip;
     return (
       <Container>
-        <Navbar 
+        <Navbar
         path={`/tripdetails/${this.props.tripID}`}
         title={'destination'}
         icon={locationImg}

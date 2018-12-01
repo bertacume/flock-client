@@ -20,11 +20,10 @@ class TripDetails_page extends Component {
 
   redirectParent = (str) => {
     return () => {
-      this.props.history.push('/tripdetails/' + this.state.tripID + '/' + str)
+      this.props.history.push('/tripdetails/' + this.props.match.params.id + '/' + str)
     }
   }
   render() {
-    console.log('oliver',this.props)
     const TripDetailsApollo = () => (
       <Container>
         <Query

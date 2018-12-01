@@ -12,7 +12,7 @@ class TripDetailsBudget_page extends Component {
       <Query
         query={GET_BUDGET_DETAILS}
         errorPolicy="all"
-        variables={{ tripID: this.tripID }}
+        variables={{ tripID: this.props.match.params.id }}
       >
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
