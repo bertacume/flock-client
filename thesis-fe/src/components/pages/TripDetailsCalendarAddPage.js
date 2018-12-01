@@ -73,7 +73,16 @@ class TripDetailsCalendarAddPage extends Component {
           startDate={null}
           endDate={null}
           calendars={1}
-          onChange={(e) => this.setState({selectedList : this.state.selectedList.concat(e)})}
+          onChange={(e) => {
+            const objTime = this.state.selectedList;
+            console.log(objTime)
+            for (let i = 0; i < objTime.length; i++) {
+              if ((objTime[i].startDate._d.toString() === e.startDate._d.toString()) && (objTime[i].endDate._d.toString() === e.endDate._d.toString())) {
+                return
+              }
+            }
+            this.setState({selectedList : this.state.selectedList.concat(e)})
+          }}
           twoStepChange={true}
           theme={{
             DayInRange: {
