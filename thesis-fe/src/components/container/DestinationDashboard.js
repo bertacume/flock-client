@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import styled from 'react-emotion'
+import styled from 'react-emotion';
 import star from '../../assets/svg/star.svg';
-// import back from '../../assets/svg/back.svg';
 import back from '../../assets/back.png';
-import destinationImg from '../../assets/destination.png';
+import { NavBar, Input } from '../styledComponents/styledComponents';
 import locationImg from '../../assets/location.png';
 import { Mutation } from "react-apollo";
-import ADD_SUGGESTED_DESTINATION_LIKES from '../apollo/mutations/add_suggested_destination_likes';
+import { PollList } from './PollList';
+
+const mockdata = ['London', 'Geneva', 'Barcelona'];
 
 class DestinationDashboard extends Component {
   constructor(props) {
@@ -42,7 +43,19 @@ class DestinationDashboard extends Component {
   }
 
   renderDemocracy = () => {
-    return (<H1 key='1'>To be decided</H1>);
+    const { destination } = this.props.trip;
+    console.log('des', destination);
+    return (<Container>
+      <SubContainer>
+        <Input placeholder={'Add suggestons'} />
+        <ButtonAdd onClick={this.handleAddClick}><ImgBtn src={require('../../assets/plus.png')} /></ButtonAdd>
+      </SubContainer>
+      <Container>
+        <PollList items={destination.suggestions} />
+      </Container>
+    </Container>
+
+    );
   }
 
 
@@ -73,18 +86,18 @@ class DestinationDashboard extends Component {
     return (
       <Container>
         {this.renderNavBar()}
-        <ContainerDestinations>
-          {destination.isDictated ? this.renderDictated() : this.renderDemocracy()}
-        </ContainerDestinations>
+        {/* <ContainerDestinations> */}
+        {destination.isDictated ? this.renderDictated() : this.renderDemocracy()}
+        {/* </ContainerDestinations> */}
       </Container>
     );
   }
 }
 
-const BIG = styled('h1')`
-  font-size: 3rem;
-  color: #e48264;
-`;
+// const BIG = styled('h1')`
+//   font-size: 3rem;
+//   color: #e48264;
+// `;
 const Container = styled('div')`
   box-sizing: border-box;
   width: 100%;
@@ -94,18 +107,32 @@ const Container = styled('div')`
   justify-content: flex-start;
   align-items: center;
   background-color: #ffffff;
+  Input:focus{
+    outline: none;
+  }
+  Input {
+    color: #777777;
+    border-color: #ffffff;
+  }
+  Input::placeholder {
+    color: #ffffff;
+  }
+  button:active {
+    border-width: 0;
+  }
 `;
-const NavBar = styled('div')`
-  box-sizing: border-box;
+const SubContainer = styled('div')`
   width: 100%;
-  height: 8%;
-  padding: 2%;
+  height: 17%;
+  // padding: 10px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  // padding: 20px 0 30px 0;
+  flex-direction column;
+  justify-content: space-evenly;
   align-items: center;
-  background-color: #ffffff;
-`;
+  background: #e9e9e9;
+  // border-radius: 2rem;
+`
 const Button = styled('button')`
   height: 90%;
   width: 10%;
@@ -141,17 +168,29 @@ const H1 = styled('h1')`
   margin-left: 1rem;
   color: #e48264;
 `;
-const H2 = styled('h1')`
-  font-size: 1.25rem;
-  margin: 0 1rem;
-  color: #e48264;
-`;
-const GoBackButton = styled('button')`
-  position: absolute;
-  right: 40vw;
-  margin-top: 2rem;
-  margin-right: .25rem;
-  position: relative;
-  font-size: 2rem;
-`;
+
+const ImgBtn = styled('img')`
+  height: 100%;
+`
+const ButtonAdd = styled('button')`
+  width: 20vw;
+  height: 5vh;
+  border-width: 0;
+  border-color: #afafaf;
+  border-radius: 10px;
+  background-color: transparent;
+`
+// const H2 = styled('h1')`
+//   font-size: 1.25rem;
+//   margin: 0 1rem;
+//   color: #e48264;
+// `;
+// const GoBackButton = styled('button')`
+//   position: absolute;
+//   right: 40vw;
+//   margin-top: 2rem;
+//   margin-right: .25rem;
+//   position: relative;
+//   font-size: 2rem;
+// `;
 export default DestinationDashboard;

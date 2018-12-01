@@ -229,7 +229,6 @@ const Button = styled('button')`
   border-color: #afafaf;
   border-radius: 10px;
   background-color: transparent;
-  font-family: ${fontFamily}
 `
 const FakeBtn = styled('div')`
   width: 20vw;

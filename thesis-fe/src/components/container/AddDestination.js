@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion'
 import { fontFamily, addTrip } from '../../helpers/styleConstants';
+import { Input } from '../styledComponents/styledComponents';
 import { WizardMode } from './WizardMode';
 import { List } from './List';
 
@@ -135,17 +136,17 @@ const Button = styled('button')`
   background-color: transparent;
   font-family: ${fontFamily};
 `
-const Input = styled('input')`
-  width: 80%;
-  height: 5vh;
-  font-family: ${fontFamily};
-  padding: 0 10px;
-  border-width: 0 0 2px 0;
-  color: #b75537;
-  border-color: white;
-  background-color: transparent;
-  font-size: 1.5rem;
-`
+// const Input = styled('input')`
+//   width: 80%;
+//   height: 5vh;
+//   font-family: ${fontFamily};
+//   padding: 0 10px;
+//   border-width: 0 0 2px 0;
+//   color: #b75537;
+//   border-color: white;
+//   background-color: transparent;
+//   font-size: 1.5rem;
+// `
 const ImgBtn = styled('img')`
   height: 100%;
 `
