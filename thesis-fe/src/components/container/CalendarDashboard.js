@@ -87,6 +87,7 @@ class MyTripsDashboard extends Component {
         </H2>
         <img src={person} alt="winner" height="20" width="20" />
         <img src={star} alt="winner" height="20" width="20" />
+
       </ContainerSuggestions>
     ))
     return (

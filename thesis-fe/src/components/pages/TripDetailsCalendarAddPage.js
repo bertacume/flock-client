@@ -5,6 +5,9 @@ import { List } from '../container/List'
 import moment from 'moment';
 import { fontFamily } from '../../helpers/styleConstants';
 import back from '../../assets/svg/back.svg';
+import ADD_DATE from '../apollo/mutations/add_date';
+import { Mutation } from "react-apollo";
+import { Link } from "react-router-dom";
 
 
 const Container = styled('div')`
@@ -140,10 +143,21 @@ class TripDetailsCalendarAddPage extends Component {
             handleClick = {(e) => this.setState({selectedList: this.state.selectedList.slice().filter( obj => e !== (moment(obj.startDate).format('DD-MM-YYYY') + ' - ' +  moment(obj.endDate).format('DD-MM-YYYY')))})}
           />
         </ContainerList>
-
-        <Button >
-          Select
-        </Button>
+          <Link to={'/tripdetails/' + this.props.match.params.id + '/calendar/'}>
+            <Mutation mutation={ADD_DATE} variables ={{
+                tripID: this.props.match.params.id,
+                timeFrames: this.state.selectedList
+              }}
+              onCompleted={(res) => {
+                this.setState({
+                  input: ''
+                })
+              }}
+              onError={(error) => console.log(error)}
+            >
+              { add => <Button  onClick={add}>Add</Button> }
+            </Mutation>
+          </Link>
         <GoBackButton>
           <img src={back} alt="go back" height="40" width="40" onClick={this.redirectToCalendar}/>
         </GoBackButton>
