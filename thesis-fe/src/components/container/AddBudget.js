@@ -48,11 +48,10 @@ export class AddBudget extends Component {
     })
   }
 
-  handleIntervalBtnsClick = async (type) => {
+  handleIntervalBtnsClick = (type) => {
     if (type === 'plus') this.setState({ max: this.state.max * 2 })
     else this.setState({ max: this.state.max / 2 })
   }
-
 
   renderSlider = () => {
     const { min, max, value } = this.state;
@@ -137,22 +136,14 @@ const SubContainer = styled('div')`
   background-color: ${addTrip.containerBackground};
   border-radius: 3rem;
 `
-const SubTitleContainer = styled('div')`
-  width: 100%;
-  height: 10rem;
-  display: flex;
-  flex-direction row;
-  justify-content: center;
-  align-items: center;
-`
-const SliderContainer = styled('div')`
+export const SliderContainer = styled('div')`
   width: 100%;
   display: flex;
   height: 80%;
   flex-direction column;
   align-items: center;
 `
-const SliderWrapper = styled('div')`
+export const SliderWrapper = styled('div')`
   width: 75%;
   touch-action: none;
   display: inline-block;
@@ -170,25 +161,33 @@ const SliderWrapper = styled('div')`
     background: #ffffff;
   }
 `
-const Label = styled('p')`
+export const Label = styled('p')`
   color: white;
 `
-const SliderLblsContainer = styled('div')`
+export const SliderLblsContainer = styled('div')`
 width: 80%;
 margin: 0;
 display: flex;
 flex-direction row;
 justify-content: space-between;
 `
+export const SubTitleContainer = styled('div')`
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  flex-direction row;
+  justify-content: center;
+  align-items: center;
+`
+export const SubTitle = styled('p')`
+color: #ffffff;
+font-family: ${fontFamily};
+font-size: 3rem;
+`
 const Title = styled('p')`
 color: #b75537;
 font-family: ${fontFamily};
 font-size: 1.5rem;
-`
-const SubTitle = styled('p')`
-color: #ffffff;
-font-family: ${fontFamily};
-font-size: 3rem;
 `
 const BtnContainer = styled('div')`
 display: flex;

@@ -1,12 +1,47 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
+import { css } from 'emotion';
 import budgetImg from '../../assets/location.png';
 import { Navbar } from '../presentational/Navbar';
+import InputRange from 'react-input-range';
+import 'react-input-range/lib/css/index.css';
+import { fontFamily } from '../../helpers/styleConstants';
 import ADD_OR_VOTE_FOR_BUDGET from '../apollo/mutations/add_or_vote_for_budget';
 import REMOVE_VOTE_FOR_BUDGET from '../apollo/mutations/remove_vote_for_budget';
 import { PollList } from '../presentational/PollList';
+import { Mutation } from 'react-apollo';
+
+const minDefault = 0;
+const maxDefault = 1000;
+const valueDefault = (maxDefault - minDefault) / 2;
 
 class BudgetDashboard extends Component {
+  state = {
+    min: minDefault,
+    max: maxDefault,
+    value: valueDefault,
+    adding: false,
+  }
+
+  handleInput = (value, mutation) => {
+    this.addVote(mutation, value);
+    this.clearBudget();
+  }
+
+  handleIntervalBtnsClick = (type) => {
+    if (type === 'plus') this.setState({ max: this.state.max * 2 })
+    else this.setState({ max: this.state.max / 2 })
+  }
+
+  clearBudget = () => {
+    this.setState({
+      min: minDefault,
+      max: maxDefault,
+      value: (maxDefault - minDefault) / 2,
+      adding: false,
+    })
+  }
+
   addVote = (mutation, value) => {
     const variables = { tripID: this.props.tripID, budget: { value } };
     mutation({ variables });
@@ -17,12 +52,56 @@ class BudgetDashboard extends Component {
     mutation({ variables });
   }
 
+  renderSlider = () => {
+    const { min, max, value } = this.state;
+
+    return (<SliderContainer>
+      <SubTitleContainer>
+        {this.state.adding ?
+          <SubTitle>{value}</SubTitle> :
+          <Title>Drag to set the price</Title>}
+      </SubTitleContainer>
+      <SliderWrapper>
+        <Mutation
+          mutation={ADD_OR_VOTE_FOR_BUDGET}
+        >
+          {(mutation, { data }) => (
+            <InputRange
+              formatLabel={() => ``}
+              maxValue={max}
+              minValue={min}
+              step={10}
+              value={value}
+              onChange={value => this.setState({ value, adding: true })}
+              onChangeComplete={(value) => this.handleInput(value, mutation)} />
+          )}
+        </Mutation>
+      </SliderWrapper>
+      <SliderLblsContainer>
+        <BtnContainer>
+          <Label className={minClass}>{min}</Label>
+          {(value * 2 < max) &&
+            <ButtonInterval onClick={() => this.handleIntervalBtnsClick('minus')}>
+              <ImgBtn src={require('../../assets/minus_orange.png')} />
+            </ButtonInterval>
+          }
+        </BtnContainer>
+        <BtnContainer>
+          <Label>{max}</Label>
+          <ButtonInterval onClick={() => this.handleIntervalBtnsClick('plus')}>
+            <ImgBtn src={require('../../assets/plus_orange.png')} />
+          </ButtonInterval>
+        </BtnContainer>
+      </SliderLblsContainer>
+    </SliderContainer>);
+  }
+
   renderDemocracy = () => {
     const { self } = this.props.info;
     const { budget } = this.props.info.trip;
     return (<Container>
       <SubContainer>
-        <p>Slider goes here</p>
+        {this.renderSlider()}
       </SubContainer>
       <List>
         <PollList
@@ -43,10 +122,10 @@ class BudgetDashboard extends Component {
     return (
       <Container>
         <Navbar
-        tripID={this.props.tripID}
-        title={'budget'}
-        icon={budgetImg}
-        history={this.props.history}
+          tripID={this.props.tripID}
+          title={'budget'}
+          icon={budgetImg}
+          history={this.props.history}
         />
         {budget.isDictated ? this.renderDictated() : this.renderDemocracy()}
       </Container>
@@ -90,7 +169,7 @@ const List = styled('div')`
 `
 const SubContainer = styled('div')`
   width: 100%;
-  height: 18%;
+  height: 30%;
   margin: 5px 0;
   padding: 10px 0;
   display: flex;
@@ -98,5 +177,79 @@ const SubContainer = styled('div')`
   justify-content: space-evenly;
   align-items: center;
   background: #e9e9e9;
+`
+export const SliderContainer = styled('div')`
+  width: 100%;
+  display: flex;
+  height: 100%;
+  flex-direction column;
+  justify-content: center;
+  align-items: center;
+`
+export const SliderWrapper = styled('div')`
+  width: 75%;
+  touch-action: none;
+  display: inline-block;
+
+  .input-range__slider {
+    background: #e5815f;
+    border: 1px solid #e5815f;
+  }
+
+  .input-range__track {
+    background: #ffffff;
+  }
+
+  .input-range__track--active {
+    background: #e5815f;
+  }
+`
+export const Label = styled('p')`
+  color: #e5815f;
+  font-weight: 600;
+  margin: 2px;
+`
+export const SliderLblsContainer = styled('div')`
+  width: 80%;
+  margin: 0;
+  display: flex;
+  flex-direction row;
+  justify-content: space-between;
+`
+export const SubTitleContainer = styled('div')`
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  flex-direction row;
+  justify-content: center;
+  align-items: center;
+`
+export const SubTitle = styled('p')`
+  color: #e5815f;
+  font-family: ${fontFamily};
+  font-size: 3rem;
+`
+const Title = styled('p')`
+  color: #e5815f;
+  font-size: 1.5rem;
+`
+const BtnContainer = styled('div')`
+  height: 100%;
+  margin: 5px 0 10px 0;
+  display: flex;
+  flex-direction column;
+  align-items: center;
+`
+const ButtonInterval = styled('button')`
+  align-self: center;
+  border-width: 0;
+  background-color: transparent;
+  width: 10vw;
+`
+const ImgBtn = styled('img')`
+  width: 100%;
+`
+const minClass = css`
+  padding: 0 6px;
 `
 export default BudgetDashboard;
