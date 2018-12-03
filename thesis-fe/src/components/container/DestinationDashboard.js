@@ -38,18 +38,6 @@ class DestinationDashboard extends Component {
     //TODO: mutation that check and deletes item 
   }
 
-  // renderNavBar = () => {
-  //   return (<NavBar>
-  //     <Button onClick={this.redirectToTrip}>
-  //       <Icon src={back} />
-  //     </Button>
-  //     <Title>destination</Title>
-  //     <Button onClick={this.redirectToTrip}>
-  //       <Icon src={locationImg} />
-  //     </Button>
-  //   </NavBar>);
-  // }
-
   renderDictated = () => {
     const { destination } = this.props.info.trip;
     return (<ContainerDestination key='1'>
@@ -86,7 +74,6 @@ class DestinationDashboard extends Component {
         />
       </List>
     </Container>
-
     );
   }
 
