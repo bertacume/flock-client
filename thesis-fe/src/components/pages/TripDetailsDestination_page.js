@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Query } from "react-apollo";
+import { Container } from '../styledComponents/styledComponents';
 import GET_DESTINATION_DETAILS from '../apollo/queries/get_destination_details';
 import DestinationDashboard from '../container/DestinationDashboard';
 
@@ -18,9 +19,9 @@ class TripDetailsDestination_page extends Component {
           if (error) console.log(error);
           if (data.trip) {
             return (
-              <div style={{ width: '100vw', height: '100vh', background: 'pink', margin: 0, padding: 0 }}>
+              <Container>
                 <DestinationDashboard info={data} tripID={this.tripID} location={this.props.location} history={this.props.history} />
-              </div>
+              </Container>
             );
           }
           else if (!data.trip) {

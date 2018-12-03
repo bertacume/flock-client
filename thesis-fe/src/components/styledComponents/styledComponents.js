@@ -1,6 +1,12 @@
 import styled from 'react-emotion';
 import { fontFamily } from '../../helpers/styleConstants';
 
+export const Container = styled('div')`
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0; 
+`
 export const NavBar = styled('div')`
   box-sizing: border-box;
   width: 100%;
@@ -11,8 +17,7 @@ export const NavBar = styled('div')`
   justify-content: space-between;
   align-items: center;
   background-color: #ffffff;
-`;
-
+`
 export const Input = styled('input')`
   width: 80%;
   height: 5vh;
