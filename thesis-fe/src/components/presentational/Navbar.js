@@ -5,7 +5,7 @@ import { NavBar } from '../styledComponents/styledComponents';
 
 export const Navbar = (props) => {
   const redirectToTrip = () => {
-    this.props.history.push(`/tripdetails/${props.tripID}`)
+    props.history.push(`/tripdetails/${props.tripID}`)
   }
   return (<NavBar>
     <Button onClick={redirectToTrip}>

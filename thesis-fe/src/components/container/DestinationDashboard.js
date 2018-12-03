@@ -95,9 +95,10 @@ class DestinationDashboard extends Component {
     return (
       <Container>
         <Navbar 
-        tripID={this.state.tripID}
+        tripID={this.props.tripID}
         title={'destination'}
         icon={locationImg}
+        history={this.props.history}
         />
         {destination.isDictated ? this.renderDictated() : this.renderDemocracy()}
       </Container>
