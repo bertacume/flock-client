@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
 import { css } from 'emotion';
-import budgetImg from '../../assets/location.png';
+import budgetImg from '../../assets/budget.png';
 import { Navbar } from '../presentational/Navbar';
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
