@@ -4,13 +4,14 @@ import GET_DESTINATION_DETAILS from '../apollo/queries/get_destination_details';
 import DestinationDashboard from '../container/DestinationDashboard';
 
 class TripDetailsDestination_page extends Component {
+  tripID = this.props.location.pathname.split('/')[2];
+
   render() {
-    const tripID = this.props.location.pathname.split('/')[2]; //?
     const DestinationDetailsApollo = () => (
       <Query
         query={GET_DESTINATION_DETAILS}
         errorPolicy="all"
-        variables={{ tripID }}
+        variables={{ tripID: this.tripID }}
       >
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
@@ -18,7 +19,7 @@ class TripDetailsDestination_page extends Component {
           if (data.trip) {
             return (
               <div style={{ width: '100vw', height: '100vh', background: 'pink', margin: 0, padding: 0 }}>
-                <DestinationDashboard info={data} tripID={tripID} location={this.props.location} history={this.props.history} />
+                <DestinationDashboard info={data} tripID={this.tripID} location={this.props.location} history={this.props.history} />
               </div>
             );
           }
