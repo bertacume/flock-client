@@ -5,7 +5,7 @@ import back from '../../assets/back.png';
 import { NavBar, Input } from '../styledComponents/styledComponents';
 import locationImg from '../../assets/location.png';
 import { Mutation } from "react-apollo";
-import { PollList } from './PollList';
+import { PollList } from '../presentational/PollList';
 import ADD_OR_VOTE_FOR_DESTINATION from '../apollo/mutations/add_or_vote_for_destination';
 import REMOVE_VOTE_FOR_DESTINATION from '../apollo/mutations/remove_vote_for_destination';
 
@@ -35,7 +35,6 @@ class DestinationDashboard extends Component {
 
   removeVote = (mutation, id) => {
     const variables = { tripID: this.props.tripID, destinationID: id };
-    console.log(variables)
     mutation({ variables });
   }
 
@@ -68,13 +67,11 @@ class DestinationDashboard extends Component {
   renderDemocracy = () => {
     const { self } = this.props.info;
     const { destination } = this.props.info.trip;
-    console.log(destination.suggestions)
     return (<Container>
       <SubContainer>
         <Input type="text" placeholder={'Add suggestons'} value={this.state.input} onChange={this.handleInput} />
         <Mutation
           mutation={ADD_OR_VOTE_FOR_DESTINATION}
-          onCompleted={(res) => console.log(res)}
         >
           {(mutation, { data }) => (
             <ButtonAdd onClick={() => this.handleAddClick(mutation)}><ImgBtn src={require('../../assets/plus.png')} /></ButtonAdd>
