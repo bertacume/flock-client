@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import styled from 'react-emotion';
 import star from '../../assets/svg/star.svg';
 import back from '../../assets/back.png';
-import { NavBar, Input } from '../styledComponents/styledComponents';
+import { Input } from '../styledComponents/styledComponents';
+import { Navbar } from '../presentational/Navbar';
 import locationImg from '../../assets/location.png';
 import { Mutation } from "react-apollo";
 import { PollList } from '../presentational/PollList';
@@ -13,10 +14,6 @@ import REMOVE_VOTE_FOR_DESTINATION from '../apollo/mutations/remove_vote_for_des
 class DestinationDashboard extends Component {
   state = {
     input: '',
-  }
-
-  redirectToTrip = () => {
-    this.props.history.push('/tripdetails/' + this.props.location.pathname.split('/')[2])
   }
 
   handleInput = (event) => {
@@ -42,17 +39,17 @@ class DestinationDashboard extends Component {
     //TODO: mutation that check and deletes item 
   }
 
-  renderNavBar = () => {
-    return (<NavBar>
-      <Button onClick={this.redirectToTrip}>
-        <Icon src={back} />
-      </Button>
-      <Title>destination</Title>
-      <Button onClick={this.redirectToTrip}>
-        <Icon src={locationImg} />
-      </Button>
-    </NavBar>);
-  }
+  // renderNavBar = () => {
+  //   return (<NavBar>
+  //     <Button onClick={this.redirectToTrip}>
+  //       <Icon src={back} />
+  //     </Button>
+  //     <Title>destination</Title>
+  //     <Button onClick={this.redirectToTrip}>
+  //       <Icon src={locationImg} />
+  //     </Button>
+  //   </NavBar>);
+  // }
 
   renderDictated = () => {
     const { destination } = this.props.info.trip;
@@ -98,7 +95,11 @@ class DestinationDashboard extends Component {
     const { destination } = this.props.info.trip;
     return (
       <Container>
-        {this.renderNavBar()}
+        <Navbar 
+        tripID={this.state.tripID}
+        title={'destination'}
+        icon={locationImg}
+        />
         {destination.isDictated ? this.renderDictated() : this.renderDemocracy()}
       </Container>
     );
@@ -149,27 +150,6 @@ const SubContainer = styled('div')`
   justify-content: space-evenly;
   align-items: center;
   background: #e9e9e9;
-`
-const Button = styled('button')`
-  height: 90%;
-  width: 10%;
-  padding: 0;
-  border-width: 0;
-  background-color: transparent;
-`
-const Icon = styled('img')`
-  height: 80%;
-`
-const Title = styled('p')`
-  margin: 0;
-  text-transform: uppercase;
-  background: #ff7e5f;
-  background: -webkit-linear-gradient(315deg, #feb47b, #ff7e5f);
-  background: linear-gradient(315deg, #feb47b, #ff7e5f);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size: 2.5rem;
-  text-align: center
 `
 const ContainerDestination = styled('div')`
   width: 80vw;
