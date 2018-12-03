@@ -5,7 +5,6 @@ import { fontFamily, addTrip } from '../../helpers/styleConstants';
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
 import { WizardMode } from './WizardMode';
-import { List } from './List';
 
 const minDefault = 0;
 const maxDefault = 1000;

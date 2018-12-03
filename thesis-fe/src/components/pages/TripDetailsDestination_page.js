@@ -15,7 +15,6 @@ class TripDetailsDestination_page extends Component {
         variables={{ tripID: this.tripID }}
       >
         {({ loading, error, data }) => {
-          console.log('here', data, this.tripID)
           if (loading) return <p>Loading...</p>;
           if (error) console.log(error);
           if (data.trip) {
