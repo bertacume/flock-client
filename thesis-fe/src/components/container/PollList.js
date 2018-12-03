@@ -39,7 +39,7 @@ export class PollList extends Component {
     >
       {(mutation, { data }) => (
         <ListItem isVoted={isVoted}>
-          <ItemButton onClick={() => this.props.handleItem(mutation, item)}>
+          <ItemButton onClick={() => this.props.handleVotes(mutation, item.name)}>
             <ParticipantsCont>
               <Centered>{item.voters.length}</Centered>
             </ParticipantsCont>
@@ -60,7 +60,6 @@ export class PollList extends Component {
           {this.renderListItem(item)}
           {this.state.collapse.key === item.name && this.renderCollapsible(item.voters)}
         </ListItemContainer>
-
       );
     });
   }

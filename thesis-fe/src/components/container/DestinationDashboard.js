@@ -10,13 +10,20 @@ import ADD_OR_VOTE_FOR_DESTINATION from '../apollo/mutations/add_or_vote_for_des
 
 
 class DestinationDashboard extends Component {
+  state = {
+    input: '',
+  }
 
   redirectToTrip = () => {
     this.props.history.push('/tripdetails/' + this.props.location.pathname.split('/')[2])
   }
 
-  handleItem = (mutation, item) => {
-    const variable = { tripID: this.props.tripID, destinations: [{ name: item.name }] };
+  handleInput = (event) => {
+    this.setState({ input: event.target.value });
+  }
+
+  handleVotes = (mutation, name) => {
+    const variable = { tripID: this.props.tripID, destinations: [{ name }] };
     mutation({ variables: variable });
   }
 
@@ -51,18 +58,25 @@ class DestinationDashboard extends Component {
     const { destination } = this.props.info.trip;
     return (<Container>
       <SubContainer>
-        <Input placeholder={'Add suggestons'} />
-        <ButtonAdd onClick={this.handleAddClick}><ImgBtn src={require('../../assets/plus.png')} /></ButtonAdd>
+        <Input type="text" placeholder={'Add suggestons'} value={this.state.input} onChange={this.handleInput} />
+        <Mutation
+          mutation={ADD_OR_VOTE_FOR_DESTINATION}
+          onCompleted={(res) => console.log(res)}
+        >
+          {(mutation, { data }) => (
+            <ButtonAdd onClick={() => this.handleVotes(mutation, this.state.input)}><ImgBtn src={require('../../assets/plus.png')} /></ButtonAdd>
+          )}
+        </Mutation>
       </SubContainer>
       <List>
-      <PollList
-        mutations={{ addVote: ADD_OR_VOTE_FOR_DESTINATION, removeVote: ADD_OR_VOTE_FOR_DESTINATION }}
-        items={destination.suggestions}
-        deleteItem={this.deleteItem}
-        handleItem={this.handleItem}
-        tripId={this.props.tripId}
-        self={self}
-      />
+        <PollList
+          mutations={{ addVote: ADD_OR_VOTE_FOR_DESTINATION, removeVote: ADD_OR_VOTE_FOR_DESTINATION }}
+          items={destination.suggestions}
+          deleteItem={this.deleteItem}
+          handleVotes={this.handleVotes}
+          tripId={this.props.tripId}
+          self={self}
+        />
       </List>
     </Container>
 
