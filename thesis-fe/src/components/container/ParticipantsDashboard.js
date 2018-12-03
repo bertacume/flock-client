@@ -126,7 +126,7 @@ class ParticipantsDetails extends Component {
         }
           <Mutation mutation={ADD_FRIEND} variables ={{
               tripID: this.props.match.params.id,
-              participants : this.state.input
+              participants : [this.state.input]
             }}
             onCompleted={(res) => {
               this.setState({

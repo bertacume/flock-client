@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
-const ADD_FRIEND = gql` mutation addParticipant ($tripID:ID!, $participants: [String]! )
+const ADD_FRIEND = gql` mutation addParticipants ($tripID:ID!, $participants: [String!]! )
   {
-    addParticipant (tripID: $tripID, participants: $participants ) {
+    addParticipants (tripID: $tripID, participants: $participants ) {
       name,
       participants {
         email,

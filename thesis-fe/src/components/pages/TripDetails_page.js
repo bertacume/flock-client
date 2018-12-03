@@ -4,6 +4,7 @@ import ballon from '../../assets/trip.png';
 import styled from 'react-emotion'
 import { Query } from "react-apollo";
 import GET_TRIP_DETAILS from '../apollo/queries/get_trip_details';
+import GET_TRIP_DETAILS_SUB from '../apollo/queries/get_trip_details_sub';
 import TripParticipants from '../presentational/TripParticipants';
 import TripDestination from '../presentational/TripDestination';
 import TripCalendar from '../presentational/TripCalendar';
@@ -25,44 +26,69 @@ class TripDetails_page extends Component {
   }
   render() {
     const TripDetailsApollo = () => (
-      <Container>
-        <Query
-          query={GET_TRIP_DETAILS}
-          errorPolicy="all"
-          variables={{ tripID: this.state.tripID }}
-        >
-          {({ loading, error, data }) => {
-            if (loading) return <p>Loading...</p>;
-            if (error) console.log(error);
-            if (data.trip) {
-              return (
-                <div>
-                  <Navbar
+<Container>
+      <Query
+      query={GET_TRIP_DETAILS}
+      errorPolicy="all"
+      variables ={{tripID : this.props.match.params.id }}
+    >
+      {({ subscribeToMore, ...result}) => {
+
+        if (result.data.trip) return (
+        <div>
+          <Navbar
                     path={`/mytrips`}
-                    title={data.trip.name}
+                    title={result.data.trip.name}
                     history={this.props.history}
                     icon={ballon}
                   />
-                  <GeneralInfo>
-                    <TripParticipants info={data.trip.participants} redirectParent={this.redirectParent('participants')} />
-                    <TripDestination info={data.trip.destination} redirectParent={this.redirectParent('destination')} />
-                    <TripBudget redirectParent={this.redirectParent('budget')} info={data.trip.budget} />
-                    <TripCalendar info={data.trip.timeFrame} redirectParent={this.redirectParent('calendar')} />
-                  </GeneralInfo>
-                </div>
-              );
-            }
-            else if (!data.trip) {
-              return (
-                <h1>
-                  Sorry, trip not found
-            </h1>
-              )
-            }
-          }
-          }
-        </Query>
-      </Container>
+          <GeneralInfo>
+            <TripParticipants info={result.data.trip.participants} redirectParent={this.redirectParent('participants')} sub={
+              () => subscribeToMore({
+                document: GET_TRIP_DETAILS_SUB,
+                variables: {tripID : this.props.match.params.id },
+                updateQuery: (prev, {subscriptionData}) => {
+                  console.log('aaaa');
+                  if (!subscriptionData) return prev;
+                  const newItem = subscriptionData.data
+                  console.log(newItem);
+                  return Object.assign({}, prev, {
+                    entry: {
+                      change: []
+                    }
+                  })
+                }
+              })
+            } />
+            <TripDestination info={result.data.trip.destination} redirectParent={this.redirectParent('destination')}/>
+            <TripBudget redirectParent={this.redirectParent('budget')} info={result.data.trip.budget}/>
+            <TripCalendar info={result.data.trip.timeFrame} redirectParent={this.redirectParent('calendar')}/>
+          </GeneralInfo>
+        </div>
+        // <TEST info={result} subscribe={
+        //   () => subscribeToMore({
+        //     document:GET_TRIP_DETAILS_SUB,
+        //     variables: {tripID : this.props.match.params.id },
+        //     updateQuery: (prev, {subscriptionData}) => {
+        //       if (!subscriptionData) return prev;
+        //       const newItem = subscriptionData.data.change
+        //       return Object.assign({}, prev, {
+        //         entry: {
+        //           change: []
+        //         }
+        //       })
+        //     }
+        //   })
+        // } />
+        )
+        else return <p>Loading</p>
+
+      }
+
+
+    }
+    </Query>
+    </Container>
     );
     return (
       <TripDetailsApollo />
