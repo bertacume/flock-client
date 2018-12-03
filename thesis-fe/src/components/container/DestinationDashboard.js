@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
 import star from '../../assets/svg/star.svg';
-import back from '../../assets/back.png';
 import { Input } from '../styledComponents/styledComponents';
 import { Navbar } from '../presentational/Navbar';
 import locationImg from '../../assets/location.png';
