@@ -83,6 +83,7 @@ class DestinationDashboard extends Component {
           mutations={{ addVote: ADD_OR_VOTE_FOR_DESTINATION, removeVote: REMOVE_VOTE_FOR_DESTINATION }}
           items={destination.suggestions}
           self={self}
+          type={'destination'}
           addVote={this.addVote}
           removeVote={this.removeVote}
           deleteItem={this.deleteItem}

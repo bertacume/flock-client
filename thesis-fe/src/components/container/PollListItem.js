@@ -20,7 +20,7 @@ export class PollListItem extends Component {
   renderCollapsible = (voters) => {
     return (<Collapsible>
       {voters.map(voter => (<CollapsibleItem key={voter.email}>
-        <CollapseTitle>Be</CollapseTitle>
+        <CollapseTitle>{voter.firstName}</CollapseTitle>
         <CollapseTitle>{voter.lastName}</CollapseTitle>
       </CollapsibleItem>))}
     </Collapsible>);

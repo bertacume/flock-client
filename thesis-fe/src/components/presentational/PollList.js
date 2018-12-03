@@ -5,12 +5,14 @@ import { PollListItem } from '../container/PollListItem';
 export const PollList = (props) => {
   const renderItems = () => {
     if (!props.items || !props.items.length) return;
-    return props.items.map(item => {
+    const items = props.items.slice().sort((a,b) => b.voters.length - a.voters.length);
+    return items.map(item => {
       return (
         <ListItemContainer key={item.id}>
           <PollListItem
             item={item}
             self={props.self}
+            type={props.type}
             mutations={props.mutations}
             addVote={props.addVote}
             removeVote={props.removeVote}
@@ -24,7 +26,6 @@ export const PollList = (props) => {
       {renderItems()}
     </Container>
   );
-
 };
 
 const Container = styled('div')`
