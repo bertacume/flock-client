@@ -39,7 +39,7 @@ export class PollList extends Component {
     >
       {(mutation, { data }) => (
         <ListItem isVoted={isVoted}>
-          <ItemButton onClick={() => this.props.handleVotes(mutation, item.name)}>
+          <ItemButton onClick={() => isVoted ? this.props.removeVote(mutation, item.id) : this.props.addVote(mutation, item.name)}>
             <ParticipantsCont>
               <Centered>{item.voters.length}</Centered>
             </ParticipantsCont>

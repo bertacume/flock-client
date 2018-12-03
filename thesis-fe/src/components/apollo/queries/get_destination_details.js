@@ -23,6 +23,7 @@ const GET_DESTINATION_DETAILS = gql` query GET_DESTINATION_DETAILS ($tripID: ID!
           }
         }
         suggestions {
+          id,
           name,
           voters {
             firstName,

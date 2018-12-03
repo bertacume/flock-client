@@ -7,6 +7,7 @@ import locationImg from '../../assets/location.png';
 import { Mutation } from "react-apollo";
 import { PollList } from './PollList';
 import ADD_OR_VOTE_FOR_DESTINATION from '../apollo/mutations/add_or_vote_for_destination';
+import REMOVE_VOTE_FOR_DESTINATION from '../apollo/mutations/remove_vote_for_destination';
 
 
 class DestinationDashboard extends Component {
@@ -22,9 +23,15 @@ class DestinationDashboard extends Component {
     this.setState({ input: event.target.value });
   }
 
-  handleVotes = (mutation, name) => {
-    const variable = { tripID: this.props.tripID, destinations: [{ name }] };
-    mutation({ variables: variable });
+  addVote = (mutation, name) => {
+    const variables = { tripID: this.props.tripID, destinations: [{ name }] };
+    mutation({ variables});
+  }
+
+  removeVote = (mutation, id) => {
+    const variables = { tripID: this.props.tripID, destinationID: id };
+    console.log(variables)
+    mutation({ variables });
   }
 
   deleteItem = (item) => {
@@ -64,16 +71,17 @@ class DestinationDashboard extends Component {
           onCompleted={(res) => console.log(res)}
         >
           {(mutation, { data }) => (
-            <ButtonAdd onClick={() => this.handleVotes(mutation, this.state.input)}><ImgBtn src={require('../../assets/plus.png')} /></ButtonAdd>
+            <ButtonAdd onClick={() => this.addVote(mutation, this.state.input)}><ImgBtn src={require('../../assets/plus.png')} /></ButtonAdd>
           )}
         </Mutation>
       </SubContainer>
       <List>
         <PollList
-          mutations={{ addVote: ADD_OR_VOTE_FOR_DESTINATION, removeVote: ADD_OR_VOTE_FOR_DESTINATION }}
+          mutations={{ addVote: ADD_OR_VOTE_FOR_DESTINATION, removeVote: REMOVE_VOTE_FOR_DESTINATION }}
           items={destination.suggestions}
           deleteItem={this.deleteItem}
-          handleVotes={this.handleVotes}
+          addVote={this.addVote}
+          removeVote={this.removeVote}
           tripId={this.props.tripId}
           self={self}
         />
@@ -88,9 +96,7 @@ class DestinationDashboard extends Component {
     return (
       <Container>
         {this.renderNavBar()}
-        {/* <ContainerDestinations> */}
         {destination.isDictated ? this.renderDictated() : this.renderDemocracy()}
-        {/* </ContainerDestinations> */}
       </Container>
     );
   }
