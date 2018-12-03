@@ -4,42 +4,34 @@ import GET_DESTINATION_DETAILS from '../apollo/queries/get_destination_details';
 import DestinationDashboard from '../container/DestinationDashboard';
 
 class TripDetailsDestination_page extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      tripID : this.props.location.pathname.split('/')[2]
-    }
-  }
-
   render() {
-
+    const tripID = this.props.location.pathname.split('/')[2]; //?
     const DestinationDetailsApollo = () => (
       <Query
-      query={GET_DESTINATION_DETAILS}
-      errorPolicy="all"
-      variables ={{tripID : this.state.tripID}}
-    >
-      {({ loading, error, data }) => {
-        if (loading) return <p>Loading...</p>;
-        if (error) console.log(error);
-        if (data.trip) {
-          return (
-            <div style={{width: '100vw', height:  '100vh', background: 'pink', margin: 0, padding: 0}}>
-              <DestinationDashboard info={data} tripID={this.state.tripID} location={this.props.location} history={this.props.history}/>
-          </div>
-          );
-        }
-        else if (!data.trip) {
-          return (
-            <h1>
-              Sorry, trip not found
+        query={GET_DESTINATION_DETAILS}
+        errorPolicy="all"
+        variables={{ tripID }}
+      >
+        {({ loading, error, data }) => {
+          if (loading) return <p>Loading...</p>;
+          if (error) console.log(error);
+          if (data.trip) {
+            return (
+              <div style={{ width: '100vw', height: '100vh', background: 'pink', margin: 0, padding: 0 }}>
+                <DestinationDashboard info={data} tripID={tripID} location={this.props.location} history={this.props.history} />
+              </div>
+            );
+          }
+          else if (!data.trip) {
+            return (
+              <h1>
+                Sorry, trip not found
             </h1>
-          )
+            )
+          }
         }
-      }
-    }
-    </Query>
+        }
+      </Query>
     );
     return (
       <DestinationDetailsApollo />

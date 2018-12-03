@@ -3,38 +3,6 @@ import styled from 'react-emotion';
 import next from '../../assets/next.png';
 import money from '../../assets/money.png'
 
-
-const Container = styled('div')`
-box-sizing: border-box;
-font-size: 1.25rem;
-border-radius: 10px;
-width: 90vw;
-height: 20%;
-display: flex;
-flex-direction:row;
-align-items: center;
-justify-content: space-between;
-background: rgba(255,138,94,1);
-margin-bottom 2vh;
-padding-left: 2rem;
-`;
-
-const ContainerBudget = styled('h1')`
-font-size: 1.5rem;
-margin-left:.25rem;
-color: white;
-`;
-const ContainerBudgets = styled('div')`
-display: flex;
-flex-direction: column;
-`;
-
-const MoreInfoButton = styled('button')`
-  margin-right: .25rem;
-  position: relative;
-  font-size: 2rem;
-`;
-
 class TripBudget extends Component {
 
   render() {
@@ -60,5 +28,34 @@ class TripBudget extends Component {
     );
   }
 }
+
+const Container = styled('div')`
+box-sizing: border-box;
+font-size: 1.25rem;
+border-radius: 10px;
+width: 90vw;
+height: 20%;
+display: flex;
+flex-direction:row;
+align-items: center;
+justify-content: space-between;
+background: rgba(255,138,94,1);
+margin-bottom 2vh;
+padding-left: 2rem;
+`
+const ContainerBudget = styled('h1')`
+font-size: 1.5rem;
+margin-left:.25rem;
+color: white;
+`
+const ContainerBudgets = styled('div')`
+display: flex;
+flex-direction: column;
+`
+const MoreInfoButton = styled('button')`
+  margin-right: .25rem;
+  position: relative;
+  font-size: 2rem;
+`
 
 export default TripBudget;
