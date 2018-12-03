@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Query } from "react-apollo";
+import { Container } from '../styledComponents/styledComponents';
 import GET_BUDGET_DETAILS from '../apollo/queries/get_budget_details';
 import BudgetDashboard from '../container/BudgetDashboard';
 
@@ -18,9 +19,9 @@ class TripDetailsBudget_page extends Component {
           if (error) console.log(error);
           if (data.trip) {
             return (
-              <div>
-                <BudgetDashboard info={data} />
-              </div>
+              <Container>
+                <BudgetDashboard info={data} tripID={this.tripID} location={this.props.location} history={this.props.history} />
+              </Container>
             );
           }
           else if (!data.trip) {

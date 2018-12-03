@@ -26,7 +26,7 @@ class DestinationDashboard extends Component {
 
   addVote = (mutation, name) => {
     const variables = { tripID: this.props.tripID, destinations: [{ name }] };
-    mutation({ variables});
+    mutation({ variables });
   }
 
   removeVote = (mutation, id) => {
