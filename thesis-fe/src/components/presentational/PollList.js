@@ -8,8 +8,8 @@ export const PollList = (props) => {
     const items = props.items.slice().sort((a,b) => b.voters.length - a.voters.length);
     return items.map(item => {
       return (
-        <ListItemContainer key={item.id}>
           <PollListItem
+            key={item.id}
             item={item}
             self={props.self}
             type={props.type}
@@ -17,7 +17,6 @@ export const PollList = (props) => {
             addVote={props.addVote}
             removeVote={props.removeVote}
           />
-        </ListItemContainer>
       );
     });
   };
@@ -35,10 +34,4 @@ const Container = styled('div')`
   justify-content: flex-start;
   align-items: center;
   overflow: scroll;
-`
-const ListItemContainer = styled('div')`
-  width: 90%;
-  align-items: center;
-  margin: 5px 0;
-  padding: 0;
 `

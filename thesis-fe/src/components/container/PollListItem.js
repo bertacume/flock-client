@@ -31,26 +31,34 @@ export class PollListItem extends Component {
     const userVoted = item.voters.filter(obj => obj.email === this.props.self.email);
     const isVoted = !!userVoted.length;
     const title = item.name ? item.name : item.value;
-    return (<Mutation
-      mutation={isVoted ? this.props.mutations.removeVote : this.props.mutations.addVote}
-      onCompleted={(res) => console.log(res)}
-    >
-      {(mutation, { data }) => (
-        <ListItem isVoted={isVoted}>
-          <ItemButton onClick={() => isVoted ? this.props.removeVote(mutation, item.id) : this.props.addVote(mutation, title)}>
-            <ParticipantsCont>
-              <Centered>{item.voters.length}</Centered>
-            </ParticipantsCont>
-            <ItemTitle>{title}</ItemTitle>
-          </ItemButton>
-          <Button onClick={() => this.toggleCollapsible(item)}>
-            <ImgBtn src={require(`../../assets/collapse_${this.getCollapseIcon(isVoted)}.png`)} />
-          </Button>
-        </ListItem>)}
-    </Mutation>);
+    return (<ListItemContainer>
+      <Mutation
+        mutation={isVoted ? this.props.mutations.removeVote : this.props.mutations.addVote}
+      >
+        {(mutation, { data }) => (
+          <ListItem isVoted={isVoted}>
+            <ItemButton onClick={() => isVoted ? this.props.removeVote(mutation, item.id) : this.props.addVote(mutation, title)}>
+              <ParticipantsCont>
+                <Centered>{item.voters.length}</Centered>
+              </ParticipantsCont>
+              <ItemTitle>{title}</ItemTitle>
+            </ItemButton>
+            <Button onClick={() => this.toggleCollapsible(item)}>
+              <ImgBtn src={require(`../../assets/collapse_${this.getCollapseIcon(isVoted)}.png`)} />
+            </Button>
+          </ListItem>)}
+      </Mutation>
+      {this.state.isExpanded && this.renderCollapsible(item.voters)}
+    </ListItemContainer>);
   }
 };
 
+const ListItemContainer = styled('div')`
+  width: 90%;
+  align-items: center;
+  margin: 5px 0;
+  padding: 0;
+`
 const ListItem = styled('div')`
   background: ${props =>
     props.isVoted ? 'linear-gradient(315deg, #feb47b, #ff8e62)' : '#f3f3f3'};
