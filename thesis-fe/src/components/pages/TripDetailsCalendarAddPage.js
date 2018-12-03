@@ -155,7 +155,10 @@ class TripDetailsCalendarAddPage extends Component {
               }}
               onError={(error) => console.log(error)}
             >
-              { add => <Button  onClick={add}>Add</Button> }
+              { add => <Button  onClick={() => {
+                console.log(add);
+                add().then(() => this.redirectToCalendar());
+              }}>Add</Button> }
             </Mutation>
           </Link>
         <GoBackButton>

@@ -95,7 +95,10 @@ class Auth_page extends Component {
             lastName: this.state.inputLastname,
             avatarURL: 'test'
             }}
-            onCompleted={(res) => console.log(res)}
+            onCompleted={(res) => {
+              localStorage.setItem('token',res.register);
+              this.props.history.push('/mytrips');
+            }}
             >
             { register => <AuthBox handleInputChild={this.handleInputParent.bind(this)} handleChildType={this.handleParentType} handleSendChild={register}  /> }
           </Mutation>
@@ -132,7 +135,6 @@ class Auth_page extends Component {
           { facebook => <FacebookLogin appId={BASE_FACEBOOK_ID}
             autoLoad={false} fields="name,email,picture,first_name,last_name"
             callback={(res) => {
-              console.log(res);
               this.setState({userID: res.userID, accessToken: res.accessToken, inputName: res.first_name, inputLastname: res.last_name,
               inputEmail: res.email }, facebook)
             }}

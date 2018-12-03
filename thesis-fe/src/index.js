@@ -12,8 +12,10 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { WebSocketLink } from 'apollo-link-ws';
 import { split } from 'apollo-link';
 import { getMainDefinition } from 'apollo-utilities';
-import gql from 'graphql-tag'
-import { graphql } from 'react-apollo'
+import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
+import { print } from 'graphql'
+import { wsServerURL } from './helpers/constants';
 
 
 const httpLink = createHttpLink({
@@ -21,9 +23,12 @@ const httpLink = createHttpLink({
 });
 
 const wsLink = new WebSocketLink({
-  uri: serverURL,
+  uri: wsServerURL,
   options: {
-    reconnect: true
+    reconnect: true,
+    connectionParams: {
+      authorization: 'Bearer ' + localStorage.getItem('token')
+    }
   },
 });
 

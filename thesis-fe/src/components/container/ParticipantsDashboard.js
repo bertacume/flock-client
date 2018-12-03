@@ -7,7 +7,7 @@ import ADD_FRIEND from '../apollo/mutations/addfriend';
 
 const Container = styled('div')`
   width: 100vw;
-  height: 90vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;

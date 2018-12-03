@@ -4,15 +4,6 @@ import GET_PARTICIPANTS_DETAILS from '../apollo/queries/get_participants_details
 import ParticipantsDashboard from '../container/ParticipantsDashboard';
 
 
-// const GeneralInfo = styled('div')`
-//   width: 100vw;
-//   height: 90vh;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   padding-top: 5vh;
-// `;
-
 class TripDetails_page extends Component {
 
 

@@ -22,6 +22,7 @@ class TripDetailsCalendar_page extends Component {
       query={GET_CALENDAR_DETAILS}
       errorPolicy="all"
       variables ={{tripID: this.props.match.params.id}}
+      fetchPolicy= 'network-only'
     >
       {({ loading, error, data }) => {
         if (loading) return <p>Loading...</p>;

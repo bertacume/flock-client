@@ -38,7 +38,6 @@ align-content: flex-end
 class TripParticipants extends Component {
 
   componentDidMount () {
-    console.log(this.props)
     this.props.sub()
   }
 
