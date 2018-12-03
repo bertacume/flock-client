@@ -23,6 +23,11 @@ class DestinationDashboard extends Component {
     this.setState({ input: event.target.value });
   }
 
+  handleAddClick = (mutation) => {
+    this.addVote(mutation, this.state.input);
+    this.setState({ input: '' });
+  }
+
   addVote = (mutation, name) => {
     const variables = { tripID: this.props.tripID, destinations: [{ name }] };
     mutation({ variables});
@@ -63,6 +68,7 @@ class DestinationDashboard extends Component {
   renderDemocracy = () => {
     const { self } = this.props.info;
     const { destination } = this.props.info.trip;
+    console.log(destination.suggestions)
     return (<Container>
       <SubContainer>
         <Input type="text" placeholder={'Add suggestons'} value={this.state.input} onChange={this.handleInput} />
@@ -71,7 +77,7 @@ class DestinationDashboard extends Component {
           onCompleted={(res) => console.log(res)}
         >
           {(mutation, { data }) => (
-            <ButtonAdd onClick={() => this.addVote(mutation, this.state.input)}><ImgBtn src={require('../../assets/plus.png')} /></ButtonAdd>
+            <ButtonAdd onClick={() => this.handleAddClick(mutation)}><ImgBtn src={require('../../assets/plus.png')} /></ButtonAdd>
           )}
         </Mutation>
       </SubContainer>
@@ -79,11 +85,10 @@ class DestinationDashboard extends Component {
         <PollList
           mutations={{ addVote: ADD_OR_VOTE_FOR_DESTINATION, removeVote: REMOVE_VOTE_FOR_DESTINATION }}
           items={destination.suggestions}
-          deleteItem={this.deleteItem}
+          self={self}
           addVote={this.addVote}
           removeVote={this.removeVote}
-          tripId={this.props.tripId}
-          self={self}
+          deleteItem={this.deleteItem}
         />
       </List>
     </Container>
@@ -146,10 +151,6 @@ const SubContainer = styled('div')`
   justify-content: space-evenly;
   align-items: center;
   background: #e9e9e9;
-  // background: #ff7e5f;  /* fallback for old browsers */
-  // background: -webkit-linear-gradient(315deg, #feb47b, #ff8e62);  /* Chrome 10-25, Safari 5.1-6 */
-  // background: linear-gradient(315deg, #feb47b, #ff8e62);
-  // border-radius: 2rem;
 `
 const Button = styled('button')`
   height: 90%;
@@ -160,14 +161,12 @@ const Button = styled('button')`
 `
 const Icon = styled('img')`
   height: 80%;
-`;
+`
 const Title = styled('p')`
   margin: 0;
-  // font-family: Kathen;
   text-transform: uppercase;
-  // color: #e88d6f;
-  background: #ff7e5f;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(315deg, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
+  background: #ff7e5f;
+  background: -webkit-linear-gradient(315deg, #feb47b, #ff7e5f);
   background: linear-gradient(315deg, #feb47b, #ff7e5f);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -180,19 +179,12 @@ const ContainerDestination = styled('div')`
   display: flex;
   flex-direction: row;
   align-items: center;
-`;
-const ContainerDestinations = styled('div')`
-  width: 80vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+`
 const H1 = styled('h1')`
   font-size: 1.5rem;
   margin-left: 1rem;
   color: #e48264;
-`;
-
+`
 const ImgBtn = styled('img')`
   height: 100%;
 `
@@ -204,17 +196,4 @@ const ButtonAdd = styled('button')`
   border-radius: 10px;
   background-color: transparent;
 `
-// const H2 = styled('h1')`
-//   font-size: 1.25rem;
-//   margin: 0 1rem;
-//   color: #e48264;
-// `;
-// const GoBackButton = styled('button')`
-//   position: absolute;
-//   right: 40vw;
-//   margin-top: 2rem;
-//   margin-right: .25rem;
-//   position: relative;
-//   font-size: 2rem;
-// `;
 export default DestinationDashboard;
