@@ -6,18 +6,22 @@ import { NavBar, Input } from '../styledComponents/styledComponents';
 import locationImg from '../../assets/location.png';
 import { Mutation } from "react-apollo";
 import { PollList } from './PollList';
+import ADD_OR_VOTE_FOR_DESTINATION from '../apollo/mutations/add_or_vote_for_destination';
 
-const mockdata = ['London', 'Geneva', 'Barcelona'];
 
 class DestinationDashboard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tripID: this.props.location.pathname.split('/')[2]
-    }
-  }
-  redirectToTrip = (id) => {
+
+  redirectToTrip = () => {
     this.props.history.push('/tripdetails/' + this.props.location.pathname.split('/')[2])
+  }
+
+  handleItem = (mutation, item) => {
+    const variable = { tripID: this.props.tripID, destinations: [{ name: item.name }] };
+    mutation({ variables: variable });
+  }
+
+  deleteItem = (item) => {
+    //TODO: mutation that check and deletes item 
   }
 
   renderNavBar = () => {
@@ -33,7 +37,7 @@ class DestinationDashboard extends Component {
   }
 
   renderDictated = () => {
-    const { destination } = this.props.trip;
+    const { destination } = this.props.info.trip;
     return (<ContainerDestination key='1'>
       <img src={star} alt="winner" height="25" width="25" />
       <H1>{destination.chosenDestination.name}</H1>
@@ -43,46 +47,30 @@ class DestinationDashboard extends Component {
   }
 
   renderDemocracy = () => {
-    const { destination } = this.props.trip;
-    console.log('des', destination);
+    const { self } = this.props.info;
+    const { destination } = this.props.info.trip;
     return (<Container>
       <SubContainer>
         <Input placeholder={'Add suggestons'} />
         <ButtonAdd onClick={this.handleAddClick}><ImgBtn src={require('../../assets/plus.png')} /></ButtonAdd>
       </SubContainer>
-      <Container>
-        <PollList items={destination.suggestions} />
-      </Container>
+      <List>
+      <PollList
+        mutations={{ addVote: ADD_OR_VOTE_FOR_DESTINATION, removeVote: ADD_OR_VOTE_FOR_DESTINATION }}
+        items={destination.suggestions}
+        deleteItem={this.deleteItem}
+        handleItem={this.handleItem}
+        tripId={this.props.tripId}
+        self={self}
+      />
+      </List>
     </Container>
 
     );
   }
 
-
   render() {
-    const { destination } = this.props.trip;
-    // const othersToShow = ((destination.suggestions.length > 0) ? [(
-    //   destination.suggestions.filter(obj => obj.name !== chosenDestination).map(obj => (
-    //     <ContainerDestination key={obj.name + obj.voters.length}>
-    //       <H2>{obj.name}</H2>
-    //       <H2>votes: {obj.voters.length}</H2>
-    //       {destination.isDictated &&
-    //         <Mutation mutation={ADD_SUGGESTED_DESTINATION_LIKES} variables={{
-    //           input: {
-    //             tripID: this.state.tripID,
-    //             name: obj.name
-    //           }
-    //         }}>
-    //           {addDestinationLikes => <img src={star} alt="winner" height="15" width="15" onClick={addDestinationLikes} id={obj.name} />}
-    //         </Mutation>
-    //       }
-    //     </ContainerDestination>
-    //   ))
-    // )]
-    //   :
-    //   null)
-
-
+    const { destination } = this.props.info.trip;
     return (
       <Container>
         {this.renderNavBar()}
@@ -94,10 +82,6 @@ class DestinationDashboard extends Component {
   }
 }
 
-// const BIG = styled('h1')`
-//   font-size: 3rem;
-//   color: #e48264;
-// `;
 const Container = styled('div')`
   box-sizing: border-box;
   width: 100%;
@@ -111,8 +95,9 @@ const Container = styled('div')`
     outline: none;
   }
   Input {
-    color: #777777;
+    color: #ffffff;
     border-color: #ffffff;
+    height: 50%;
   }
   Input::placeholder {
     color: #ffffff;
@@ -120,17 +105,30 @@ const Container = styled('div')`
   button:active {
     border-width: 0;
   }
-`;
+`
+const List = styled('div')`
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: white;
+`
 const SubContainer = styled('div')`
   width: 100%;
-  height: 17%;
-  // padding: 10px;
+  height: 18%;
+  margin: 5px 0;
+  padding: 10px 0;
   display: flex;
-  // padding: 20px 0 30px 0;
   flex-direction column;
   justify-content: space-evenly;
   align-items: center;
   background: #e9e9e9;
+  // background: #ff7e5f;  /* fallback for old browsers */
+  // background: -webkit-linear-gradient(315deg, #feb47b, #ff8e62);  /* Chrome 10-25, Safari 5.1-6 */
+  // background: linear-gradient(315deg, #feb47b, #ff8e62);
   // border-radius: 2rem;
 `
 const Button = styled('button')`
@@ -145,8 +143,14 @@ const Icon = styled('img')`
 `;
 const Title = styled('p')`
   margin: 0;
-  font-family: Kathen;
-  color: #e88d6f;
+  // font-family: Kathen;
+  text-transform: uppercase;
+  // color: #e88d6f;
+  background: #ff7e5f;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(315deg, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(315deg, #feb47b, #ff7e5f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-size: 2.5rem;
   text-align: center
 `

@@ -3,16 +3,6 @@ import { Query } from "react-apollo";
 import GET_DESTINATION_DETAILS from '../apollo/queries/get_destination_details';
 import DestinationDashboard from '../container/DestinationDashboard';
 
-
-// const GeneralInfo = styled('div')`
-//   width: 100vw;
-//   height: 90vh;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   padding-top: 5vh;
-// `;
-
 class TripDetailsDestination_page extends Component {
 
   constructor(props) {
@@ -34,10 +24,9 @@ class TripDetailsDestination_page extends Component {
         if (loading) return <p>Loading...</p>;
         if (error) console.log(error);
         if (data.trip) {
-          console.log('data', data)
           return (
             <div style={{width: '100vw', height:  '100vh', background: 'pink', margin: 0, padding: 0}}>
-              <DestinationDashboard trip={data.trip} location={this.props.location} history={this.props.history}/>
+              <DestinationDashboard info={data} tripID={this.state.tripID} location={this.props.location} history={this.props.history}/>
           </div>
           );
         }
