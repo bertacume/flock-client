@@ -35,9 +35,14 @@ class MyTrips_page extends Component {
                     variables: {},
                     updateQuery: (prev, {subscriptionData}) => {
                       if (!subscriptionData.data) return prev;
-                      const newObject = prev;
-                      // newObject.self.trips.push(subscriptionData.data.tripInfoChanged)
-                      return newObject;
+                      console.log(subscriptionData.data, prev)
+                      if (prev.self.trips.every(obj => obj.id !== subscriptionData.data.tripInfoChanged.id)) {
+                        const newObj = prev;
+                        newObj.self.trips.push(subscriptionData.data.tripInfoChanged)
+                        return newObj
+                      }
+
+                      return prev;
                     }
                   })
                 }

@@ -36,8 +36,6 @@ class TripDetails_page extends Component {
       variables ={{tripID : this.props.match.params.id }}
     >
       {({ subscribeToMore, loading, error, data}) => {
-        console.log('SUSBCRIBE');
-        
         if (loading) return <h1>Loading</h1>;
         if (error) console.log(error);
         return (
