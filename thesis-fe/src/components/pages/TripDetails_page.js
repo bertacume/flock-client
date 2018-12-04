@@ -51,6 +51,7 @@ class TripDetails_page extends Component {
                   document: GET_TRIP_DETAILS_PARTICIPANTS_SUB,
                   variables: {tripID : this.props.match.params.id },
                   updateQuery: (prev, {subscriptionData}) => {
+                    console.log(subscriptionData);
                     if (!subscriptionData.data) return prev;
                     const newObject = {
                       ...prev,

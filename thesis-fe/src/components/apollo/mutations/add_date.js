@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-const ADD_DESTINATION = gql` mutation addOrVoteForTimeFrame ($tripID:ID!, $timeFrames: [TimeFrameInput!]! )
+const ADD_DATE = gql` mutation addOrVoteForTimeFrame ($tripID:ID!, $timeFrames: [TimeFrameInput!]! )
   {
     addOrVoteForTimeFrame (tripID: $tripID, timeFrames: $timeFrames ) {
       name
@@ -8,4 +8,4 @@ const ADD_DESTINATION = gql` mutation addOrVoteForTimeFrame ($tripID:ID!, $timeF
   }
 `;
 
-export default ADD_DESTINATION;
+export default ADD_DATE;

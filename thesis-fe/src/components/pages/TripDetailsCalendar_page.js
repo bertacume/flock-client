@@ -57,15 +57,3 @@ class TripDetailsCalendar_page extends Component {
 
 export default TripDetailsCalendar_page
 
-/*
-  Here we should go knowing both the user id and the trip id. We will get from the db:
-  on schema:
-    - name,
-    - participants,
-    - destination.
-    - budget,
-    - timeFrame
-
-  should the id it will try to fetch from graphql should come from the url -> allow for direct access to the url and
-  independence
-*/

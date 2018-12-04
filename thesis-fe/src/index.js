@@ -12,9 +12,6 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { WebSocketLink } from 'apollo-link-ws';
 import { split } from 'apollo-link';
 import { getMainDefinition } from 'apollo-utilities';
-import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
-import { print } from 'graphql'
 import { wsServerURL } from './helpers/constants';
 
 

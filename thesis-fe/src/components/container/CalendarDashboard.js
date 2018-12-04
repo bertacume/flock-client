@@ -76,7 +76,6 @@ class MyTripsDashboard extends Component {
   }
 
   render() {
-    console.log(this.props);
     const suggestionList = this.props.info.trip.timeFrame.suggestions.map(obj => (
       <ContainerSuggestions key={obj.startDate + obj.endDate}>
         <H2>
