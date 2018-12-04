@@ -34,12 +34,9 @@ class MyTrips_page extends Component {
                     document: GET_MY_TRIPS_SUB,
                     variables: {},
                     updateQuery: (prev, {subscriptionData}) => {
-                      console.log('aaaaaaaa');
-                      console.log(prev)
-                      console.log(subscriptionData);
                       if (!subscriptionData.data) return prev;
                       const newObject = prev;
-                      newObject.self.trips.push(subscriptionData.data.tripInfoChanged)
+                      // newObject.self.trips.push(subscriptionData.data.tripInfoChanged)
                       return newObject;
                     }
                   })
