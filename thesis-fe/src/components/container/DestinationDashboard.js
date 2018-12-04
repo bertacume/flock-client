@@ -19,6 +19,10 @@ class DestinationDashboard extends Component {
     input: '',
   }
 
+  componentDidMount () {
+    this.props.sub();
+  }
+
   handleInput = (event) => {
     this.setState({ input: event.target.value });
   }

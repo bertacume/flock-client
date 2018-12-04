@@ -5,9 +5,24 @@ const GET_TRIP_DETAILS_DESTINATION_SUB = gql` subscription tripInfoChanged
     tripInfoChanged {
       id,
       destination {
-        chosenSuggestion {
+        suggestions {
+          id,
+          name,
+          voters {
+            email,
+            firstName,
+            lastName
+          },
+          creator {
+            email,
+            firstName,
+            lastName
+          }
+        },
+        chosenDestination {
           name
-        }
+        },
+        isDictated
       }
     }
   }

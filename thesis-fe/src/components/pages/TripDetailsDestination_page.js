@@ -3,6 +3,7 @@ import { Query } from "react-apollo";
 import { Container } from '../styledComponents/styledComponents';
 import GET_DESTINATION_DETAILS from '../apollo/queries/get_destination_details';
 import DestinationDashboard from '../container/DestinationDashboard';
+import GET_TRIP_DETAILS_DESTINATION_SUB from '../apollo/queries/get_trip_details_destination_sub';
 
 class TripDetailsDestination_page extends Component {
   tripID = this.props.match.params.id;
@@ -12,19 +13,41 @@ class TripDetailsDestination_page extends Component {
       <Query
         query={GET_DESTINATION_DETAILS}
         errorPolicy="all"
+        fetchPolicy="network-only"
         variables={{ tripID: this.tripID }}
       >
-        {({ loading, error, data }) => {
+        {({ subscribeToMore, loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
           if (error) console.log(error);
           if (data.trip) {
+            console.log('prev', data);
             return (
               <Container>
-                <DestinationDashboard info={data} tripID={this.tripID} match={this.props.match} location={this.props.location} history={this.props.history} />
+                <DestinationDashboard 
+                info={data} 
+                tripID={this.tripID} 
+                location={this.props.location} 
+                history={this.props.history}
+                sub={() => subscribeToMore({
+                  document: GET_TRIP_DETAILS_DESTINATION_SUB,
+                  variables: {tripID : this.tripID },
+                  updateQuery: (prev, {subscriptionData}) => {
+                    if (!subscriptionData.data || subscriptionData.data.tripInfoChanged.id !== this.tripID) return prev;
+                    const newData = {
+                      ...prev,
+                      trip: {
+                        ...prev.trip,
+                        destination: subscriptionData.data.tripInfoChanged.destination
+                      }
+                    }
+                    return newData;
+                  }
+                })}
+                />
               </Container>
             );
           }
-          else if (!data.trip) {
+          else {
             return (
               <h1>
                 Sorry, trip not found
