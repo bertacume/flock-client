@@ -36,6 +36,8 @@ class TripDetails_page extends Component {
       variables ={{tripID : this.props.match.params.id }}
     >
       {({ subscribeToMore, loading, error, data}) => {
+        console.log('SUSBCRIBE');
+        
         if (loading) return <h1>Loading</h1>;
         if (error) console.log(error);
         return (
@@ -54,7 +56,7 @@ class TripDetails_page extends Component {
                   variables: {tripID : this.props.match.params.id },
                   updateQuery: (prev, {subscriptionData}) => {
                     console.log(subscriptionData);
-                    if (!subscriptionData.data) return prev;
+                    if (!subscriptionData.data || !subscriptionData.data.tripInfoChanged) return prev;
                     if (subscriptionData.data.tripInfoChanged.id === this.state.tripID) {
                       const newObject = {
                         ...prev,

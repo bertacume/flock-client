@@ -16,7 +16,7 @@ class TripDetailsBudget_page extends Component {
       >
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
-          if (error) window.location.replace('/auth');
+          if (error) console.error(error);
           if (data.trip) {
             return (
               <Container>

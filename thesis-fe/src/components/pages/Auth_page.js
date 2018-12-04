@@ -3,7 +3,7 @@ import AuthBox from '../presentational/AuthBox';
 import FacebookLogin from 'react-facebook-login';
 import { BASE_FACEBOOK_ID } from '../../helpers/constants';
 import styled from 'react-emotion';
-import { Mutation } from "react-apollo";
+import { Mutation, ApolloConsumer } from "react-apollo";
 import REGISTER from '../apollo/mutations/register';
 import LOGIN from '../apollo/mutations/login';
 import FACEBOOK from '../apollo/mutations/facebook';
@@ -82,65 +82,64 @@ class Auth_page extends Component {
     </button>
   );
 
+  onLogin = (apolloClient, token) => {
+    localStorage.setItem('token', token);
+    window.location.replace('/mytrips');
+  }
+
 
   render() {
     return (
-      <OuterContainer>
-        <InnerContainer >
-        { (this.state.childType === 'signup') ?
-          <Mutation mutation={REGISTER} variables ={{
-            email: this.state.inputEmail,
-            password: this.state.inputPassword,
-            firstName: this.state.inputName,
-            lastName: this.state.inputLastname,
-            avatarURL: 'test'
-            }}
-            onCompleted={(res) => {
-              localStorage.setItem('token',res.register);
-              this.props.history.push('/mytrips');
-            }}
+      <ApolloConsumer>
+        {(client) => (
+          <OuterContainer>
+            <InnerContainer >
+            { (this.state.childType === 'signup') ?
+              <Mutation mutation={REGISTER} variables ={{
+                email: this.state.inputEmail,
+                password: this.state.inputPassword,
+                firstName: this.state.inputName,
+                lastName: this.state.inputLastname,
+                avatarURL: 'test'
+                }}
+                onCompleted={(res) => this.onLogin(client, res.register)}
+                >
+                { register => <AuthBox handleInputChild={this.handleInputParent.bind(this)} handleChildType={this.handleParentType} handleSendChild={register}  /> }
+              </Mutation>
+              :
+              <Mutation mutation={LOGIN} variables ={{
+                email: this.state.inputEmail,
+                password: this.state.inputPassword
+              }}
+              onCompleted={(res) => this.onLogin(client, res.login)}
+              onError={(res) => this.handleLoginError(res)}
+              >
+                { login => <AuthBox handleInputChild={this.handleInputParent.bind(this)} handleChildType={this.handleParentType} handleSendChild={login}  /> }
+              </Mutation>
+            }
+            </InnerContainer>
+            <Mutation mutation={FACEBOOK} variables ={{
+              email: this.state.inputEmail,
+              userID: this.state.userID,
+              accessToken: this.state.accessToken,
+              firstName: this.state.inputName,
+              lastName: this.state.inputLastname,
+              avatarURL: 'test'
+              }}
+              onCompleted={(res) => this.onLogin(client, res.facebook)}
+              onError={(error) => console.log(error)}
             >
-            { register => <AuthBox handleInputChild={this.handleInputParent.bind(this)} handleChildType={this.handleParentType} handleSendChild={register}  /> }
-          </Mutation>
-          :
-          <Mutation mutation={LOGIN} variables ={{
-            email: this.state.inputEmail,
-            password: this.state.inputPassword
-          }}
-          onCompleted={(res) => {
-            localStorage.setItem('token',res.login);
-            this.props.history.push('/mytrips');
-          }}
-          onError={(res) => this.handleLoginError(res)}
-          >
-            { login => <AuthBox handleInputChild={this.handleInputParent.bind(this)} handleChildType={this.handleParentType} handleSendChild={login}  /> }
-          </Mutation>
-        }
-        </InnerContainer>
-        <Mutation mutation={FACEBOOK} variables ={{
-          email: this.state.inputEmail,
-          userID: this.state.userID,
-          accessToken: this.state.accessToken,
-          firstName: this.state.inputName,
-          lastName: this.state.inputLastname,
-          avatarURL: 'test'
-          }}
-          onCompleted={(res) => {
-            console.log(res);
-            localStorage.setItem('token',res.facebook);
-            this.props.history.push('/mytrips');
-          }}
-          onError={(error) => console.log(error)}
-        >
-          { facebook => <FacebookLogin appId={BASE_FACEBOOK_ID}
-            autoLoad={false} fields="name,email,picture,first_name,last_name"
-            callback={(res) => {
-              this.setState({userID: res.userID, accessToken: res.accessToken, inputName: res.first_name, inputLastname: res.last_name,
-              inputEmail: res.email }, facebook)
-            }}
-          /> }
-        </Mutation>
-      </OuterContainer>
+              { facebook => <FacebookLogin appId={BASE_FACEBOOK_ID}
+                autoLoad={false} fields="name,email,picture,first_name,last_name"
+                callback={(res) => {
+                  this.setState({userID: res.userID, accessToken: res.accessToken, inputName: res.first_name, inputLastname: res.last_name,
+                  inputEmail: res.email }, facebook)
+                }}
+              /> }
+            </Mutation>
+          </OuterContainer>
+        )}
+      </ApolloConsumer>
     );
   }
 }
