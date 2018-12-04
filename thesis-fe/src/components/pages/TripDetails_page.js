@@ -35,90 +35,105 @@ class TripDetails_page extends Component {
       errorPolicy="all"
       variables ={{tripID : this.props.match.params.id }}
     >
-      {({ subscribeToMore, ...result}) => {
+      {({ subscribeToMore, loading, error, data}) => {
+        if (loading) return <h1>Loading</h1>;
+        if (error) console.log(error);
+        console.log(data);
         return (
-          (result.data.trip) ?
+          (data.trip) ?
           <div>
             <Navbar
                     path={`/mytrips`}
-                    title={result.data.trip.name}
+                    title={data.trip.name}
                     history={this.props.history}
                     icon={ballon}
                   />
             <GeneralInfo>
-              <TripParticipants info={result.data.trip.participants} redirectParent={this.redirectParent('participants')} sub={
+              <TripParticipants info={data.trip.participants} redirectParent={this.redirectParent('participants')} sub={
                 () => subscribeToMore({
                   document: GET_TRIP_DETAILS_PARTICIPANTS_SUB,
                   variables: {tripID : this.props.match.params.id },
                   updateQuery: (prev, {subscriptionData}) => {
                     console.log(subscriptionData);
                     if (!subscriptionData.data) return prev;
-                    const newObject = {
-                      ...prev,
-                      trip: {
-                        ...prev.trip,
-                        participants: subscriptionData.data.tripInfoChanged.participants
+                    if (subscriptionData.data.tripInfoChanged.id === this.state.tripID) {
+                      const newObject = {
+                        ...prev,
+                        trip: {
+                          ...prev.trip,
+                          participants: subscriptionData.data.tripInfoChanged.participants
+                        }
                       }
+                      return newObject;
                     }
-                    return newObject;
+                    else return prev;
                   }
                 })
               } />
-              <TripDestination info={result.data.trip.destination} redirectParent={this.redirectParent('destination')} sub={
+              <TripDestination info={data.trip.destination} redirectParent={this.redirectParent('destination')} sub={
                 () => ({
                   document: GET_TRIP_DETAILS_DESTINATION_SUB,
                   variables: {tripID : this.props.match.params.id },
                   updateQuery: (prev, {subscriptionData}) => {
                     if (!subscriptionData.data) return prev;
-                    const newObject = {
-                      ...prev,
-                      trip: {
-                        ...prev.trip,
-                        participants: subscriptionData.data.tripInfoChanged.destination
+                    if (subscriptionData.data.tripInfoChanged.id === this.state.tripID) {
+                      const newObject = {
+                        ...prev,
+                        trip: {
+                          ...prev.trip,
+                          participants: subscriptionData.data.tripInfoChanged.destination.chosenDestination
+                        }
                       }
+                      return newObject;
                     }
-                    return newObject;
+                    else return prev;
                   }
                 })
               } />
-              <TripBudget redirectParent={this.redirectParent('budget')} info={result.data.trip.budget} sub={
+              <TripBudget redirectParent={this.redirectParent('budget')} info={data.trip.budget} sub={
                 () => ({
                   document: GET_TRIP_DETAILS_BUDGET_SUB,
                   variables: {tripID : this.props.match.params.id },
                   updateQuery: (prev, {subscriptionData}) => {
                     if (!subscriptionData.data) return prev;
-                    const newObject = {
-                      ...prev,
-                      trip: {
-                        ...prev.trip,
-                        participants: subscriptionData.data.tripInfoChanged.budget
+                    if (subscriptionData.data.tripInfoChanged.id === this.state.tripID) {
+                      const newObject = {
+                        ...prev,
+                        trip: {
+                          ...prev.trip,
+                          participants: subscriptionData.data.tripInfoChanged.budget.chosenBudget
+                        }
                       }
+                      return newObject;
                     }
-                    return newObject;
+                    else return prev;
                   }
                 })
               } />
-              <TripCalendar info={result.data.trip.timeFrame} redirectParent={this.redirectParent('calendar')} sub={
+              <TripCalendar info={data.trip.timeFrame} redirectParent={this.redirectParent('calendar')} sub={
                 () => ({
                   document: GET_TRIP_DETAILS_CALENDAR_SUB,
                   variables: {tripID : this.props.match.params.id },
                   updateQuery: (prev, {subscriptionData}) => {
                     if (!subscriptionData.data) return prev;
-                    const newObject = {
-                      ...prev,
-                      trip: {
-                        ...prev.trip,
-                        participants: subscriptionData.data.tripInfoChanged.timeFrame
+                    if (subscriptionData.data.tripInfoChanged.id === this.state.tripID) {
+                      const newObject = {
+                        ...prev,
+                        trip: {
+                          ...prev.trip,
+                          participants: subscriptionData.data.tripInfoChanged.timeFrame.chosenTimeFrame
+                        }
                       }
+                      return newObject;
                     }
-                    return newObject;
+                    else return prev;
                   }
                 })
               }/>
             </GeneralInfo>
           </div>
           :
-          <h1>Loading</h1>
+          <h1>Sorry, trip not found</h1>
         )
       }
     }
