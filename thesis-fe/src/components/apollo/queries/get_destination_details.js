@@ -9,7 +9,7 @@ const GET_DESTINATION_DETAILS = gql` query GET_DESTINATION_DETAILS ($tripID: ID!
     trip (id: $tripID) {
       destination {
         isDictated,
-        chosenDestination {
+        chosenSuggestion {
           id,
           name,
           voters {

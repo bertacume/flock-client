@@ -10,13 +10,13 @@ const GET_MY_TRIPS = gql` query GET_TRIP_DETAILS ($tripID: ID!)
       },
       destination {
         isDictated
-        chosenDestination {
+        chosenSuggestion {
           name
         },
       },
       budget {
         isDictated,
-        chosenBudget {
+        chosenSuggestion {
           value
         },
       }
