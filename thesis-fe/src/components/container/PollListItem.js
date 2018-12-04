@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Mutation } from "react-apollo";
 import styled from 'react-emotion';
+import moment from 'moment';
 
 export class PollListItem extends Component {
   state = {
     isExpanded: false,
+    isLocked: 'lock'
   }
 
   toggleCollapsible = () => {
@@ -30,24 +32,43 @@ export class PollListItem extends Component {
     const { item } = this.props;
     const userVoted = item.voters.filter(obj => obj.email === this.props.self.email);
     const isVoted = !!userVoted.length;
-    const title = item.name ? item.name : item.value;
+    let title;
+    if (item.name) title = item.name;
+    else if (item.value) title = item.value
+    else title = (moment(item.startDate).format('DD-MM-YYYY') + ' - ' + moment(item.endDate).format('DD-MM-YYYY'))
     return (<ListItemContainer>
-      <Mutation
-        mutation={isVoted ? this.props.mutations.removeVote : this.props.mutations.addVote}
-      >
-        {(mutation, { data }) => (
-          <ListItem isVoted={isVoted}>
+
+      <ListItem isVoted={isVoted}>
+        <Mutation
+          mutation={isVoted ? this.props.mutations.removeVote : this.props.mutations.addVote}
+        >
+          {(mutation, { data }) => (
             <ItemButton onClick={() => isVoted ? this.props.removeVote(mutation, item.id) : this.props.addVote(mutation, title)}>
               <ParticipantsCont>
                 <Centered>{item.voters.length}</Centered>
               </ParticipantsCont>
               <ItemTitle>{title}</ItemTitle>
             </ItemButton>
-            <Button onClick={() => this.toggleCollapsible(item)}>
-              <ImgBtn src={require(`../../assets/collapse_${this.getCollapseIcon(isVoted)}.png`)} />
+          )}
+        </Mutation>
+        { (this.props.creator.email === this.props.self.email) ?
+          <Mutation
+            mutation={this.props.mutations.lock}
+          >
+          { mutation => (
+            <Button onClick={() => this.props.lock(mutation, item.id) }>
+              <ImgBtn src={require(`../../assets/svg/${this.state.isLocked}.svg`)} />
             </Button>
-          </ListItem>)}
-      </Mutation>
+          )
+            }
+          </Mutation>
+          : null
+        }
+        <Button onClick={() => this.toggleCollapsible(item)}>
+        <ImgBtn src={require(`../../assets/collapse_${this.getCollapseIcon(isVoted)}.png`)} />
+          </Button>
+      </ListItem>
+
       {this.state.isExpanded && this.renderCollapsible(item.voters)}
     </ListItemContainer>);
   }

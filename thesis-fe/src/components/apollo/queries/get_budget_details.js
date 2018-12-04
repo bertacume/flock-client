@@ -7,8 +7,13 @@ const GET_BUDGET_DETAILS = gql` query GET_BUDGET_DETAILS ($tripID: ID!)
       firstName
     }
     trip (id: $tripID) {
+      id,
+      creator {
+        email
+      }
       budget {
         isDictated,
+        isLocked,
         chosenSuggestion {
           id,
           value,

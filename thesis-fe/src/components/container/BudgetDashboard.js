@@ -8,8 +8,11 @@ import 'react-input-range/lib/css/index.css';
 import { fontFamily } from '../../helpers/styleConstants';
 import ADD_OR_VOTE_FOR_BUDGET from '../apollo/mutations/add_or_vote_for_budget';
 import REMOVE_VOTE_FOR_BUDGET from '../apollo/mutations/remove_vote_for_budget';
+import LOCK_BUDGET from '../apollo/mutations/lock_budget';
+import UNLOCK_BUDGET from '../apollo/mutations/unlock_budget';
 import { PollList } from '../presentational/PollList';
 import { Mutation } from 'react-apollo';
+import star from '../../assets/svg/star.svg';
 
 const minDefault = 0;
 const maxDefault = 1000;
@@ -49,6 +52,20 @@ class BudgetDashboard extends Component {
 
   removeVote = (mutation, id) => {
     const variables = { tripID: this.props.tripID, budgetID: id };
+    mutation({ variables });
+  }
+
+  lock = (mutation, id) => {
+    console.log(mutation,id)
+    const variables = { tripID: this.props.tripID, suggestionID: id };
+    console.log(variables);
+    mutation({ variables });
+  }
+
+  unlock = (mutation, id) => {
+    console.log(mutation, id)
+    console.log('aaaa')
+    const variables = { tripID: this.props.tripID, suggestionID: id };
     mutation({ variables });
   }
 
@@ -97,6 +114,7 @@ class BudgetDashboard extends Component {
   }
 
   renderDemocracy = () => {
+    console.log(this.props)
     const { self } = this.props.info;
     const { budget } = this.props.info.trip;
     return (<Container>
@@ -105,18 +123,31 @@ class BudgetDashboard extends Component {
       </SubContainer>
       <List>
         <PollList
-          mutations={{ addVote: ADD_OR_VOTE_FOR_BUDGET, removeVote: REMOVE_VOTE_FOR_BUDGET }}
+          mutations={{ addVote: ADD_OR_VOTE_FOR_BUDGET, removeVote: REMOVE_VOTE_FOR_BUDGET, lock: LOCK_BUDGET, unlock: UNLOCK_BUDGET }}
           items={budget.suggestions}
           self={self}
           type={'budget'}
           addVote={this.addVote}
           removeVote={this.removeVote}
           deleteItem={this.deleteItem}
+          lock={this.lock}
+          unlock={this.unlock}
+          creator={this.props.info.trip.creator}
         />
       </List>
     </Container>
     );
   }
+  renderDictated = () => {
+    const { budget } = this.props.info.trip;
+    return (<ContainerBudget key='1'>
+      <img src={star} alt="winner" height="25" width="25" />
+      <H1>{budget.chosenSuggestion.name}</H1>
+      <H1>votes: {budget.chosenSuggestion.voters.length}</H1>
+      <H1>creator: {budget.chosenSuggestion.creator.firstName}</H1>
+    </ContainerBudget>);
+  }
+
   render() {
     const { budget } = this.props.info.trip;
     return (
@@ -127,7 +158,7 @@ class BudgetDashboard extends Component {
           icon={budgetImg}
           history={this.props.history}
         />
-        {budget.isDictated ? this.renderDictated() : this.renderDemocracy()}
+        {budget.isDictated || budget.isLocked ? this.renderDictated() : this.renderDemocracy()}
       </Container>
     );
   }
@@ -204,6 +235,15 @@ export const SliderWrapper = styled('div')`
     background: #e5815f;
   }
 `
+
+const ContainerBudget = styled('div')`
+  width: 80vw;
+  height: 10vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`
+
 export const Label = styled('p')`
   color: #e5815f;
   font-weight: 600;
@@ -233,6 +273,12 @@ const Title = styled('p')`
   color: #e5815f;
   font-size: 1.5rem;
 `
+const H1 = styled('h1')`
+  font-size: 1.5rem;
+  margin-left: 1rem;
+  color: #e48264;
+`
+
 const BtnContainer = styled('div')`
   height: 100%;
   margin: 5px 0 10px 0;

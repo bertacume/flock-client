@@ -8,6 +8,8 @@ import { Mutation } from "react-apollo";
 import { PollList } from '../presentational/PollList';
 import ADD_OR_VOTE_FOR_DESTINATION from '../apollo/mutations/add_or_vote_for_destination';
 import REMOVE_VOTE_FOR_DESTINATION from '../apollo/mutations/remove_vote_for_destination';
+import LOCK_BUDGET from '../apollo/mutations/lock_destination';
+import UNLOCK_BUDGET from '../apollo/mutations/unlock_destination';
 
 
 class DestinationDashboard extends Component {
@@ -34,6 +36,20 @@ class DestinationDashboard extends Component {
     mutation({ variables });
   }
 
+  lock = (mutation, id) => {
+    console.log(mutation,id)
+    const variables = { tripID: this.props.tripID, suggestionID: id };
+    console.log(variables);
+    mutation({ variables });
+  }
+
+  unlock = (mutation, id) => {
+    console.log(mutation, id)
+    console.log('aaaa')
+    const variables = { tripID: this.props.tripID, suggestionID: id };
+    mutation({ variables });
+  }
+
   deleteItem = (item) => {
     //TODO: mutation that check and deletes item
   }
@@ -42,13 +58,14 @@ class DestinationDashboard extends Component {
     const { destination } = this.props.info.trip;
     return (<ContainerDestination key='1'>
       <img src={star} alt="winner" height="25" width="25" />
-      <H1>{destination.chosenDestination.name}</H1>
-      <H1>votes: {destination.chosenDestination.voters.length}</H1>
-      <H1>creator: {destination.chosenDestination.creator.firstName}</H1>
+      <H1>{destination.chosenSuggestion.name}</H1>
+      <H1>votes: {destination.chosenSuggestion.voters.length}</H1>
+      <H1>creator: {destination.chosenSuggestion.creator.firstName}</H1>
     </ContainerDestination>);
   }
 
   renderDemocracy = () => {
+    console.log(this.props)
     const { self } = this.props.info;
     const { destination } = this.props.info.trip;
     return (<Container>
@@ -64,13 +81,16 @@ class DestinationDashboard extends Component {
       </SubContainer>
       <List>
         <PollList
-          mutations={{ addVote: ADD_OR_VOTE_FOR_DESTINATION, removeVote: REMOVE_VOTE_FOR_DESTINATION }}
+          mutations={{ addVote: ADD_OR_VOTE_FOR_DESTINATION, removeVote: REMOVE_VOTE_FOR_DESTINATION, lock: LOCK_BUDGET, unlock: UNLOCK_BUDGET }}
           items={destination.suggestions}
           self={self}
           type={'destination'}
           addVote={this.addVote}
           removeVote={this.removeVote}
           deleteItem={this.deleteItem}
+          lock={this.lock}
+          unlock={this.unlock}
+          creator={this.props.info.trip.creator}
         />
       </List>
     </Container>
@@ -78,6 +98,7 @@ class DestinationDashboard extends Component {
   }
 
   render() {
+    console.log(this.props);
     const { destination } = this.props.info.trip;
     return (
       <Container>
@@ -87,7 +108,7 @@ class DestinationDashboard extends Component {
         icon={locationImg}
         history={this.props.history}
         />
-        {destination.isDictated ? this.renderDictated() : this.renderDemocracy()}
+        {destination.isDictated || destination.isLocked ? this.renderDictated() : this.renderDemocracy()}
       </Container>
     );
   }

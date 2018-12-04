@@ -7,8 +7,15 @@ const GET_CALENDAR_DETAILS = gql` query GET_CALENDAR_DETAILS ($tripID: ID!)
       firstName
     }
     trip (id:$tripID) {
+      id,
+      creator {
+        email
+      },
       timeFrame{
+        isLocked,
+        isDictated,
         chosenSuggestion{
+          id,
           startDate,
           endDate,
           voters{
@@ -16,9 +23,11 @@ const GET_CALENDAR_DETAILS = gql` query GET_CALENDAR_DETAILS ($tripID: ID!)
           },
         },
         suggestions{
+          id,
           startDate,
           endDate,
           voters{
+            email,
             firstName
           },
         },
