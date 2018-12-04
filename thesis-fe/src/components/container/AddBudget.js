@@ -35,6 +35,7 @@ export class AddBudget extends Component {
 
   handleInput = value => {
     this.setState({ value, isAdded: true });
+    console.log(this.props.budget);
     this.props.setBudget({ ...this.props.budget, suggestions: [{value: value}] });
   }
 

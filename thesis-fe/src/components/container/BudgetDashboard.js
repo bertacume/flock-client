@@ -51,7 +51,7 @@ class BudgetDashboard extends Component {
   }
 
   removeVote = (mutation, id) => {
-    const variables = { tripID: this.props.tripID, budgetID: id };
+    const variables = { tripID: this.props.tripID, suggestionID: id };
     mutation({ variables });
   }
 

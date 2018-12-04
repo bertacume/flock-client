@@ -19,7 +19,7 @@ const GET_TRIP_DETAILS_DESTINATION_SUB = gql` subscription tripInfoChanged
             lastName
           }
         },
-        chosenDestination {
+        chosenSuggestion {
           name
         },
         isDictated
