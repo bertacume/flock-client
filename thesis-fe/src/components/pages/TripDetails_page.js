@@ -38,7 +38,6 @@ class TripDetails_page extends Component {
       {({ subscribeToMore, loading, error, data}) => {
         if (loading) return <h1>Loading</h1>;
         if (error) console.log(error);
-        console.log(data);
         return (
           (data.trip) ?
           <div>

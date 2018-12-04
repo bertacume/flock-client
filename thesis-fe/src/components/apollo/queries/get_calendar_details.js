@@ -8,7 +8,7 @@ const GET_CALENDAR_DETAILS = gql` query GET_CALENDAR_DETAILS ($tripID: ID!)
     }
     trip (id:$tripID) {
       timeFrame{
-        chosenTimeFrame{
+        chosenSuggestion{
           startDate,
           endDate,
           voters{
