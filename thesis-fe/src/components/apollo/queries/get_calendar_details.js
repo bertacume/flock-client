@@ -14,9 +14,6 @@ const GET_CALENDAR_DETAILS = gql` query GET_CALENDAR_DETAILS ($tripID: ID!)
           voters{
             firstName
           },
-          creator{
-            firstName
-          }
         },
         suggestions{
           startDate,
@@ -24,9 +21,6 @@ const GET_CALENDAR_DETAILS = gql` query GET_CALENDAR_DETAILS ($tripID: ID!)
           voters{
             firstName
           },
-          creator{
-            firstName
-          }
         },
         isDictated
       }

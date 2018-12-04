@@ -9,6 +9,7 @@
     "apollo-link-http": "^1.5.7",
     "emotion": "^9.2.12",
     "graphql": "^14.0.2",
+    "graphql-tag": "^2.5.0",
     "moment": "^2.22.2",
     "react-apollo": "^2.3.1",
     "react-date-range": "^0.9.4",

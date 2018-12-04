@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'react-emotion'
 import plus from '../../assets/plus-gradient.png';
 import confirm from '../../assets/svg/confirm.svg';
@@ -65,32 +65,41 @@ const ImgBtn = styled('img')`
   height: 100%;
 `
 
-const MyTripsDashboard = (props) => {
-  const redirectToTrip = (id) => {
+class MyTripsDashboard extends Component {
+
+  componentDidMount () {
+    this.props.sub();
+  }
+  redirectToTrip = (id) => {
     return () => {
-      props.history.push('/tripdetails/' + id)
+      this.props.history.push('/tripdetails/' + id)
     }
   }
-  const listTrips = props.info.map( obj => (
-    <ContainerTrip onClick={redirectToTrip(obj.id)} key={obj.id}>
-      <H1>{obj.name}</H1>
-      <ContainerConfirmation>
-      <img src={confirm} alt="confirm" height="20" width="20"/>
-      <H2>Confirmed</H2>
-      </ContainerConfirmation>
-    </ContainerTrip>
-  )
-  )
-  return (
-    <Container>
-      <ContainerButton>
-        <Link to='/addtrip'>
-        <Button ><ImgBtn src={plus} /></Button>
-        </Link>
-      </ContainerButton>
-      {listTrips}
-    </Container>
-  );
+
+
+  render() {
+
+    const listTrips = this.props.info.map(obj => (
+      <ContainerTrip onClick={this.redirectToTrip(obj.id)} key={obj.id}>
+        <H1>{obj.name}</H1>
+        <ContainerConfirmation>
+          <img src={confirm} alt="confirm" height="20" width="20" />
+          <H2>Confirmed</H2>
+        </ContainerConfirmation>
+      </ContainerTrip>
+    )
+    )
+    return (
+      <Container>
+        <ContainerButton>
+          <Link to='/addtrip'>
+            <Button ><ImgBtn src={plus} /></Button>
+          </Link>
+        </ContainerButton>
+        {listTrips}
+      </Container>
+    );
+  }
 }
 
 export default MyTripsDashboard;

@@ -4,39 +4,23 @@ import GET_PARTICIPANTS_DETAILS from '../apollo/queries/get_participants_details
 import ParticipantsDashboard from '../container/ParticipantsDashboard';
 
 
-// const GeneralInfo = styled('div')`
-//   width: 100vw;
-//   height: 90vh;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   padding-top: 5vh;
-// `;
-
 class TripDetails_page extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      tripID : this.props.location.pathname.split('/')[2]
-    }
-  }
 
   render() {
-    console.log(this);
     const ParticipantsDetailsApollo = () => (
       <Query
       query={GET_PARTICIPANTS_DETAILS}
       errorPolicy="all"
-      variables ={{tripID : this.state.tripID}}
+      variables ={{tripID : this.props.match.params.id}}
     >
       {({ loading, error, data }) => {
         if (loading) return <p>Loading...</p>;
-        if (error) console.log(error);
+        if (error) window.location.replace('/auth');
         if (data.trip) {
           return (
             <div>
-              <ParticipantsDashboard info={data} location={this.props.location} history={this.props.history} />
+              <ParticipantsDashboard info={data} location={this.props.location} history={this.props.history} match={this.props.match}/>
           </div>
           );
         }

@@ -5,7 +5,7 @@ import GET_BUDGET_DETAILS from '../apollo/queries/get_budget_details';
 import BudgetDashboard from '../container/BudgetDashboard';
 
 class TripDetailsBudget_page extends Component {
-  tripID = this.props.location.pathname.split('/')[2];
+  tripID = this.props.match.params.id
 
   render() {
     const BudgetDetailsApollo = () => (
@@ -16,7 +16,7 @@ class TripDetailsBudget_page extends Component {
       >
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
-          if (error) console.log(error);
+          if (error) window.location.replace('/auth');
           if (data.trip) {
             return (
               <Container>

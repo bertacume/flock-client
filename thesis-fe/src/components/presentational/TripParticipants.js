@@ -37,6 +37,10 @@ align-content: flex-end
 
 class TripParticipants extends Component {
 
+  componentDidMount () {
+    this.props.sub()
+  }
+
   render() {
     const numberParticipants = this.props.info.length
     return (

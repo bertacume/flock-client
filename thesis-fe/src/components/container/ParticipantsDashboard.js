@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import styled from 'react-emotion'
 import back from '../../assets/svg/back.svg';
 import confirm from '../../assets/svg/confirm.svg';
+import { Mutation } from "react-apollo";
+import ADD_FRIEND from '../apollo/mutations/addfriend';
 
 const Container = styled('div')`
   width: 100vw;
-  height: 90vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,6 +59,9 @@ const Personal = styled('div')`
   align-item: center;
 `;
 
+const Input = styled('input')`
+  color: red;
+`;
 
 
 class ParticipantsDetails extends Component {
@@ -64,17 +69,25 @@ class ParticipantsDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id : this.props.location.pathname.split('/')[2]
+      input : ''
     }
   }
 
+  handleInput = (e) => {
+    const input = e.target.value;
+    this.setState({
+      input : input
+    })
+  }
+
+  getInput = () => {
+    const input = document.getElementsByTagName("input");
+    return input[0] && input[0].value
+  }
   redirectToTrip = (id) => {
-
-    this.props.history.push('/tripdetails/' + this.props.location.pathname.split('/')[2])
-
+    this.props.history.push('/tripdetails/' + this.props.match.params.id)
   }
   render() {
-
     const image = (imgURL) => ( {
       backgroundImage:`url(${imgURL})`,
       backgroundSize: "cover",
@@ -89,16 +102,14 @@ class ParticipantsDetails extends Component {
       margin-bottom: 2rem;
     `;
     const participants = this.props.info.trip.participants.map(obj => (
-      <Participant key={obj.firstName + obj.lastName}>
+      <Participant key={obj.firstName + obj.lastName + obj.email}>
         <div style={image('https://img.clipartxtras.com/2f24590138d32260c0e35e81b46a196d_drawing-dinosaur-drawing-easy-as-well-as-cute-dinosaur-drawing-dinosaur-cute-drawing_600-800.jpeg')}></div>
         <ContainerInfo>
           <Personal>
-          <H1>{obj.firstName + ' ' + obj.lastName}</H1>
+          <H1>{(obj.firstName || 'Unregistered') + ' ' + (obj.lastName || 'user') }</H1>
           <H2>Email: {obj.email}</H2>
-
           </Personal>
-            <img src={confirm} alt="confirm" height="20" width="20"/>
-
+          <img src={confirm} alt="confirm" height="20" width="20"/>
         </ContainerInfo>
       </Participant>
     ))
@@ -108,8 +119,24 @@ class ParticipantsDetails extends Component {
           Who's attending
         </BIG>
         <InviteFriends>
-        <input placeholder="Invite more friends" style={{fontSize:"15px", borderRadius:"5px", borderStyle: 'none'}} type="text"/>
-        <button style={{fontSize:"15px",color:"white"}} >Add</button>
+        {this.state.input.length > 0 ?
+          <input autoFocus key='aaaa' value={this.state.input} placeholder="Invite more friends" style={{fontSize:"15px", borderRadius:"5px", borderStyle: 'none'}} type="text" id="input" onChange={(e) => this.setState({input:e.target.value})} />
+        :
+          <input key='aaaa' value={this.state.input} placeholder="Invite more friends" style={{fontSize:"15px", borderRadius:"5px", borderStyle: 'none'}} type="text" id="input" onChange={(e) => this.setState({input:e.target.value})} />
+        }
+          <Mutation mutation={ADD_FRIEND} variables ={{
+              tripID: this.props.match.params.id,
+              participants : [this.state.input]
+            }}
+            onCompleted={(res) => {
+              this.setState({
+                input: ''
+              })
+            }}
+            onError={(error) => console.log(error)}
+          >
+            { add => <button style={{fontSize:"15px",color:"white"}} onClick={add}>Add</button> }
+          </Mutation>
         </InviteFriends>
         {participants}
         <GoBackButton>

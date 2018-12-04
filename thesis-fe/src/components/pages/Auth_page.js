@@ -6,6 +6,7 @@ import styled from 'react-emotion';
 import { Mutation } from "react-apollo";
 import REGISTER from '../apollo/mutations/register';
 import LOGIN from '../apollo/mutations/login';
+import FACEBOOK from '../apollo/mutations/facebook';
 
 const InnerContainer = styled('div')`
   transform: translateY(-10vh);
@@ -32,6 +33,8 @@ class Auth_page extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      accessToken : '',
+      userID: '',
       inputName : '',
       inputLastname : '',
       inputEmail : '',
@@ -92,7 +95,10 @@ class Auth_page extends Component {
             lastName: this.state.inputLastname,
             avatarURL: 'test'
             }}
-            onCompleted={(res) => console.log(res)}
+            onCompleted={(res) => {
+              localStorage.setItem('token',res.register);
+              this.props.history.push('/mytrips');
+            }}
             >
             { register => <AuthBox handleInputChild={this.handleInputParent.bind(this)} handleChildType={this.handleParentType} handleSendChild={register}  /> }
           </Mutation>
@@ -111,11 +117,34 @@ class Auth_page extends Component {
           </Mutation>
         }
         </InnerContainer>
-        <FacebookLogin appId={BASE_FACEBOOK_ID} autoLoad={false} fields="name,email,picture" callback={this.handleFBAuthentication}  />
+        <Mutation mutation={FACEBOOK} variables ={{
+          email: this.state.inputEmail,
+          userID: this.state.userID,
+          accessToken: this.state.accessToken,
+          firstName: this.state.inputName,
+          lastName: this.state.inputLastname,
+          avatarURL: 'test'
+          }}
+          onCompleted={(res) => {
+            console.log(res);
+            localStorage.setItem('token',res.facebook);
+            this.props.history.push('/mytrips');
+          }}
+          onError={(error) => console.log(error)}
+        >
+          { facebook => <FacebookLogin appId={BASE_FACEBOOK_ID}
+            autoLoad={false} fields="name,email,picture,first_name,last_name"
+            callback={(res) => {
+              this.setState({userID: res.userID, accessToken: res.accessToken, inputName: res.first_name, inputLastname: res.last_name,
+              inputEmail: res.email }, facebook)
+            }}
+          /> }
+        </Mutation>
       </OuterContainer>
     );
   }
 }
+
 
 export default Auth_page;
 
