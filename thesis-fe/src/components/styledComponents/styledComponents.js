@@ -10,8 +10,8 @@ export const Container = styled('div')`
 export const NavBar = styled('div')`
   box-sizing: border-box;
   width: 100%;
-  height: 8%;
-  padding: 2%;
+  height: 8vh;
+  padding: 2% 4% 2% 3%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

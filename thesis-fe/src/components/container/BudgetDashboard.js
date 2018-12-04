@@ -122,7 +122,7 @@ class BudgetDashboard extends Component {
     return (
       <Container>
         <Navbar
-          tripID={this.props.tripID}
+          path={`/tripdetails/${this.props.tripID}`}
           title={'budget'}
           icon={budgetImg}
           history={this.props.history}
