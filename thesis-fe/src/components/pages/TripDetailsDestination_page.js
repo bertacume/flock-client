@@ -5,7 +5,7 @@ import GET_DESTINATION_DETAILS from '../apollo/queries/get_destination_details';
 import DestinationDashboard from '../container/DestinationDashboard';
 
 class TripDetailsDestination_page extends Component {
-  tripID = this.props.location.pathname.split('/')[2];
+  tripID = this.props.match.params.id;
 
   render() {
     const DestinationDetailsApollo = () => (
