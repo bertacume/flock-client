@@ -3,7 +3,6 @@ import { cx, css } from 'emotion';
 import styled from 'react-emotion'
 import { fontFamily } from '../../helpers/styleConstants';
 
-
 export class AddName extends Component {
   state = {
     input: '',

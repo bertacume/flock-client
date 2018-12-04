@@ -1,117 +1,164 @@
 import React, { Component } from 'react';
-import styled from 'react-emotion'
+import styled from 'react-emotion';
 import star from '../../assets/svg/star.svg';
-import back from '../../assets/svg/back.svg';
+import { Input } from '../styledComponents/styledComponents';
+import { Navbar } from '../presentational/Navbar';
+import locationImg from '../../assets/location.png';
 import { Mutation } from "react-apollo";
-import ADD_SUGGESTED_DESTINATION_LIKES from '../apollo/mutations/add_suggested_destination_likes';
+import { PollList } from '../presentational/PollList';
+import ADD_OR_VOTE_FOR_DESTINATION from '../apollo/mutations/add_or_vote_for_destination';
+import REMOVE_VOTE_FOR_DESTINATION from '../apollo/mutations/remove_vote_for_destination';
 
-const BIG = styled('h1')`
-  font-size: 3rem;
-  color: white;
-`;
+
+class DestinationDashboard extends Component {
+  state = {
+    input: '',
+  }
+
+  handleInput = (event) => {
+    this.setState({ input: event.target.value });
+  }
+
+  handleAddClick = (mutation) => {
+    this.addVote(mutation, this.state.input);
+    this.setState({ input: '' });
+  }
+
+  addVote = (mutation, name) => {
+    const variables = { tripID: this.props.tripID, destinations: [{ name }] };
+    mutation({ variables });
+  }
+
+  removeVote = (mutation, id) => {
+    const variables = { tripID: this.props.tripID, destinationID: id };
+    mutation({ variables });
+  }
+
+  deleteItem = (item) => {
+    //TODO: mutation that check and deletes item 
+  }
+
+  renderDictated = () => {
+    const { destination } = this.props.info.trip;
+    return (<ContainerDestination key='1'>
+      <img src={star} alt="winner" height="25" width="25" />
+      <H1>{destination.chosenDestination.name}</H1>
+      <H1>votes: {destination.chosenDestination.voters.length}</H1>
+      <H1>creator: {destination.chosenDestination.creator.firstName}</H1>
+    </ContainerDestination>);
+  }
+
+  renderDemocracy = () => {
+    const { self } = this.props.info;
+    const { destination } = this.props.info.trip;
+    return (<Container>
+      <SubContainer>
+        <Input type="text" placeholder={'Add suggestons'} value={this.state.input} onChange={this.handleInput} />
+        <Mutation
+          mutation={ADD_OR_VOTE_FOR_DESTINATION}
+        >
+          {(mutation, { data }) => (
+            <ButtonAdd onClick={() => this.handleAddClick(mutation)}><ImgBtn src={require('../../assets/plus.png')} /></ButtonAdd>
+          )}
+        </Mutation>
+      </SubContainer>
+      <List>
+        <PollList
+          mutations={{ addVote: ADD_OR_VOTE_FOR_DESTINATION, removeVote: REMOVE_VOTE_FOR_DESTINATION }}
+          items={destination.suggestions}
+          self={self}
+          type={'destination'}
+          addVote={this.addVote}
+          removeVote={this.removeVote}
+          deleteItem={this.deleteItem}
+        />
+      </List>
+    </Container>
+    );
+  }
+
+  render() {
+    const { destination } = this.props.info.trip;
+    return (
+      <Container>
+        <Navbar 
+        tripID={this.props.tripID}
+        title={'destination'}
+        icon={locationImg}
+        history={this.props.history}
+        />
+        {destination.isDictated ? this.renderDictated() : this.renderDemocracy()}
+      </Container>
+    );
+  }
+}
+
 const Container = styled('div')`
-  width: 100vw;
-  height: 100vh;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  padding-top: 5vh;
-  background: #ff7e5f;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-`;
+  background-color: #ffffff;
+  Input:focus{
+    outline: none;
+  }
+  Input {
+    color: #ffffff;
+    border-color: #ffffff;
+    height: 50%;
+  }
+  Input::placeholder {
+    color: #ffffff;
+  }
+  button:active {
+    border-width: 0;
+  }
+`
+const List = styled('div')`
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: white;
+`
+const SubContainer = styled('div')`
+  width: 100%;
+  height: 18%;
+  margin: 5px 0;
+  padding: 10px 0;
+  display: flex;
+  flex-direction column;
+  justify-content: space-evenly;
+  align-items: center;
+  background: #e9e9e9;
+`
 const ContainerDestination = styled('div')`
   width: 80vw;
   height: 10vh;
   display: flex;
   flex-direction: row;
   align-items: center;
-`;
-const ContainerDestinations = styled('div')`
-  width: 80vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+`
 const H1 = styled('h1')`
   font-size: 1.5rem;
   margin-left: 1rem;
-  color: white;
-`;
-const H2 = styled('h1')`
-  font-size: 1.25rem;
-  margin: 0 1rem;
-  color: white;
-`;
-const GoBackButton = styled('button')`
-  position: absolute;
-  right: 40vw;
-  margin-top: 2rem;
-  margin-right: .25rem;
-  position: relative;
-  font-size: 2rem;
-`;
-class MyTripsDashboard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tripID : this.props.location.pathname.split('/')[2]
-    }
-  }
-  redirectToTrip = (id) => {
-    this.props.history.push('/tripdetails/' + this.props.location.pathname.split('/')[2])
-  }
-
-  render
-
-  render() {
-    const isDecided = this.props.info.trip.destination.chosenDestination
-    const chosenToShow = ((isDecided) ? [(
-      <ContainerDestination key='1'>
-        <img src={star} alt="winner" height="25" width="25" />
-        <H1>{this.props.info.trip.destination.chosenDestination.name}</H1>
-        <H1>votes: {this.props.info.trip.destination.chosenDestination.voters.length}</H1>
-        <H1>creator: {this.props.info.trip.destination.chosenDestination.creator.firstName}</H1>
-      </ContainerDestination>
-      )]
-    :
-      [<H1 key='1'>To be decided</H1>])
-    const chosenDestination = (isDecided) ? isDecided.name : null;
-    const othersToShow = ((this.props.info.trip.destination.suggestions.length > 0) ? [(
-      this.props.info.trip.destination.suggestions.filter(obj => obj.name !== chosenDestination).map( obj => (
-        <ContainerDestination key={obj.name + obj.voters.length}>
-          <H2>{obj.name}</H2>
-          <H2>votes: {obj.voters.length}</H2>
-          {isDecided &&
-            <Mutation mutation={ADD_SUGGESTED_DESTINATION_LIKES} variables ={{input : {
-              tripID : this.state.tripID,
-              name: obj.name
-            }}}>
-              {addDestinationLikes => <img src={star} alt="winner" height="15" width="15" onClick={addDestinationLikes} id={obj.name}/>}
-            </Mutation>
-          }
-        </ContainerDestination>
-      ))
-      )]
-    :
-      null)
-
-
-    return (
-      <Container>
-        <BIG>
-          Destination
-        </BIG>
-        <ContainerDestinations>
-          {chosenToShow}
-          {othersToShow}
-        </ContainerDestinations>
-        <GoBackButton>
-          <img src={back} alt="go back" height="40" width="40" onClick={this.redirectToTrip}/>
-        </GoBackButton>
-      </Container>
-    );
-  }
-}
-
-export default MyTripsDashboard;
+  color: #e48264;
+`
+const ImgBtn = styled('img')`
+  height: 100%;
+`
+const ButtonAdd = styled('button')`
+  width: 20vw;
+  height: 5vh;
+  border-width: 0;
+  border-color: #afafaf;
+  border-radius: 10px;
+  background-color: transparent;
+`
+export default DestinationDashboard;

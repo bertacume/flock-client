@@ -2,23 +2,34 @@ import gql from "graphql-tag";
 
 const GET_BUDGET_DETAILS = gql` query GET_BUDGET_DETAILS ($tripID: ID!)
   {
+    self {
+      email,
+      firstName
+    }
     trip (id: $tripID) {
       budget {
         isDictated,
         chosenBudget {
-          value,
           id,
+          value,
           voters {
-            firstName
+            firstName,
+            lastName,
+            email
           }
           creator {
-            firstName
+            firstName,
+            lastName
+            email
           }
         }
         suggestions {
+          id,
           value,
           voters {
-            firstName
+            firstName,
+            lastName,
+            email
           }
         }
       }

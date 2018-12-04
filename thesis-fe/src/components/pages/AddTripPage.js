@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion'
-import { fontFamily } from '../../helpers/styleConstants';
 import { AddName } from '../container/AddName';
 import { AddDestination } from '../container/AddDestination';
 import { AddTime } from '../container/AddTime';
@@ -229,7 +228,6 @@ const Button = styled('button')`
   border-color: #afafaf;
   border-radius: 10px;
   background-color: transparent;
-  font-family: ${fontFamily}
 `
 const FakeBtn = styled('div')`
   width: 20vw;

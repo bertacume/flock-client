@@ -22,6 +22,7 @@ export class List extends Component {
   }
 
   renderItems = () => {
+    if (!this.props.items || !this.props.items.length) return;
     return this.props.items.map(item => {
       return (
         <ListItem key={item} styles={this.props.styles && this.props.styles.listItem && this.props.styles.listItem.join('; ')}>

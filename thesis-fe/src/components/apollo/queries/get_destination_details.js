@@ -2,23 +2,34 @@ import gql from "graphql-tag";
 
 const GET_DESTINATION_DETAILS = gql` query GET_DESTINATION_DETAILS ($tripID: ID!)
   {
+    self {
+      email,
+      firstName
+    }
     trip (id: $tripID) {
       destination {
         isDictated,
         chosenDestination {
-          key,
+          id,
           name,
           voters {
-            firstName
+            firstName,
+            lastName,
+            email
           }
           creator {
-            firstName
+            firstName,
+            lastName,
+            email
           }
         }
         suggestions {
+          id,
           name,
           voters {
-            firstName
+            firstName,
+            lastName,
+            email
           }
         }
       }
