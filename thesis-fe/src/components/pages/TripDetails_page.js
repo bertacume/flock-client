@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Navigation from '../container/Navigation';
+import { Navbar } from '../presentational/Navbar';
+import ballon from '../../assets/trip.png';
 import styled from 'react-emotion'
 import { Query } from "react-apollo";
 import GET_TRIP_DETAILS from '../apollo/queries/get_trip_details';
@@ -8,21 +9,12 @@ import TripDestination from '../presentational/TripDestination';
 import TripCalendar from '../presentational/TripCalendar';
 import TripBudget from '../presentational/TripBudget';
 
-const GeneralInfo = styled('div')`
-  width: 100vw;
-  height: 90vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 5vh;
-`;
-
 class TripDetails_page extends Component {
 
   constructor(props) {
     super(props);
     this.state = ({
-      tripID : this.props.location.pathname.split('/')[2]
+      tripID: this.props.location.pathname.split('/')[2]
     })
   }
 
@@ -33,37 +25,44 @@ class TripDetails_page extends Component {
   }
   render() {
     const TripDetailsApollo = () => (
-      <Query
-      query={GET_TRIP_DETAILS}
-      errorPolicy="all"
-      variables ={{tripID : this.state.tripID }}
-    >
-      {({ loading, error, data }) => {
-        if (loading) return <p>Loading...</p>;
-        if (error) console.log(error);
-        if (data.trip) {
-          return (
-            <div>
-            <Navigation textContent={data.trip.name}/>
-            <GeneralInfo>
-              <TripParticipants info={data.trip.participants} redirectParent={this.redirectParent('participants')} />
-              <TripDestination info={data.trip.destination} redirectParent={this.redirectParent('destination')}/>
-              <TripBudget redirectParent={this.redirectParent('budget')} info={data.trip.budget}/>
-              <TripCalendar info={data.trip.timeFrame} redirectParent={this.redirectParent('calendar')}/>
-            </GeneralInfo>
-          </div>
-          );
-        }
-        else if (!data.trip) {
-          return (
-            <h1>
-              Sorry, trip not found
+      <Container>
+        <Query
+          query={GET_TRIP_DETAILS}
+          errorPolicy="all"
+          variables={{ tripID: this.state.tripID }}
+        >
+          {({ loading, error, data }) => {
+            if (loading) return <p>Loading...</p>;
+            if (error) console.log(error);
+            if (data.trip) {
+              return (
+                <div>
+                  <Navbar
+                    path={`/mytrips`}
+                    title={data.trip.name}
+                    history={this.props.history}
+                    icon={ballon}
+                  />
+                  <GeneralInfo>
+                    <TripParticipants info={data.trip.participants} redirectParent={this.redirectParent('participants')} />
+                    <TripDestination info={data.trip.destination} redirectParent={this.redirectParent('destination')} />
+                    <TripBudget redirectParent={this.redirectParent('budget')} info={data.trip.budget} />
+                    <TripCalendar info={data.trip.timeFrame} redirectParent={this.redirectParent('calendar')} />
+                  </GeneralInfo>
+                </div>
+              );
+            }
+            else if (!data.trip) {
+              return (
+                <h1>
+                  Sorry, trip not found
             </h1>
-          )
-        }
-      }
-    }
-    </Query>
+              )
+            }
+          }
+          }
+        </Query>
+      </Container>
     );
     return (
       <TripDetailsApollo />
@@ -73,15 +72,20 @@ class TripDetails_page extends Component {
 
 export default TripDetails_page
 
-/*
-  Here we should go knowing both the user id and the trip id. We will get from the db:
-  on schema:
-    - name,
-    - participants,
-    - destination.
-    - budget,
-    - timeFrame
-
-  should the id it will try to fetch from graphql should come from the url -> allow for direct access to the url and
-  independence
-*/
+const Container = styled('div')`
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+`
+const GeneralInfo = styled('div')`
+  width: 100vw;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+`;

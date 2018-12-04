@@ -7,10 +7,10 @@ const NavProfileImage = styled('div')`
 border: 1px solid #000;
 background-image: url('https://graph.facebook.com/1897429313675048/picture?type=small');
 background-size: cover;
-border-radius: 200px;
-width: 15vw;
-height: 8vh;
-margin-right: 2rem;
+border-radius: 50%;
+height: 100%;
+width: 100%;
+// margin: 0 10px;
 `;
 
 class Navigation extends Component {

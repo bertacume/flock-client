@@ -82,7 +82,7 @@ class DestinationDashboard extends Component {
     return (
       <Container>
         <Navbar 
-        tripID={this.props.tripID}
+        path={`/tripdetails/${this.props.tripID}`}
         title={'destination'}
         icon={locationImg}
         history={this.props.history}
