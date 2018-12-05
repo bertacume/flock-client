@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion'
 import back from '../../assets/svg/back.svg';
-import confirm from '../../assets/svg/confirm.svg';
 import { Mutation } from "react-apollo";
 import ADD_FRIEND from '../apollo/mutations/addfriend';
 
@@ -12,6 +11,10 @@ class ParticipantsDetails extends Component {
     this.state = {
       input : ''
     }
+  }
+
+  componentDidMount () {
+    this.props.sub();
   }
 
   handleInput = (e) => {
@@ -50,7 +53,6 @@ class ParticipantsDetails extends Component {
           <H1>{(obj.firstName || 'Unregistered') + ' ' + (obj.lastName || 'user') }</H1>
           <H2>Email: {obj.email}</H2>
           </Personal>
-          <img src={confirm} alt="confirm" height="20" width="20"/>
         </ContainerInfo>
       </Participant>
     ))

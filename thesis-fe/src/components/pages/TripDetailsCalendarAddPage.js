@@ -22,6 +22,21 @@ class TripDetailsCalendarAddPage extends Component {
     console.log(this.props);
   }
 
+  handleCalendarChange = (date) => {
+    const dateFormatted = Object.assign({}, date, {startPresentational : date.startDate.format('YYYY-MM-DD')},{endPresentational : date.endDate.format('YYYY-MM-DD')})
+    console.log(dateFormatted);
+    this.setState({selectedList: this.state.selectedList.concat(dateFormatted)});
+    // (e) => {
+    //   const objTime = this.state.selectedList;
+    //   for (let i = 0; i < objTime.length; i++) {
+    //     if ((objTime[i].startDate._d.toString() === e.startDate._d.toString()) && (objTime[i].endDate._d.toString() === e.endDate._d.toString())) {
+    //       return
+    //     }
+    //   }
+    //   this.setState({selectedList : this.state.selectedList.concat(e)})
+    // }
+  }
+
   render() {
     return (
       <Container>
@@ -35,15 +50,7 @@ class TripDetailsCalendarAddPage extends Component {
             startDate={null}
             endDate={null}
             calendars={1}
-            onChange={(e) => {
-              const objTime = this.state.selectedList;
-              for (let i = 0; i < objTime.length; i++) {
-                if ((objTime[i].startDate._d.toString() === e.startDate._d.toString()) && (objTime[i].endDate._d.toString() === e.endDate._d.toString())) {
-                  return
-                }
-              }
-              this.setState({selectedList : this.state.selectedList.concat(e)})
-            }}
+            onChange={this.handleCalendarChange}
             twoStepChange={true}
             theme={{
               DayInRange: {
@@ -99,7 +106,7 @@ class TripDetailsCalendarAddPage extends Component {
           <Link to={'/tripdetails/' + this.props.match.params.id + '/calendar/'}>
             <Mutation mutation={ADD_DATE} variables ={{
                 tripID: this.props.match.params.id,
-                timeFrames: this.state.selectedList
+                timeFrames: this.state.selectedList.map(obj => ({startDate: obj.startDate.format('YYYY-MM-DD'), endDate: obj.endDate.format('YYYY-MM-DD')}))
               }}
               onCompleted={(res) => {
                 this.setState({
@@ -114,7 +121,7 @@ class TripDetailsCalendarAddPage extends Component {
             </Mutation>
           </Link>
           <ContainerList>
-          <List items={this.state.selectedList.slice().map(obj => moment(obj.startDate).format('DD-MM-YYYY') + ' - ' +  moment(obj.endDate).format('DD-MM-YYYY')) || []}
+          <List items={this.state.selectedList.slice().map(obj => obj.startPresentational + ' - ' +  obj.endPresentational || [])}
             buttonResponse='delete'
             handleClick = {(e) => this.setState({selectedList: this.state.selectedList.slice().filter( obj => e !== (moment(obj.startDate).format('DD-MM-YYYY') + ' - ' +  moment(obj.endDate).format('DD-MM-YYYY')))})}
           />

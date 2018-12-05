@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Query } from "react-apollo";
 import GET_CALENDAR_DETAILS from '../apollo/queries/get_calendar_details';
+import GET_TRIP_DETAILS_CALENDAR_SUB from '../apollo/subscriptions/get_trip_details_calendar_sub';
 import CalendarDashboard from '../container/CalendarDashboard';
 
 
@@ -24,7 +25,7 @@ class TripDetailsCalendar_page extends Component {
       variables ={{tripID: this.props.match.params.id}}
       fetchPolicy= 'network-only'
     >
-      {({ loading, error, data }) => {
+      {({ subscribeToMore,  loading, error, data }) => {
         if (loading) return <p>Loading...</p>;
         if (error) {
           console.log(error);
@@ -32,7 +33,24 @@ class TripDetailsCalendar_page extends Component {
         if (data.trip) {
           return (
             <div>
-              <CalendarDashboard info={data} location={this.props.location} history={this.props.history} match={this.props.match} />
+              <CalendarDashboard info={data} location={this.props.location} history={this.props.history} match={this.props.match}
+              sub={ () => subscribeToMore({
+                document: GET_TRIP_DETAILS_CALENDAR_SUB,
+                variables: {tripID : this.tripID },
+                updateQuery: (prev, {subscriptionData}) => {
+                  if (!subscriptionData.data || subscriptionData.data.tripInfoChanged.id !== this.tripID) return prev;
+                  const newData = {
+                    ...prev,
+                    trip: {
+                      ...prev.trip,
+                      timeFrame: subscriptionData.data.tripInfoChanged.timeFrame
+                    }
+                  }
+                  return newData;
+                }
+            })
+          }
+          />
           </div>
           );
         }

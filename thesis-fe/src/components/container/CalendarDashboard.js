@@ -14,16 +14,20 @@ import DictatorList from './DictatorList';
 
 class MyTripsDashboard extends Component {
 
+  componentDidMount () {
+    this.props.sub();
+  }
+
   redirectToTrip = () => {
     this.props.history.push('/tripdetails/' + this.props.match.params.id)
   }
 
   addVote = (mutation, dates) => {
     const datesFix = dates.split(' - ')
-    let datesFixStart = datesFix[0].split('-')
-    datesFixStart = datesFixStart[1] + '-' +  datesFixStart[0] + '-' + datesFixStart[2];
-    let datesFixEnd = datesFix[1].split('-')
-    datesFixEnd = datesFixEnd[1] + '-' +  datesFixEnd[0] + '-' + datesFixEnd[2];
+    const datesFixStart = datesFix[0].split('-').reverse().join('-');
+    let datesFixEnd = datesFix[1].split('-').reverse().join('-');
+
+
     const variables = { tripID: this.props.match.params.id, timeFrames: {
       startDate : datesFixStart,
       endDate : datesFixEnd

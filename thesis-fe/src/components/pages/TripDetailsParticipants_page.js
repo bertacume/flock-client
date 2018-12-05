@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Query } from "react-apollo";
 import GET_PARTICIPANTS_DETAILS from '../apollo/queries/get_participants_details';
+import GET_TRIP_DETAILS_PARTICIPANTS_SUB from '../apollo/subscriptions/get_trip_details_participants_sub'
 import ParticipantsDashboard from '../container/ParticipantsDashboard';
 
 
@@ -12,16 +13,26 @@ class TripDetails_page extends Component {
       <Query
       query={GET_PARTICIPANTS_DETAILS}
       errorPolicy="all"
+      fetchPolicy="network-only"
       variables ={{tripID : this.props.match.params.id}}
     >
-      {({ loading, error, data }) => {
+      {({ subscribeToMore, loading, error, data }) => {
         if (loading) return <p>Loading...</p>;
         if (error) console.error(error);
         if (data.trip) {
           return (
             <div>
-              <ParticipantsDashboard info={data} location={this.props.location} history={this.props.history} match={this.props.match}/>
-          </div>
+              <ParticipantsDashboard info={data} location={this.props.location} history={this.props.history} match={this.props.match}
+              sub={ () => subscribeToMore({
+                document: GET_TRIP_DETAILS_PARTICIPANTS_SUB,
+                variables: {tripID : this.tripID },
+                updateQuery: (prev, {subscriptionData}) => {
+                  if (!subscriptionData.data || subscriptionData.data.tripInfoChanged.id !== this.tripID) return prev;
+                  return {trip: subscriptionData.data.tripInfoChanged}
+                }
+              })}
+              />
+            </div>
           );
         }
         else if (!data.trip) {

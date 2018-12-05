@@ -22,11 +22,11 @@ class TripDetailsDestination_page extends Component {
           if (data.trip) {
             return (
               <Container>
-                <DestinationDashboard 
-                info={data} 
-                tripID={this.tripID} 
+                <DestinationDashboard
+                info={data}
+                tripID={this.tripID}
                 match={this.props.match}
-                location={this.props.location} 
+                location={this.props.location}
                 history={this.props.history}
                 sub={() => subscribeToMore({
                   document: GET_TRIP_DETAILS_DESTINATION_SUB,
