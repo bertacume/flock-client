@@ -29,7 +29,8 @@ class ChatContainer extends Component {
   }
 
   renderMessages = () => {
-    return this.props.messages.map(mssg => (
+    const messages = this.props.messages.filter(mssg => mssg.type === this.props.type);
+    return messages.map(mssg => (
       <Mssg key={mssg.createdAt}>
         <ContainerChatMessage>
           <Title>{mssg.message}</Title>
