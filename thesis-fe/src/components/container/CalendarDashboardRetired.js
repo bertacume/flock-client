@@ -84,11 +84,9 @@ class MyTripsDashboard extends Component {
   }
 
   componentDidMount () {
-    console.log('ccccc')
     if(this.props.info.timeFrame){
     this.generateObj();
     }
-    else console.log(this.props)
   }
 
   redirectToTrip = () => {
@@ -101,7 +99,6 @@ class MyTripsDashboard extends Component {
     })
   }
   render() {
-    console.log(this.props);
     const mock = {};
     mock.Arturo = ['18-12-2018','31-12-2018']
     mock.Damien = ['12-12-2018','25-12-2018']

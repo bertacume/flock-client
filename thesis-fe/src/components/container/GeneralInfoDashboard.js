@@ -32,7 +32,6 @@ class GeneralInfoDashboard extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <TripParticipants info={this.props.info.participants} redirectParent={this.redirectParent('participants')} />

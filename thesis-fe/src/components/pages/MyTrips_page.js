@@ -47,7 +47,6 @@ class MyTrips_page extends Component {
                     variables: {},
                     updateQuery: (prev, {subscriptionData}) => {
                       if (!subscriptionData.data) return prev;
-                      console.log(subscriptionData.data, prev)
                       if (prev.self.trips.every(obj => obj.id !== subscriptionData.data.tripInfoChanged.id)) {
                         const newObj = prev;
                         newObj.self.trips.push(subscriptionData.data.tripInfoChanged)

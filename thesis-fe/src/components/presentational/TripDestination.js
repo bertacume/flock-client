@@ -40,7 +40,6 @@ class TripDestination extends Component {
 
 
   render() {
-    console.log(this.props);
     return (
       <Container>
         <img src={location} alt="logo" height="35" width="35"/>

@@ -7,7 +7,6 @@ class TripBudget extends Component {
 
 
   render() {
-    console.log(this.props);
     return (
       <Container>
         <img src={budget} alt="logo" height="35" width="35"/>

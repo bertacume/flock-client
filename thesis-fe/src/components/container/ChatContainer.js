@@ -95,9 +95,6 @@ class ChatContainer extends Component {
 
 
   render() {
-
-
-    console.log(this.props);
     const messagesToDisplay = this.props.info.map(obj => (
       <ContainerChatMessage key={obj.message + Math.random()}>
         <H1>

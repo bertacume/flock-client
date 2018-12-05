@@ -76,7 +76,6 @@ const ImgBtn = styled('img')`
 class MyTripsDashboard extends Component {
 
   redirectToTrip = () => {
-    console.log(this.props.match.params.id);
     this.props.history.push('/tripdetails/' + this.props.match.params.id)
   }
 
@@ -86,32 +85,25 @@ class MyTripsDashboard extends Component {
     datesFixStart = datesFixStart[1] + '-' +  datesFixStart[0] + '-' + datesFixStart[2];
     let datesFixEnd = datesFix[1].split('-')
     datesFixEnd = datesFixEnd[1] + '-' +  datesFixEnd[0] + '-' + datesFixEnd[2];
-    console.log(datesFixEnd);
-    console.log(datesFixStart);
     const variables = { tripID: this.props.match.params.id, timeFrames: {
       startDate : datesFixStart,
       endDate : datesFixEnd
       }
     };
-    console.log(variables);
     mutation({ variables });
   }
 
   removeVote = (mutation, id) => {
-    console.log(this.props)
     const variables = { tripID: this.props.match.params.id, suggestionID: id };
     mutation({ variables });
   }
 
   lock = (mutation, id) => {
     const variables = { tripID: this.props.match.params.id, suggestionID: id };
-    console.log(variables);
     mutation({ variables });
   }
 
   unlock = (mutation, id) => {
-    console.log(mutation, id)
-    console.log('aaaa')
     const variables = { tripID: this.props.match.params.id, suggestionID: id };
     mutation({ variables });
   }
@@ -143,7 +135,6 @@ class MyTripsDashboard extends Component {
   )
 
   render() {
-    console.log(this.props);
     return (
       <Container>
     <Navbar

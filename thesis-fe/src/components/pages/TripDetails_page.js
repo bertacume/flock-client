@@ -46,18 +46,14 @@ class TripDetails_page extends Component {
                   document: GET_TRIP_DETAILS_SUB,
                   variables: {tripID : this.props.match.params.id },
                   updateQuery: (prev, {subscriptionData}) => {
-                    console.log(subscriptionData);
-                    console.log(prev);
                     if (!subscriptionData.data || !subscriptionData.data.tripInfoChanged) return prev;
                     let type;
                     if (subscriptionData.data.tripInfoChanged.participants && subscriptionData.data.tripInfoChanged.participants.length !== prev.trip.participants.length) type = 'participants';
                     else if (subscriptionData.data.tripInfoChanged.destination.chosenSuggestion ){
                       type = 'destination'
-                      console.log(type);
                     }
                     else if (subscriptionData.data.tripInfoChanged.budget.chosenSuggestion ){
                       type = 'budget'
-                      console.log(type);
                     }
 
                     if (type && subscriptionData.data.tripInfoChanged[type].chosenSuggestion && subscriptionData.data.tripInfoChanged[type].chosenSuggestion.id && subscriptionData.data.tripInfoChanged.id === this.state.tripID) {
@@ -68,8 +64,6 @@ class TripDetails_page extends Component {
                           [type] : subscriptionData.data.tripInfoChanged[type]
                         }
                       }
-                      console.log(prev);
-                      console.log(newObject);
                       return newObject;
                     }
                     else return prev;

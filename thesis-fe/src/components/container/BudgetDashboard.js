@@ -60,15 +60,11 @@ class BudgetDashboard extends Component {
   }
 
   lock = (mutation, id) => {
-    console.log(mutation,id)
     const variables = { tripID: this.props.tripID, suggestionID: id };
-    console.log(variables);
     mutation({ variables });
   }
 
   unlock = (mutation, id) => {
-    console.log(mutation, id)
-    console.log('aaaa')
     const variables = { tripID: this.props.tripID, suggestionID: id };
     mutation({ variables });
   }
@@ -118,7 +114,6 @@ class BudgetDashboard extends Component {
   }
 
   renderDemocracy = () => {
-    console.log(this.props)
     const { self } = this.props.info;
     const { budget } = this.props.info.trip;
     return (<Container>

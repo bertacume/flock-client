@@ -20,12 +20,12 @@ class TripDetailsDestination_page extends Component {
           if (loading) return <p>Loading...</p>;
           if (error) console.error(error);
           if (data.trip) {
-            console.log('prev', data);
             return (
               <Container>
                 <DestinationDashboard 
                 info={data} 
                 tripID={this.tripID} 
+                match={this.props.match}
                 location={this.props.location} 
                 history={this.props.history}
                 sub={() => subscribeToMore({
