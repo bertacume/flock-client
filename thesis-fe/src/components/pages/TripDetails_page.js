@@ -4,14 +4,8 @@ import ballon from '../../assets/trip.png';
 import styled from 'react-emotion'
 import { Query } from "react-apollo";
 import GET_TRIP_DETAILS from '../apollo/queries/get_trip_details';
-import GET_TRIP_DETAILS_PARTICIPANTS_SUB from '../apollo/queries/get_trip_details_participants_sub';
-import GET_TRIP_DETAILS_DESTINATION_SUB from '../apollo/queries/get_trip_details_destination_sub';
-import GET_TRIP_DETAILS_BUDGET_SUB from '../apollo/queries/get_trip_details_budget_sub';
-import GET_TRIP_DETAILS_CALENDAR_SUB from '../apollo/queries/get_trip_details_calendar_sub';
-import TripParticipants from '../presentational/TripParticipants';
-import TripDestination from '../presentational/TripDestination';
-import TripCalendar from '../presentational/TripCalendar';
-import TripBudget from '../presentational/TripBudget';
+import GET_TRIP_DETAILS_SUB from '../apollo/queries/get_trip_details_sub';
+import GeneralInfoDashboard from '../container/GeneralInfoDashboard'
 
 class TripDetails_page extends Component {
 
@@ -36,10 +30,10 @@ class TripDetails_page extends Component {
       variables ={{tripID : this.props.match.params.id }}
     >
       {({ subscribeToMore, loading, error, data}) => {
-        console.log('SUSBCRIBE');
-        
         if (loading) return <h1>Loading</h1>;
-        if (error) console.log(error);
+        if (error) {
+          console.log(error);
+        }
         return (
           (data.trip) ?
           <div>
@@ -49,89 +43,43 @@ class TripDetails_page extends Component {
                     history={this.props.history}
                     icon={ballon}
                   />
-            <GeneralInfo>
-              <TripParticipants info={data.trip.participants} redirectParent={this.redirectParent('participants')} sub={
+            <GeneralInfoDashboard history={this.props.history} match={this.props.match} info={data.trip} redirectParent={this.redirectParent()} sub={
                 () => subscribeToMore({
-                  document: GET_TRIP_DETAILS_PARTICIPANTS_SUB,
+                  document: GET_TRIP_DETAILS_SUB,
                   variables: {tripID : this.props.match.params.id },
                   updateQuery: (prev, {subscriptionData}) => {
                     console.log(subscriptionData);
+                    console.log(prev);
                     if (!subscriptionData.data || !subscriptionData.data.tripInfoChanged) return prev;
-                    if (subscriptionData.data.tripInfoChanged.id === this.state.tripID) {
+                    let type;
+                    if (subscriptionData.data.tripInfoChanged.participants && subscriptionData.data.tripInfoChanged.participants.length !== prev.trip.participants.length) type = 'participants';
+                    else if (subscriptionData.data.tripInfoChanged.destination.chosenSuggestion ){
+                      type = 'destination'
+                      console.log(type);
+                    }
+                    else if (subscriptionData.data.tripInfoChanged.budget.chosenSuggestion ){
+                      type = 'budget'
+                      console.log(type);
+                    }
+
+                    if (type && subscriptionData.data.tripInfoChanged[type].chosenSuggestion && subscriptionData.data.tripInfoChanged[type].chosenSuggestion.id && subscriptionData.data.tripInfoChanged.id === this.state.tripID) {
                       const newObject = {
                         ...prev,
                         trip: {
                           ...prev.trip,
-                          participants: subscriptionData.data.tripInfoChanged.participants
+                          [type] : subscriptionData.data.tripInfoChanged[type]
                         }
                       }
+                      console.log(prev);
+                      console.log(newObject);
                       return newObject;
                     }
                     else return prev;
                   }
-                })
-              } />
-              <TripDestination info={data.trip.destination} redirectParent={this.redirectParent('destination')} sub={
-                () => ({
-                  document: GET_TRIP_DETAILS_DESTINATION_SUB,
-                  variables: {tripID : this.props.match.params.id },
-                  updateQuery: (prev, {subscriptionData}) => {
-                    if (!subscriptionData.data) return prev;
-                    if (subscriptionData.data.tripInfoChanged.id === this.state.tripID) {
-                      const newObject = {
-                        ...prev,
-                        trip: {
-                          ...prev.trip,
-                          participants: subscriptionData.data.tripInfoChanged.destination.chosenDestination
-                        }
-                      }
-                      return newObject;
-                    }
-                    else return prev;
-                  }
-                })
-              } />
-              <TripBudget redirectParent={this.redirectParent('budget')} info={data.trip.budget} sub={
-                () => ({
-                  document: GET_TRIP_DETAILS_BUDGET_SUB,
-                  variables: {tripID : this.props.match.params.id },
-                  updateQuery: (prev, {subscriptionData}) => {
-                    if (!subscriptionData.data) return prev;
-                    if (subscriptionData.data.tripInfoChanged.id === this.state.tripID) {
-                      const newObject = {
-                        ...prev,
-                        trip: {
-                          ...prev.trip,
-                          participants: subscriptionData.data.tripInfoChanged.budget.chosenBudget
-                        }
-                      }
-                      return newObject;
-                    }
-                    else return prev;
-                  }
-                })
-              } />
-              <TripCalendar info={data.trip.timeFrame} redirectParent={this.redirectParent('calendar')} sub={
-                () => ({
-                  document: GET_TRIP_DETAILS_CALENDAR_SUB,
-                  variables: {tripID : this.props.match.params.id },
-                  updateQuery: (prev, {subscriptionData}) => {
-                    if (!subscriptionData.data) return prev;
-                    if (subscriptionData.data.tripInfoChanged.id === this.state.tripID) {
-                      const newObject = {
-                        ...prev,
-                        trip: {
-                          ...prev.trip,
-                          participants: subscriptionData.data.tripInfoChanged.timeFrame.chosenTimeFrame
-                        }
-                      }
-                      return newObject;
-                    }
-                    else return prev;
-                  }
-                })
-              }/>
-            </GeneralInfo>
+                }
+              )
+            }
+            />
           </div>
           :
           <h1>Sorry, trip not found</h1>

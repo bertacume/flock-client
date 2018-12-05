@@ -20,8 +20,8 @@ export const Navbar = (props) => {
     </Button>
   </NavBar>);
   }
-  
-  
+
+
   const Button = styled('button')`
     height: 90%;
     width: 10%;

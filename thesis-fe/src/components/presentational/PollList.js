@@ -9,13 +9,16 @@ export const PollList = (props) => {
     return items.map(item => {
       return (
           <PollListItem
-            key={item.id}
+            key={item.id || (item.startDate + item.endDate)}
             item={item}
             self={props.self}
             type={props.type}
             mutations={props.mutations}
             addVote={props.addVote}
             removeVote={props.removeVote}
+            lock={props.lock}
+            unlock={props.unlock}
+            creator={props.creator}
           />
       );
     });

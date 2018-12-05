@@ -4,7 +4,7 @@ const GET_TRIP_DETAILS_PARTICIPANTS_SUB = gql` subscription tripInfoChanged
   {
     tripInfoChanged {
       timeFrame {
-        chosenTimeFrame {
+        chosenSuggestion {
           startDate,
           endDate
         }

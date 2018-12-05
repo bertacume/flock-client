@@ -7,8 +7,13 @@ const GET_DESTINATION_DETAILS = gql` query GET_DESTINATION_DETAILS ($tripID: ID!
       firstName
     }
     trip (id: $tripID) {
+      id,
+      creator {
+        email
+      }
       destination {
         isDictated,
+        isLocked,
         chosenSuggestion {
           id,
           name,

@@ -4,26 +4,50 @@ import back from '../../assets/svg/back.svg';
 import { Link } from "react-router-dom";
 import plus from '../../assets/plus-gradient.png';
 import { fontFamily } from '../../helpers/styleConstants';
+import { Navbar } from '../presentational/Navbar';
+import calendarImg from '../../assets/svg/calendar2.svg';
+import { PollList } from '../presentational/PollList';
+import ADD_OR_VOTE_FOR_TIMEFRAME from '../apollo/mutations/add_or_vote_for_timeframe';
+import REMOVE_VOTE_FOR_TIMEFRAME from '../apollo/mutations/remove_vote_for_timeframe';
+import LOCK_TIMEFRAME from '../apollo/mutations/lock_timeframe';
+import UNLOCK_TIMEFRAME from '../apollo/mutations/unlock_timeframe';
 import moment from 'moment';
-import star from '../../assets/svg/star.svg';
-import person from '../../assets/svg/person.svg';
+import DictatorList from './DictatorList';
 
-const Container = styled('div')`
-  width: 100vw;
-  height: 100vh;
+const List = styled('div')`
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  background: #ff7e5f;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-color: white;
 `
 
-const ContainerSuggestions = styled('div')`
+const Container = styled('div')`
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
+  background-color: #ffffff;
+  Input:focus{
+    outline: none;
+  }
+  Input {
+    color: #ffffff;
+    border-color: #ffffff;
+    height: 50%;
+  }
+  Input::placeholder {
+    color: #ffffff;
+  }
+  button:active {
+    border-width: 0;
+  }
 `
 
 const BIG = styled('h1')`
@@ -46,61 +70,93 @@ const ImgBtn = styled('img')`
   height: 100%;
 `
 
-const GoBackButton = styled('button')`
-  position: absolute;
-  right: 40vw;
-  margin-top: 2rem;
-  margin-right: .25rem;
-  position: relative;
-  font-size: 2rem;
-`;
 
-const H1 = styled('h1')`
-  font-size: 1.5rem;
-  margin: 1rem;
-  color: white;
-`;
-
-const H2 = styled('h1')`
-  font-size: 1.5rem;
-  margin-top: 1.25rem;
-  margin-right: 0.5rem;
-  color: white;
-`;
 
 
 class MyTripsDashboard extends Component {
 
   redirectToTrip = () => {
+    console.log(this.props.match.params.id);
     this.props.history.push('/tripdetails/' + this.props.match.params.id)
   }
 
-  render() {
-    const suggestionList = this.props.info.trip.timeFrame.suggestions.map(obj => (
-      <ContainerSuggestions key={obj.startDate + obj.endDate}>
-        <H2>
-          {moment(obj.startDate).format('DD-MM-YYYY') + ' - ' + moment(obj.endDate).format('DD-MM-YYYY')}
-        </H2>
-        <H2>
-          - {obj.voters.length}
-        </H2>
-        <img src={person} alt="winner" height="20" width="20" />
-        <img src={star} alt="winner" height="20" width="20" />
+  addVote = (mutation, dates) => {
+    const datesFix = dates.split(' - ')
+    let datesFixStart = datesFix[0].split('-')
+    datesFixStart = datesFixStart[1] + '-' +  datesFixStart[0] + '-' + datesFixStart[2];
+    let datesFixEnd = datesFix[1].split('-')
+    datesFixEnd = datesFixEnd[1] + '-' +  datesFixEnd[0] + '-' + datesFixEnd[2];
+    console.log(datesFixEnd);
+    console.log(datesFixStart);
+    const variables = { tripID: this.props.match.params.id, timeFrames: {
+      startDate : datesFixStart,
+      endDate : datesFixEnd
+      }
+    };
+    console.log(variables);
+    mutation({ variables });
+  }
 
-      </ContainerSuggestions>
-    ))
+  removeVote = (mutation, id) => {
+    console.log(this.props)
+    const variables = { tripID: this.props.match.params.id, suggestionID: id };
+    mutation({ variables });
+  }
+
+  lock = (mutation, id) => {
+    const variables = { tripID: this.props.match.params.id, suggestionID: id };
+    console.log(variables);
+    mutation({ variables });
+  }
+
+  unlock = (mutation, id) => {
+    console.log(mutation, id)
+    console.log('aaaa')
+    const variables = { tripID: this.props.match.params.id, suggestionID: id };
+    mutation({ variables });
+  }
+
+  renderDemocracy = () => (
+    <Container>
+    <Link to={'/tripdetails/' + this.props.match.params.id + '/calendar/add'}>
+      <Button ><ImgBtn src={plus} /></Button>
+    </Link>
+    <List>
+      <PollList
+        mutations={{ addVote: ADD_OR_VOTE_FOR_TIMEFRAME, removeVote: REMOVE_VOTE_FOR_TIMEFRAME, lock: LOCK_TIMEFRAME, unlock: UNLOCK_TIMEFRAME }}
+        items={this.props.info.trip.timeFrame.suggestions}
+        self={this.props.info.self}
+        type={'calendar'}
+        addVote={this.addVote}
+        removeVote={this.removeVote}
+        deleteItem={this.deleteItem}
+        lock={this.lock}
+        unlock={this.unlock}
+        creator={this.props.info.trip.creator}
+      />
+    </List>
+  </Container>
+  )
+
+  renderDictator = () => (
+    <DictatorList unlock={UNLOCK_TIMEFRAME} info={this.props.info} tripID={this.props.match.params.id} ctx='timeFrame' />
+  )
+
+  render() {
+    console.log(this.props);
     return (
       <Container>
-        <BIG>
-          Calendar
-        </BIG>
-        <Link to={'/tripdetails/' + this.props.match.params.id + '/calendar/add'}>
-          <Button ><ImgBtn src={plus} /></Button>
-        </Link>
-        {suggestionList}
-        <GoBackButton>
-          <img src={back} alt="go back" height="40" width="40" onClick={this.redirectToTrip}/>
-        </GoBackButton>
+    <Navbar
+    path={`/tripdetails/${this.props.match.params.id}`}
+    title={'calendar'}
+    icon={calendarImg}
+    history={this.props.history}
+    />
+      { !this.props.info.trip.timeFrame.isLocked && !this.props.info.trip.isDictated ?
+        this.renderDemocracy()
+        :
+        this.renderDictator()
+      }
       </Container>
     );
   }
