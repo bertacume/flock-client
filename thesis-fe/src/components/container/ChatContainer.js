@@ -1,65 +1,118 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
-import next from '../../assets/next.png';
+import { Navbar } from '../presentational/Navbar';
+import locationImg from '../../assets/location.png';
+import { Mutation } from 'react-apollo';
+import moment from 'moment'
 
+
+class ChatContainer extends Component {
+  state = {
+    input: '',
+  }
+  componentDidMount() {
+    this.props.sub();
+  }
+
+  handleInput = (event) => {
+    this.setState({ input: event.target.value });
+  }
+
+  handleAddClick = (mutation) => {
+    this.addMessage(mutation, this.state.input);
+    this.setState({ input: '' });
+  }
+
+  addMessage = (mutation, message) => {
+    const variables = { tripID: this.props.tripID, message };
+    mutation({ variables });
+  }
+
+  renderMessages = () => {
+    const messages = this.props.messages.filter(mssg => mssg.type === this.props.type);
+    return messages.map(mssg => (
+      <Mssg key={mssg.createdAt}>
+        <ContainerChatMessage>
+          <Title>{mssg.message}</Title>
+        </ContainerChatMessage>
+        <Title>{moment(mssg.createdAt).format('HH:mm')}</Title>
+        <Title>{mssg.creator.firstName}</Title>
+      </Mssg>
+    ))
+  };
+
+  render() {
+    return (
+      <Container>
+        <Navbar
+          pathLeft={this.props.type === 'GENERAL' ? `/tripdetails/${this.props.tripID}/` : `/tripdetails/${this.props.tripID}/${this.props.type.toLowerCase()}`}
+          title={this.props.type}
+          iconRight={locationImg}
+          history={this.props.history}
+        />
+        <ContainerChat>
+          {this.renderMessages()}
+        </ContainerChat>
+        <SubContainer>
+          <Input type="text" placeholder={'Type a message'} value={this.state.input} onChange={this.handleInput} />
+          <Mutation
+            mutation={this.props.mutation[this.props.type]}
+          >
+            {(mutation, { data }) => (
+              <ButtonAdd onClick={() => this.handleAddClick(mutation)}>ADD</ButtonAdd>
+            )}
+          </Mutation>
+        </SubContainer>
+      </Container>
+    )
+  }
+}
 
 const Container = styled('div')`
   height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
-  background: #ff7e5f;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-`;
-
+`
 const ContainerChat = styled('div')`
-  height: 60vh;
-  width: 90vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: white;
-  border-radius : 20px;
-`;
-
-const ContainerMessage = styled('div')`
-  height: 20vh;
-  width: 90vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: white;
-  border-radius : 20px;
-`;
-
-const ContainerMessageInput = styled('div')`
-  height: 17.5vh;
-  width: 70vw;
-  background: blue;
-`;
-
-const ContainerMessageSend = styled('div')`
-  height: 17.5vh;
-  width: 15vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background : black;
-`;
-
-const ContainerChatMessage = styled('div')`
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  border: 1px solid black;
+  align-items: center;
+  background: white;
+`
+const Mssg = styled('div')`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: blue;
+`
+const SubContainer = styled('div')`
+  width: 100%;
+  height: 18%;
+  margin: 5px 0;
+  padding: 10px 0;
+  display: flex;
+  flex-direction column;
+  justify-content: space-evenly;
+  align-items: center;
+  background: #e9e9e9;
+`
+const ContainerChatMessage = styled('div')`
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   border-radius: 20px;
   margin-bottom: 1rem;
-`;
-
+  background: #ffd4b8;
+`
 const Input = styled('textarea')`
   height: 100%;
   width: 100%;
@@ -69,63 +122,22 @@ const Input = styled('textarea')`
   border-color: Transparent;
   outline: none;
   overflow: auto;
-`;
-
-const BIG = styled('h1')`
-  font-size : 3rem;
-  color : white;
-`;
-
-const H1 = styled('h1')`
-  font-size : 1.5rem;
-  color : black;
-  margin-left: .75rem;
-`;
-
-const H2 = styled('h1')`
-  font-size : 1rem;
-  color : black
-  margin-left: .5rem;
-`;
-
-class ChatContainer extends Component {
-
-
-
-
-  render() {
-    const messagesToDisplay = this.props.info.map(obj => (
-      <ContainerChatMessage key={obj.message + Math.random()}>
-        <H1>
-          {obj.firstName}
-        </H1>
-        <H2>
-          {obj.message}
-        </H2>
-      </ContainerChatMessage>
-    ))
-    return (
-      <Container>
-         <BIG>
-          Chat : {this.props.match.params.topic}
-        </BIG>
-        <ContainerChat>
-          {messagesToDisplay}
-        </ContainerChat>
-
-        <ContainerMessage>
-          <ContainerMessageInput>
-            <Input placeholder="Send a message here" />
-          </ContainerMessageInput>
-          <ContainerMessageSend>
-            <img src={next} alt="more info" height="50" width="50" onClick={this.props.redirectParent}/>
-          </ContainerMessageSend>
-        </ContainerMessage>
-      </Container>
-    )
-  }
-}
-
+`
+const ButtonAdd = styled('button')`
+  width: 20vw;
+  height: 5vh;
+  border-width: 0;
+  border-color: #afafaf;
+  border-radius: 10px;
+  background-color: transparent;
+`
+const Title = styled('p')`
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 1.5rem;
+`
 export default ChatContainer;
 
 
