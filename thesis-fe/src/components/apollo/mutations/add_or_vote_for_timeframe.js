@@ -5,6 +5,7 @@ const ADD_OR_VOTE_FOR_TIME_FRAME = gql`mutation addOrVoteForTimeFrame($tripID: I
     name,
     timeFrame {
       suggestions {
+        id,
         startDate,
         endDate,
         voters {

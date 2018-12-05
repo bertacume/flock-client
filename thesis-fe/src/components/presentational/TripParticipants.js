@@ -15,7 +15,7 @@ box-sizing: border-box;
   font-size: 1.5rem;
   border-radius: 10px;
   width: 90vw;
-  height: 20%;
+  height: 20vh;
   display: flex;
   flex-direction:row;
   justify-content: space-between;
@@ -36,10 +36,6 @@ align-content: flex-end
 
 
 class TripParticipants extends Component {
-
-  componentDidMount () {
-    this.props.sub()
-  }
 
   render() {
     const numberParticipants = this.props.info.length

@@ -18,6 +18,9 @@ const GET_CALENDAR_DETAILS = gql` query GET_CALENDAR_DETAILS ($tripID: ID!)
           id,
           startDate,
           endDate,
+          creator {
+            firstName
+          }
           voters{
             firstName
           },

@@ -8,8 +8,10 @@ import { Mutation } from "react-apollo";
 import { PollList } from '../presentational/PollList';
 import ADD_OR_VOTE_FOR_DESTINATION from '../apollo/mutations/add_or_vote_for_destination';
 import REMOVE_VOTE_FOR_DESTINATION from '../apollo/mutations/remove_vote_for_destination';
-import LOCK_BUDGET from '../apollo/mutations/lock_destination';
-import UNLOCK_BUDGET from '../apollo/mutations/unlock_destination';
+import LOCK_DESTINATION from '../apollo/mutations/lock_destination';
+import UNLOCK_DESTINATION from '../apollo/mutations/unlock_destination';
+import unlock from '../../assets/svg/unlock.svg';
+import DictatorList from './DictatorList';
 
 
 class DestinationDashboard extends Component {
@@ -54,15 +56,9 @@ class DestinationDashboard extends Component {
     //TODO: mutation that check and deletes item
   }
 
-  renderDictated = () => {
-    const { destination } = this.props.info.trip;
-    return (<ContainerDestination key='1'>
-      <img src={star} alt="winner" height="25" width="25" />
-      <H1>{destination.chosenSuggestion.name}</H1>
-      <H1>votes: {destination.chosenSuggestion.voters.length}</H1>
-      <H1>creator: {destination.chosenSuggestion.creator.firstName}</H1>
-    </ContainerDestination>);
-  }
+  renderDictated = () => (
+    <DictatorList unlock={UNLOCK_DESTINATION} lock={LOCK_DESTINATION} info={this.props.info} tripID={this.props.match.params.id} ctx='destination' />
+  )
 
   renderDemocracy = () => {
     console.log(this.props)
@@ -81,7 +77,7 @@ class DestinationDashboard extends Component {
       </SubContainer>
       <List>
         <PollList
-          mutations={{ addVote: ADD_OR_VOTE_FOR_DESTINATION, removeVote: REMOVE_VOTE_FOR_DESTINATION, lock: LOCK_BUDGET, unlock: UNLOCK_BUDGET }}
+          mutations={{ addVote: ADD_OR_VOTE_FOR_DESTINATION, removeVote: REMOVE_VOTE_FOR_DESTINATION, lock: LOCK_DESTINATION, unlock: UNLOCK_DESTINATION }}
           items={destination.suggestions}
           self={self}
           type={'destination'}
@@ -98,7 +94,6 @@ class DestinationDashboard extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { destination } = this.props.info.trip;
     return (
       <Container>
@@ -148,6 +143,14 @@ const List = styled('div')`
   align-items: center;
   background-color: white;
 `
+
+const Votes = styled('div')`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
 const SubContainer = styled('div')`
   width: 100%;
   height: 18%;
@@ -159,17 +162,25 @@ const SubContainer = styled('div')`
   align-items: center;
   background: #e9e9e9;
 `
-const ContainerDestination = styled('div')`
+const ContainerDictator = styled('div')`
   width: 80vw;
-  height: 10vh;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
+  background: linear-gradient(315deg, #feb47b, #ff8e62);
+  border-radius: 25px;
+  padding-bottom: 1rem;
+  margin-tiop: 2rem;
 `
-const H1 = styled('h1')`
-  font-size: 1.5rem;
+const HD = styled('h1')`
+  font-size: 2rem;
   margin-left: 1rem;
-  color: #e48264;
+  color: white;
+`
+const H2 = styled('h1')`
+  font-size: 1.5rem;
+  margin-left: 2rem;
+  color: white;
 `
 const ImgBtn = styled('img')`
   height: 100%;

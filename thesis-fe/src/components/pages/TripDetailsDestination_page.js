@@ -20,7 +20,7 @@ class TripDetailsDestination_page extends Component {
           if (data.trip) {
             return (
               <Container>
-                <DestinationDashboard info={data} tripID={this.tripID} location={this.props.location} history={this.props.history} />
+                <DestinationDashboard info={data} tripID={this.tripID} match={this.props.match} location={this.props.location} history={this.props.history} />
               </Container>
             );
           }

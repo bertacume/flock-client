@@ -5,14 +5,16 @@ import money from '../../assets/money.png'
 
 class TripBudget extends Component {
 
+
   render() {
+    console.log(this.props);
     return (
       <Container>
         <img src={money} alt="logo" height="50" width="50"/>
         {
-          (this.props.info.isDictated) ?
+          (this.props.info.isDictated || this.props.info.isLocked) ?
             <ContainerBudget>
-              Budget: {this.props.info.chosenBudget}
+              Budget: {this.props.info.chosenSuggestion.value}
             </ContainerBudget>
           :
             <ContainerBudgets>
@@ -34,7 +36,7 @@ box-sizing: border-box;
 font-size: 1.25rem;
 border-radius: 10px;
 width: 90vw;
-height: 20%;
+height: 20vh;
 display: flex;
 flex-direction:row;
 align-items: center;

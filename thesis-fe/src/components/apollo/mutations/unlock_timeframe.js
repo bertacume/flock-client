@@ -1,10 +1,10 @@
 import gql from "graphql-tag";
 
-const LOCK_BUDGET = gql`mutation lockBudget($tripID: ID!, $suggestionID: ID!) {
-  lockBudget(tripID: $tripID, suggestionID: $suggestionID) {
+const UNLOCK_TIMEFRAME = gql`mutation unlockTimeFrame($tripID: ID!) {
+  unlockTimeFrame(tripID: $tripID) {
     name
   }
 }
 `;
 
-export default LOCK_BUDGET;
+export default UNLOCK_TIMEFRAME;

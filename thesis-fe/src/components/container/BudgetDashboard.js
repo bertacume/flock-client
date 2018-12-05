@@ -12,7 +12,7 @@ import LOCK_BUDGET from '../apollo/mutations/lock_budget';
 import UNLOCK_BUDGET from '../apollo/mutations/unlock_budget';
 import { PollList } from '../presentational/PollList';
 import { Mutation } from 'react-apollo';
-import star from '../../assets/svg/star.svg';
+import DictatorList from './DictatorList';
 
 const minDefault = 0;
 const maxDefault = 1000;
@@ -138,15 +138,9 @@ class BudgetDashboard extends Component {
     </Container>
     );
   }
-  renderDictated = () => {
-    const { budget } = this.props.info.trip;
-    return (<ContainerBudget key='1'>
-      <img src={star} alt="winner" height="25" width="25" />
-      <H1>{budget.chosenSuggestion.name}</H1>
-      <H1>votes: {budget.chosenSuggestion.voters.length}</H1>
-      <H1>creator: {budget.chosenSuggestion.creator.firstName}</H1>
-    </ContainerBudget>);
-  }
+  renderDictated = () => (
+    <DictatorList unlock={UNLOCK_BUDGET} info={this.props.info} tripID={this.props.tripID} ctx='budget' />
+  )
 
   render() {
     const { budget } = this.props.info.trip;

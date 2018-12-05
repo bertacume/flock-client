@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
-const UNLOCK_DESTINATION = gql`mutation unlockDestination($tripID: ID!, $suggestionID: ID!) {
-  unlockDestination(tripID: $tripID, suggestionID: $suggestionID) {
+const UNLOCK_DESTINATION = gql`mutation unlockDestination($tripID: ID!) {
+  unlockDestination(tripID: $tripID) {
     name
   }
 }

@@ -9,7 +9,7 @@ box-sizing: border-box;
 font-size: 1.25rem;
 border-radius: 10px;
 width: 90vw;
-height: 20%;
+height: 20vh;
 display: flex;
 flex-direction:row;
 justify-content: space-between;
@@ -36,14 +36,16 @@ const MoreInfoButton = styled('button')`
 
 class TripDestination extends Component {
 
+
   render() {
+    console.log(this.props);
     return (
       <Container>
         <img src={map} alt="logo" height="50" width="50"/>
         {
-          (this.props.info.isDictated) ?
+          (this.props.info.isDictated || this.props.info.isLocked) ?
             <ContainerDestination>
-              Destination: {this.props.chosenDestination}
+              Destination: {this.props.info.chosenSuggestion.name}
             </ContainerDestination>
           :
             <ContainerDestination>

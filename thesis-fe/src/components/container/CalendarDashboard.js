@@ -12,6 +12,18 @@ import REMOVE_VOTE_FOR_TIMEFRAME from '../apollo/mutations/remove_vote_for_timef
 import LOCK_TIMEFRAME from '../apollo/mutations/lock_timeframe';
 import UNLOCK_TIMEFRAME from '../apollo/mutations/unlock_timeframe';
 import moment from 'moment';
+import DictatorList from './DictatorList';
+
+const List = styled('div')`
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: white;
+`
 
 const Container = styled('div')`
   box-sizing: border-box;
@@ -37,22 +49,6 @@ const Container = styled('div')`
     border-width: 0;
   }
 `
-const List = styled('div')`
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  background-color: white;
-`
-
-const ContainerSuggestions = styled('div')`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`
 
 const BIG = styled('h1')`
   font-size: 3rem;
@@ -74,27 +70,7 @@ const ImgBtn = styled('img')`
   height: 100%;
 `
 
-const GoBackButton = styled('button')`
-  position: absolute;
-  right: 40vw;
-  margin-top: 2rem;
-  margin-right: .25rem;
-  position: relative;
-  font-size: 2rem;
-`;
 
-const H1 = styled('h1')`
-  font-size: 1.5rem;
-  margin: 1rem;
-  color: white;
-`;
-
-const H2 = styled('h1')`
-  font-size: 1.5rem;
-  margin-top: 1.25rem;
-  margin-right: 0.5rem;
-  color: white;
-`;
 
 
 class MyTripsDashboard extends Component {
@@ -140,50 +116,47 @@ class MyTripsDashboard extends Component {
     mutation({ variables });
   }
 
+  renderDemocracy = () => (
+    <Container>
+    <Link to={'/tripdetails/' + this.props.match.params.id + '/calendar/add'}>
+      <Button ><ImgBtn src={plus} /></Button>
+    </Link>
+    <List>
+      <PollList
+        mutations={{ addVote: ADD_OR_VOTE_FOR_TIMEFRAME, removeVote: REMOVE_VOTE_FOR_TIMEFRAME, lock: LOCK_TIMEFRAME, unlock: UNLOCK_TIMEFRAME }}
+        items={this.props.info.trip.timeFrame.suggestions}
+        self={this.props.info.self}
+        type={'calendar'}
+        addVote={this.addVote}
+        removeVote={this.removeVote}
+        deleteItem={this.deleteItem}
+        lock={this.lock}
+        unlock={this.unlock}
+        creator={this.props.info.trip.creator}
+      />
+    </List>
+  </Container>
+  )
+
+  renderDictator = () => (
+    <DictatorList unlock={UNLOCK_TIMEFRAME} info={this.props.info} tripID={this.props.match.params.id} ctx='timeFrame' />
+  )
 
   render() {
     console.log(this.props);
-    const { timeFrame } = this.props.info.trip;
-    const { self } = this.props.info;
-
-    // const suggestionList = this.props.info.trip.timeFrame.suggestions.map(obj => (
-    //   <ContainerSuggestions key={obj.startDate + obj.endDate}>
-    //     <H2>
-    //       {moment(obj.startDate).format('DD-MM-YYYY') + ' - ' + moment(obj.endDate).format('DD-MM-YYYY')}
-    //     </H2>
-    //     <H2>
-    //       - {obj.voters.length}
-    //     </H2>
-    //     <img src={person} alt="winner" height="20" width="20" />
-    //     <img src={star} alt="winner" height="20" width="20" />
-
-    //   </ContainerSuggestions>
-    // ))
     return (
       <Container>
-        <Navbar
-        path={`/tripdetails/${this.props.match.params.id}`}
-        title={'calendar'}
-        icon={calendarImg}
-        history={this.props.history}
-        />
-        <Link to={'/tripdetails/' + this.props.match.params.id + '/calendar/add'}>
-          <Button ><ImgBtn src={plus} /></Button>
-        </Link>
-        <List>
-          <PollList
-            mutations={{ addVote: ADD_OR_VOTE_FOR_TIMEFRAME, removeVote: REMOVE_VOTE_FOR_TIMEFRAME, lock: LOCK_TIMEFRAME, unlock: UNLOCK_TIMEFRAME }}
-            items={timeFrame.suggestions}
-            self={self}
-            type={'calendar'}
-            addVote={this.addVote}
-            removeVote={this.removeVote}
-            deleteItem={this.deleteItem}
-            lock={this.lock}
-            unlock={this.unlock}
-            creator={this.props.info.trip.creator}
-          />
-        </List>
+    <Navbar
+    path={`/tripdetails/${this.props.match.params.id}`}
+    title={'calendar'}
+    icon={calendarImg}
+    history={this.props.history}
+    />
+      { !this.props.info.trip.timeFrame.isLocked && !this.props.info.trip.isDictated ?
+        this.renderDemocracy()
+        :
+        this.renderDictator()
+      }
       </Container>
     );
   }

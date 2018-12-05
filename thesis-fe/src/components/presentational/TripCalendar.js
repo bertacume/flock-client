@@ -8,7 +8,7 @@ box-sizing: border-box;
 font-size: 1.25rem;
 border-radius: 10px;
 width: 90vw;
-height: 20%;
+height: 20vh;
 display: flex;
 flex-direction:row;
 justify-content:space-between;
