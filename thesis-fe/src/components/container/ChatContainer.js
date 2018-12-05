@@ -10,6 +10,9 @@ class ChatContainer extends Component {
   state = {
     input: '',
   }
+  componentDidMount() {
+    this.props.sub();
+  }
 
   handleInput = (event) => {
     this.setState({ input: event.target.value });

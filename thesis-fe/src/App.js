@@ -33,7 +33,6 @@ class App extends Component {
             <Guard path="/profile" component={ProfilePage} />
             <Guard path="/profile" component={ProfilePage} />
             <Guard path="/tripdetails/:id/chat/:type" component={ChatPage} />
-            <Guard path="/tripdetails/:id/chat/" component={ChatPage} />
             <Redirect to='/mytrips' />
           </Switch>
         </div>

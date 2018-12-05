@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
-const GET_TRIP_DETAILS_PARTICIPANTS_SUB = gql` subscription tripInfoChanged
+const GET_TRIP_DETAILS_SUB = gql` subscription tripInfoChanged($tripID: ID)
   {
-    tripInfoChanged {
+    tripInfoChanged(tripID: $tripID) {
       id,
       budget {
         isDictated,
@@ -32,8 +32,18 @@ const GET_TRIP_DETAILS_PARTICIPANTS_SUB = gql` subscription tripInfoChanged
           endDate
         }
       }
+      messages {
+        createdAt,
+        creator {
+          email,
+        firstName,
+          lastName,
+        },
+        message,
+        type
+      }
     }
   }
 `;
 
-export default GET_TRIP_DETAILS_PARTICIPANTS_SUB;
+export default GET_TRIP_DETAILS_SUB;
