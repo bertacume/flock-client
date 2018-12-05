@@ -19,12 +19,16 @@ body {
   font-family: 'Montserrat';
 }
 
+input:focus{
+  outline: none;
+}
+
 Button {
   outline: none;
 }
 
 Button:active {
-  border: 2px solid #afafaf;
+  border-width: 0;
 }
 
 ::-webkit-scrollbar {

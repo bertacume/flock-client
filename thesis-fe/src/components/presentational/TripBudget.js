@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
 import next from '../../assets/next.png';
-import money from '../../assets/money.png'
+import budget from '../../assets/budget_white.png'
 
 class TripBudget extends Component {
 
@@ -10,7 +10,7 @@ class TripBudget extends Component {
     console.log(this.props);
     return (
       <Container>
-        <img src={money} alt="logo" height="50" width="50"/>
+        <img src={budget} alt="logo" height="35" width="35"/>
         {
           (this.props.info.isDictated || this.props.info.isLocked) ?
             <ContainerBudget>
@@ -41,6 +41,7 @@ display: flex;
 flex-direction:row;
 align-items: center;
 justify-content: space-between;
+// background: rgba(255,138,94,0.9);
 background: rgba(255,138,94,1);
 margin-bottom 2vh;
 padding-left: 2rem;

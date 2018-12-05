@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
 import next from '../../assets/next.png';
-import network from '../../assets/network.png';
+import participants from '../../assets/participants.png';
 
 const MoreInfoButton = styled('button')`
   position: relative;
@@ -21,6 +21,7 @@ box-sizing: border-box;
   justify-content: space-between;
   align-items: center;
   overflow: scroll;
+  // background: rgba(255,175,111,0.8);
   background: rgba(255,175,111,1);
   margin-bottom: 2vh;
   padding-left: 2rem;
@@ -41,7 +42,7 @@ class TripParticipants extends Component {
     const numberParticipants = this.props.info.length
     return (
       <Container>
-        <img src={network} alt="logo" height="50" width="50"/>
+        <img src={participants} alt="logo" height="35" width="35"/>
         <ContainerParticipants>
           People attending: {numberParticipants}
         </ContainerParticipants>

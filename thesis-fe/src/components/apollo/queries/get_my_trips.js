@@ -4,6 +4,7 @@ const GET_MY_TRIPS = gql` query GET_MY_TRIPS
   {
     self
     {
+      firstName,
       avatarURL,
       email,
       trips {

@@ -1,22 +1,19 @@
 import React from 'react';
 import styled from 'react-emotion';
 import back from '../../assets/back.png';
-import NavProfile from '../presentational/NavProfile';
 import { NavBar } from '../styledComponents/styledComponents';
 
 export const Navbar = (props) => {
-  const redirectToTrip = () => {
-    props.history.push(props.path)
+  const redirectToTrip = (path) => {
+    props.history.push(path)
   }
   return (<NavBar>
-    <Button onClick={redirectToTrip}>
-      <Icon src={back} />
+    <Button onClick={() => redirectToTrip(props.pathLeft)}>
+      <Icon src={props.iconLeft ? props.iconLeft : back} />
     </Button>
     <Title>{props.title}</Title>
-    <Button>
-      {props.icon ?
-        <Icon src={props.icon} /> :
-        <NavProfile avatarURL={props.profile}/>}
+    <Button onClick={() => redirectToTrip(props.pathRight)}>
+        <Icon src={props.iconRight} />
     </Button>
   </NavBar>);
   }

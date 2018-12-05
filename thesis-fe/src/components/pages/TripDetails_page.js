@@ -23,25 +23,23 @@ class TripDetails_page extends Component {
   }
   render() {
     const TripDetailsApollo = () => (
-<Container>
-      <Query
-      query={GET_TRIP_DETAILS}
-      errorPolicy="all"
-      variables ={{tripID : this.props.match.params.id }}
-    >
-      {({ subscribeToMore, loading, error, data}) => {
-        if (loading) return <h1>Loading</h1>;
-        if (error) {
-          console.log(error);
-        }
-        return (
-          (data.trip) ?
-          <div>
-            <Navbar
-                    path={`/mytrips`}
+      <Container>
+        <Query
+          query={GET_TRIP_DETAILS}
+          errorPolicy="all"
+          variables={{ tripID: this.props.match.params.id }}
+        >
+          {({ subscribeToMore, loading, error, data }) => {
+            if (loading) return <h1>Loading</h1>;
+            if (error) console.log(error);
+            return (
+              (data.trip) ?
+                <div>
+                  <Navbar
+                    pathLeft={`/mytrips`}
                     title={data.trip.name}
                     history={this.props.history}
-                    icon={ballon}
+                    iconRight={ballon}
                   />
             <GeneralInfoDashboard history={this.props.history} match={this.props.match} info={data.trip} redirectParent={this.redirectParent()} sub={
                 () => subscribeToMore({

@@ -93,7 +93,6 @@ class Auth_page extends Component {
       <ApolloConsumer>
         {(client) => (
           <OuterContainer>
-            <InnerContainer >
             { (this.state.childType === 'signup') ?
               <Mutation mutation={REGISTER} variables ={{
                 email: this.state.inputEmail,
@@ -104,7 +103,7 @@ class Auth_page extends Component {
                 }}
                 onCompleted={(res) => this.onLogin(client, res.register)}
                 >
-                { register => <AuthBox handleInputChild={this.handleInputParent.bind(this)} handleChildType={this.handleParentType} handleSendChild={register}  /> }
+                { register => <AuthBox type={'register'} handleInputChild={this.handleInputParent.bind(this)} handleChildType={this.handleParentType} handleSendChild={register}  /> }
               </Mutation>
               :
               <Mutation mutation={LOGIN} variables ={{
@@ -114,10 +113,9 @@ class Auth_page extends Component {
               onCompleted={(res) => this.onLogin(client, res.login)}
               onError={(res) => this.handleLoginError(res)}
               >
-                { login => <AuthBox handleInputChild={this.handleInputParent.bind(this)} handleChildType={this.handleParentType} handleSendChild={login}  /> }
+                { login => <AuthBox type={'login'} handleInputChild={this.handleInputParent.bind(this)} handleChildType={this.handleParentType} handleSendChild={login}  /> }
               </Mutation>
             }
-            </InnerContainer>
             <Mutation mutation={FACEBOOK} variables ={{
               email: this.state.inputEmail,
               userID: this.state.userID,

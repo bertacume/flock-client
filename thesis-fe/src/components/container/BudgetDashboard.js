@@ -26,6 +26,10 @@ class BudgetDashboard extends Component {
     adding: false,
   }
 
+  componentDidMount () {
+    this.props.sub();
+  }
+
   handleInput = (value, mutation) => {
     this.addVote(mutation, value);
     this.clearBudget();
@@ -45,7 +49,7 @@ class BudgetDashboard extends Component {
     })
   }
 
-  addVote = (mutation, value) => {
+  addVote = (mutation, value, userVoted) => {
     const variables = { tripID: this.props.tripID, budget: { value } };
     mutation({ variables });
   }
@@ -147,9 +151,9 @@ class BudgetDashboard extends Component {
     return (
       <Container>
         <Navbar
-          path={`/tripdetails/${this.props.tripID}`}
+          pathLeft={`/tripdetails/${this.props.tripID}`}
           title={'budget'}
-          icon={budgetImg}
+          iconRight={budgetImg}
           history={this.props.history}
         />
         {budget.isDictated || budget.isLocked ? this.renderDictated() : this.renderDemocracy()}

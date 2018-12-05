@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'react-emotion';
 import next from '../../assets/next.png'
 import map from '../../assets/map.png'
+import location from '../../assets/location_white.png'
 
 
 const Container = styled('div')`
@@ -14,6 +15,7 @@ display: flex;
 flex-direction:row;
 justify-content: space-between;
 padding-left: 2rem;
+// background: rgba(247,146,98,0.9);
 background: rgba(247,152,98,1);
 margin-bottom: 2vh;
 align-items: center;
@@ -41,7 +43,7 @@ class TripDestination extends Component {
     console.log(this.props);
     return (
       <Container>
-        <img src={map} alt="logo" height="50" width="50"/>
+        <img src={location} alt="logo" height="35" width="35"/>
         {
           (this.props.info.isDictated || this.props.info.isLocked) ?
             <ContainerDestination>

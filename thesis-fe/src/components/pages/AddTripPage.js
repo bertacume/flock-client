@@ -194,8 +194,8 @@ const Container = styled('div')`
   background: -webkit-linear-gradient(to bottom, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to bottom, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   button:active {
-  border-width: 0;
-}
+    border-width: 0;
+  }
 `
 const WizardPage = styled(Page)`
   width: 100%;

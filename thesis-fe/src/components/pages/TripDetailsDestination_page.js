@@ -18,7 +18,7 @@ class TripDetailsDestination_page extends Component {
       >
         {({ subscribeToMore, loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
-          if (error) console.log(error);
+          if (error) console.error(error);
           if (data.trip) {
             console.log('prev', data);
             return (

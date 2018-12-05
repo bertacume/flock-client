@@ -102,9 +102,9 @@ class DestinationDashboard extends Component {
     return (
       <Container>
         <Navbar
-        path={`/tripdetails/${this.props.tripID}`}
+        pathLeft={`/tripdetails/${this.props.tripID}`}
         title={'destination'}
-        icon={locationImg}
+        iconRight={locationImg}
         history={this.props.history}
         />
         {destination.isDictated || destination.isLocked ? this.renderDictated() : this.renderDemocracy()}

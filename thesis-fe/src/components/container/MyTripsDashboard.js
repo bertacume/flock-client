@@ -5,66 +5,6 @@ import confirm from '../../assets/svg/confirm.svg';
 import { Link } from "react-router-dom";
 import { fontFamily } from '../../helpers/styleConstants';
 
-const Container = styled('div')`
-  width: 100vw;
-  height: 90vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 5vh;
-`;
-
-const ContainerButton = styled('div')`
-  height: 10vh;
-  width:10vh;
-  margin-bottom: 2rem;
-`;
-
-const ContainerTrip = styled('div')`
-  padding: 1.5rem;
-  min-height: 15vh;
-  width:80vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  margin: 1rem 0;
-  background: #ff7e5f;
-  border-radius: 20px;
-  color: white;
-`;
-const ContainerConfirmation = styled('div')`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
-`;
-const H1 = styled('h1')`
-  font-size: 2rem;
-
-`;
-
-const H2 = styled('h2')`
-  font-size: 1.25rem;
-  margin: 0 1rem;
-`;
-
-const Button = styled('button')`
-width: 20vw;
-height: 10vh;
-margin: 10px 0 20px 0;
-border-width: 0;
-border-color: #afafaf;
-border-radius: 10px;
-background-color: transparent;
-font-family: ${fontFamily};
-`
-
-const ImgBtn = styled('img')`
-  height: 100%;
-`
-
 class MyTripsDashboard extends Component {
 
   componentDidMount () {
@@ -82,10 +22,6 @@ class MyTripsDashboard extends Component {
     const listTrips = this.props.info.map(obj => (
       <ContainerTrip onClick={this.redirectToTrip(obj.id)} key={obj.id}>
         <H1>{obj.name}</H1>
-        <ContainerConfirmation>
-          <img src={confirm} alt="confirm" height="20" width="20" />
-          <H2>Confirmed</H2>
-        </ContainerConfirmation>
       </ContainerTrip>
     )
     )
@@ -102,4 +38,51 @@ class MyTripsDashboard extends Component {
   }
 }
 
+const Container = styled('div')`
+  width: 100vw;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // background: linear-gradient(315deg, #feb47b, #ff8e62)
+`
+const ContainerButton = styled('div')`
+  height: 10vh;
+  width:10vh;
+  margin-bottom: 2rem;
+`
+
+const ContainerTrip = styled('div')`
+  padding: 1.5rem;
+  min-height: 50px;
+  width:80vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin: 1rem 0;
+  background: #ff8e62;
+  border-radius: 20px;
+  color: white;
+`
+const H1 = styled('p')`
+  font-size: 2rem;
+  font-size: 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+`
+const Button = styled('button')`
+width: 20vw;
+height: 10vh;
+margin: 10px 0 20px 0;
+border-width: 0;
+border-color: #afafaf;
+border-radius: 10px;
+background-color: transparent;
+font-family: ${fontFamily};
+`
+const ImgBtn = styled('img')`
+  height: 80%;
+`
 export default MyTripsDashboard;
