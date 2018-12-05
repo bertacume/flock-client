@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion'
-import back from '../../assets/svg/back.svg';
 import { Link } from "react-router-dom";
 import plus from '../../assets/plus-gradient.png';
 import { fontFamily } from '../../helpers/styleConstants';
@@ -11,67 +10,7 @@ import ADD_OR_VOTE_FOR_TIMEFRAME from '../apollo/mutations/add_or_vote_for_timef
 import REMOVE_VOTE_FOR_TIMEFRAME from '../apollo/mutations/remove_vote_for_timeframe';
 import LOCK_TIMEFRAME from '../apollo/mutations/lock_timeframe';
 import UNLOCK_TIMEFRAME from '../apollo/mutations/unlock_timeframe';
-import moment from 'moment';
 import DictatorList from './DictatorList';
-
-const List = styled('div')`
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  background-color: white;
-`
-
-const Container = styled('div')`
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  background-color: #ffffff;
-  Input:focus{
-    outline: none;
-  }
-  Input {
-    color: #ffffff;
-    border-color: #ffffff;
-    height: 50%;
-  }
-  Input::placeholder {
-    color: #ffffff;
-  }
-  button:active {
-    border-width: 0;
-  }
-`
-
-const BIG = styled('h1')`
-  font-size: 3rem;
-  color: white;
-`;
-
-const Button = styled('button')`
-width: 20vw;
-height: 10vh;
-margin: 10px 0 20px 0;
-border-width: 0;
-border-color: #afafaf;
-border-radius: 10px;
-background-color: white;
-font-family: ${fontFamily};
-`
-
-const ImgBtn = styled('img')`
-  height: 100%;
-`
-
-
-
 
 class MyTripsDashboard extends Component {
 
@@ -152,5 +91,54 @@ class MyTripsDashboard extends Component {
     );
   }
 }
+
+const List = styled('div')`
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: white;
+`
+
+const Container = styled('div')`
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #ffffff;
+  Input:focus{
+    outline: none;
+  }
+  Input {
+    color: #ffffff;
+    border-color: #ffffff;
+    height: 50%;
+  }
+  Input::placeholder {
+    color: #ffffff;
+  }
+  button:active {
+    border-width: 0;
+  }
+`
+const Button = styled('button')`
+width: 20vw;
+height: 10vh;
+margin: 10px 0 20px 0;
+border-width: 0;
+border-color: #afafaf;
+border-radius: 10px;
+background-color: white;
+font-family: ${fontFamily};
+`
+const ImgBtn = styled('img')`
+  height: 100%;
+`
 
 export default MyTripsDashboard;

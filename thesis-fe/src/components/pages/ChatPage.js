@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import styled from 'react-emotion';
-import { Mutation } from "react-apollo";
 import ChatContainer from "../container/ChatContainer"
 
 class ChatPage extends Component {

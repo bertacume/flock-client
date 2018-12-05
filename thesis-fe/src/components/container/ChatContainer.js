@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
-import { Mutation } from "react-apollo";
 import next from '../../assets/next.png';
 
 

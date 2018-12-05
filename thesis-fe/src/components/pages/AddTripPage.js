@@ -229,10 +229,6 @@ const Button = styled('button')`
   border-radius: 10px;
   background-color: transparent;
 `
-const FakeBtn = styled('div')`
-  width: 20vw;
-  height: 5vh;
-`
 const PointsImg = styled('img')`
   width: 78%;
 

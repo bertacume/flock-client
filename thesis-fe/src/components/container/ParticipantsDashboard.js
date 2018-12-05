@@ -5,65 +5,6 @@ import confirm from '../../assets/svg/confirm.svg';
 import { Mutation } from "react-apollo";
 import ADD_FRIEND from '../apollo/mutations/addfriend';
 
-const Container = styled('div')`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 5vh;
-  background: #ff7e5f;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-`;
-
-const Participant = styled('div')`
-  display: flex;
-  width: 80vw;
-  flex-direction: row;
-  align-items: center,
-  margin: 2rem;
-`;
-
-const ContainerInfo = styled('div')`
-  margin-left: .5rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const H1 = styled('h1')`
-  font-size: 1.5rem;
-  color: white;
-`;
-const H2 = styled('h1')`
-  font-size: 1.25rem;
-  color: white;
-`;
-
-const BIG = styled('h1')`
-  font-size: 3rem;
-  color: white;
-`
-const GoBackButton = styled('button')`
-  position: absolute;
-  right: 40vw;
-  margin-top: 2rem;
-  margin-right: .25rem;
-  position: relative;
-`;
-
-const Personal = styled('div')`
-  display: flex;
-  flex-direction: column;
-  align-item: center;
-`;
-
-const Input = styled('input')`
-  color: red;
-`;
-
-
 class ParticipantsDetails extends Component {
 
   constructor(props) {
@@ -146,5 +87,54 @@ class ParticipantsDetails extends Component {
     );
   }
 }
+
+const Container = styled('div')`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5vh;
+  background: #ff7e5f;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+`
+const Participant = styled('div')`
+  display: flex;
+  width: 80vw;
+  flex-direction: row;
+  align-items: center,
+  margin: 2rem;
+`
+const ContainerInfo = styled('div')`
+  margin-left: .5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`
+const H1 = styled('h1')`
+  font-size: 1.5rem;
+  color: white;
+`
+const H2 = styled('h1')`
+  font-size: 1.25rem;
+  color: white;
+`
+const BIG = styled('h1')`
+  font-size: 3rem;
+  color: white;
+`
+const GoBackButton = styled('button')`
+  position: absolute;
+  right: 40vw;
+  margin-top: 2rem;
+  margin-right: .25rem;
+  position: relative;
+`
+const Personal = styled('div')`
+  display: flex;
+  flex-direction: column;
+  align-item: center;
+`
 
 export default ParticipantsDetails;

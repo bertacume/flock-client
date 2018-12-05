@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion'
 import plus from '../../assets/plus-gradient.png';
-import confirm from '../../assets/svg/confirm.svg';
 import { Link } from "react-router-dom";
 import { fontFamily } from '../../helpers/styleConstants';
 

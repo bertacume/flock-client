@@ -228,15 +228,6 @@ export const SliderWrapper = styled('div')`
     background: #e5815f;
   }
 `
-
-const ContainerBudget = styled('div')`
-  width: 80vw;
-  height: 10vh;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`
-
 export const Label = styled('p')`
   color: #e5815f;
   font-weight: 600;
@@ -266,12 +257,6 @@ const Title = styled('p')`
   color: #e5815f;
   font-size: 1.5rem;
 `
-const H1 = styled('h1')`
-  font-size: 1.5rem;
-  margin-left: 1rem;
-  color: #e48264;
-`
-
 const BtnContainer = styled('div')`
   height: 100%;
   margin: 5px 0 10px 0;
