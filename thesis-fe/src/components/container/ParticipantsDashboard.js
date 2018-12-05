@@ -112,15 +112,15 @@ const ContainerInfo = styled('div')`
   flex-direction: row;
   align-items: center;
 `
-const H1 = styled('h1')`
+const H1 = styled('p')`
   font-size: 1.5rem;
   color: white;
 `
-const H2 = styled('h1')`
+const H2 = styled('p')`
   font-size: 1.25rem;
   color: white;
 `
-const BIG = styled('h1')`
+const BIG = styled('p')`
   font-size: 3rem;
   color: white;
 `

@@ -68,12 +68,12 @@ const ContainerDictator = styled('div')`
   padding-bottom: 1rem;
   margin-tiop: 2rem;
 `
-const HD = styled('h1')`
+const HD = styled('p')`
   font-size: 2rem;
   margin-left: 1rem;
   color: white;
 `
-const H2 = styled('h1')`
+const H2 = styled('p')`
   font-size: 1.5rem;
   margin-left: 2rem;
   color: white;
