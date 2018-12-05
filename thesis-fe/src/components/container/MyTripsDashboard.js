@@ -31,7 +31,9 @@ class MyTripsDashboard extends Component {
             <Button ><ImgBtn src={plus} /></Button>
           </Link>
         </ContainerButton>
+        <List>
         {listTrips}
+        </List>
       </Container>
     );
   }
@@ -43,14 +45,15 @@ const Container = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;
-  // background: linear-gradient(315deg, #feb47b, #ff8e62)
+`
+const List = styled('div')`
+  overflow: scroll;
 `
 const ContainerButton = styled('div')`
   height: 10vh;
   width:10vh;
   margin-bottom: 2rem;
 `
-
 const ContainerTrip = styled('div')`
   padding: 1.5rem;
   min-height: 50px;

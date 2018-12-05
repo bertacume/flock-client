@@ -7,7 +7,7 @@ import GET_TRIP_DETAILS_BUDGET_SUB from '../apollo/subscriptions/get_trip_detail
 
 
 class TripDetailsBudget_page extends Component {
-  tripID = this.props.match.params.id
+  tripID = this.props.match.params.id;
 
   render() {
     const BudgetDetailsApollo = () => (

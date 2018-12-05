@@ -1,39 +1,74 @@
 import React, { Component } from 'react';
+import { Query } from "react-apollo";
 import ChatContainer from "../container/ChatContainer"
+import GET_DESTINATION_MESSAGES from '../apollo/queries/get_destination_messages';
+import { Container } from '../styledComponents/styledComponents';
+import ADD_DESTINATION_MESSAGE from '../apollo/mutations/add_destination_message';
 
 class ChatPage extends Component {
+  tripID = this.props.match.params.id;
+  type = this.props.match.params.type.toUpperCase()
 
   render() {
-    const topicList = ['general', 'attendance', 'destination', 'budget', 'calendar']
-    const messageObjArr = [];
-    let k = 0;
-    for (let i = 0; i < 25; i++) {
-      messageObjArr[i] = {
-        message : 'hahjashjs jakjskjajsa jkjsjkaskjaj jajsajkskjakj jasjajksajk jajsjaksjka',
-        email : 'a@' + i + '.com',
-        topic : topicList[k],
-        firstName : '12345' + i,
-        lastName: 'asasasasa'
-      }
-      k++;
-      if (k === 5) {
-        k = 0
-      }
-    }
-
-    const messageFiltered = messageObjArr.filter(obj => obj.topic === this.props.match.params.topic)
+    console.log(this.tripID);
+    console.log(this.type);
     return (
-      <ChatContainer info={messageFiltered} history={this.props.history} match={this.props.match} />
+      <Query
+        query={GET_DESTINATION_MESSAGES}
+        errorPolicy="all"
+        variables={{ tripID: this.tripID }}
+        onCompleted={res => console.log(res)}
+      >
+        {({ /*subscribeToMore,*/ loading, error, data }) => {
+          if (loading) return <p>Loading...</p>;
+          if (error) console.error(error);
+          if (data.trip) {
+            const messages = data.trip.messages.filter(mssg => mssg.type === this.type);
+            return (
+              <Container>
+                {/* <BudgetDashboard
+                  info={data}
+                  tripID={this.tripID}
+                  location={this.props.location}
+                  history={this.props.history}
+                  sub={() => subscribeToMore({
+                    document: GET_TRIP_DETAILS_BUDGET_SUB,
+                    variables: { tripID: this.tripID },
+                    updateQuery: (prev, { subscriptionData }) => {
+                      if (!subscriptionData.data || subscriptionData.data.tripInfoChanged.id !== this.tripID) return prev;
+                      const newData = {
+                        ...prev,
+                        trip: {
+                          ...prev.trip,
+                          budget: subscriptionData.data.tripInfoChanged.budget
+                        }
+                      }
+                      return newData;
+                    }
+                  })}
+                /> */}
+                <ChatContainer
+                  messages={messages}
+                  history={this.props.history}
+                  match={this.props.match}
+                  mutation={{ DESTINATION: ADD_DESTINATION_MESSAGE }}
+                  tripID={this.tripID}
+                  type={this.type}
+                />
+              </Container>
+            );
+          }
+          else if (!data.trip) {
+            return (
+              <h1>
+                Sorry, trip not found
+              </h1>
+            )
+          }
+        }}
+      </Query>
     )
   }
 }
 
 export default ChatPage;
-
-
-/*
-User will get in and: login with his username and password, sign up and create new account, login with facebook (and maybe sign up on this case),
-the fe will send this data to the be and the backend should return in case of success the userid to the
-front end -which will be kept on the localStorage???- and will be further used. In case of failure, define what to do.//#endregion
-In the success case, the USER ID should persist.
-*/

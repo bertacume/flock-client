@@ -63,7 +63,7 @@ class DestinationDashboard extends Component {
     const { destination } = this.props.info.trip;
     return (<Container>
       <SubContainer>
-        <Input type="text" placeholder={'Add suggestons'} value={this.state.input} onChange={this.handleInput} />
+        <Input type="text" placeholder={'Add suggestions'} value={this.state.input} onChange={this.handleInput} />
         <Mutation
           mutation={ADD_OR_VOTE_FOR_DESTINATION}
         >
