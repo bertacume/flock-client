@@ -3,7 +3,7 @@ import { Query } from "react-apollo";
 import { Container } from '../styledComponents/styledComponents';
 import GET_DESTINATION_DETAILS from '../apollo/queries/get_destination_details';
 import DestinationDashboard from '../container/DestinationDashboard';
-import GET_TRIP_DETAILS_DESTINATION_SUB from '../apollo/queries/get_trip_details_destination_sub';
+import GET_TRIP_DETAILS_DESTINATION_SUB from '../apollo/subscriptions/get_trip_details_destination_sub';
 
 class TripDetailsDestination_page extends Component {
   tripID = this.props.match.params.id;

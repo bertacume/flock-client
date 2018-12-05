@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MyTripsDashboard from '../../components/container/MyTripsDashboard';
 import { Query } from "react-apollo";
 import GET_MY_TRIPS from '../apollo/queries/get_my_trips';
-import GET_MY_TRIPS_SUB from '../apollo/queries/get_my_trips_sub';
+import GET_MY_TRIPS_SUB from '../apollo/subscriptions/get_my_trips_sub';
 import { Navbar } from '../presentational/Navbar';
 import menu from '../../assets/menu.png'
 import logo from '../../assets/logo_orange.png'

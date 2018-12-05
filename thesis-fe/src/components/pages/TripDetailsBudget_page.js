@@ -3,7 +3,7 @@ import { Query } from "react-apollo";
 import { Container } from '../styledComponents/styledComponents';
 import GET_BUDGET_DETAILS from '../apollo/queries/get_budget_details';
 import BudgetDashboard from '../container/BudgetDashboard';
-import GET_TRIP_DETAILS_BUDGET_SUB from '../apollo/queries/get_trip_details_budget_sub';
+import GET_TRIP_DETAILS_BUDGET_SUB from '../apollo/subscriptions/get_trip_details_budget_sub';
 
 
 class TripDetailsBudget_page extends Component {

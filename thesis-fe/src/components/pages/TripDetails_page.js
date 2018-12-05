@@ -4,7 +4,7 @@ import ballon from '../../assets/trip.png';
 import styled from 'react-emotion'
 import { Query } from "react-apollo";
 import GET_TRIP_DETAILS from '../apollo/queries/get_trip_details';
-import GET_TRIP_DETAILS_SUB from '../apollo/queries/get_trip_details_sub';
+import GET_TRIP_DETAILS_SUB from '../apollo/subscriptions/get_trip_details_sub';
 import GeneralInfoDashboard from '../container/GeneralInfoDashboard'
 
 class TripDetails_page extends Component {
