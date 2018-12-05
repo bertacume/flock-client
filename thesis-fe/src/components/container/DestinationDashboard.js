@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'react-emotion';
 import { Input } from '../styledComponents/styledComponents';
 import { Navbar } from '../presentational/Navbar';
-import locationImg from '../../assets/location.png';
+import chat from '../../assets/chat.png';
 import { Mutation } from "react-apollo";
 import { PollList } from '../presentational/PollList';
 import ADD_OR_VOTE_FOR_DESTINATION from '../apollo/mutations/add_or_vote_for_destination';
@@ -96,8 +96,9 @@ class DestinationDashboard extends Component {
       <Container>
         <Navbar
         pathLeft={`/tripdetails/${this.props.tripID}`}
+        pathRight={`/tripdetails/${this.props.tripID}/chat/destination`}
         title={'destination'}
-        iconRight={locationImg}
+        iconRight={chat}
         history={this.props.history}
         />
         {destination.isDictated || destination.isLocked ? this.renderDictated() : this.renderDemocracy()}

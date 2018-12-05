@@ -78,6 +78,7 @@ class MyTripsDashboard extends Component {
       <Container>
     <Navbar
     path={`/tripdetails/${this.props.match.params.id}`}
+    pathRight={`/tripdetails/${this.props.tripID}/chat/calendar`}
     title={'calendar'}
     icon={calendarImg}
     history={this.props.history}

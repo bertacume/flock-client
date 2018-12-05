@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
 import { css } from 'emotion';
-import budgetImg from '../../assets/budget.png';
+import chat from '../../assets/chat.png';
 import { Navbar } from '../presentational/Navbar';
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
@@ -147,8 +147,9 @@ class BudgetDashboard extends Component {
       <Container>
         <Navbar
           pathLeft={`/tripdetails/${this.props.tripID}`}
+          pathRight={`/tripdetails/${this.props.tripID}/chat/budget`}
           title={'budget'}
-          iconRight={budgetImg}
+          iconRight={chat}
           history={this.props.history}
         />
         {budget.isDictated || budget.isLocked ? this.renderDictated() : this.renderDemocracy()}

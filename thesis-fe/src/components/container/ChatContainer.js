@@ -45,8 +45,8 @@ class ChatContainer extends Component {
     return (
       <Container>
         <Navbar
-          pathLeft={`/tripdetails/${this.props.tripID}`}
-          title={'destination'}
+          pathLeft={this.props.type === 'GENERAL' ? `/tripdetails/${this.props.tripID}/` : `/tripdetails/${this.props.tripID}/${this.props.type.toLowerCase()}`}
+          title={this.props.type}
           iconRight={locationImg}
           history={this.props.history}
         />

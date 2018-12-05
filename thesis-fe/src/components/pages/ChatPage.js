@@ -18,6 +18,7 @@ class ChatPage extends Component {
       <Query
         query={GET_DESTINATION_MESSAGES}
         errorPolicy="all"
+        fetchPolicy="cache-first"
         variables={{ tripID: this.tripID }}
       >
         {({ subscribeToMore, loading, error, data }) => {
