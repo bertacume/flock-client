@@ -138,7 +138,7 @@ export class AddTripPage extends Component {
   renderNavigateLeftBtns = () => {
     return (this.state.currentView !== 0 ?
       <Button onClick={this.handleBackClick}><ImgBtn src={require('../../assets/before.png')} /></Button> :
-      <FakeBtn></FakeBtn>);
+      <Button onClick={(res) => this.props.history.push(`/mytrips`)}><ImgBtn src={require('../../assets/before.png')} /></Button>);
   }
 
   renderNavigateRightBtns = () => {
