@@ -81,7 +81,9 @@ class ParticipantsDetails extends Component {
             { add => <button style={{fontSize:"15px",color:"white"}} onClick={add}>Add</button> }
           </Mutation>
         </InviteFriends>
-        {participants}
+        <Participants>
+          {participants}
+        </Participants>
         <GoBackButton>
           <img src={back} alt="go back" height="40" width="40" onClick={this.redirectToTrip}/>
         </GoBackButton>
@@ -107,7 +109,14 @@ const Participant = styled('div')`
   flex-direction: row;
   align-items: center,
   margin: 2rem;
+  max-height: 40vh;
+  overflow: scroll;
 `
+const Participants = styled('div')`
+  max-height: 60vh;
+  overflow: scroll;
+`
+
 const ContainerInfo = styled('div')`
   margin-left: .5rem;
   display: flex;

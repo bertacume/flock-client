@@ -31,7 +31,10 @@ class TripDetails_page extends Component {
         >
           {({ subscribeToMore, loading, error, data }) => {
             if (loading) return <h1>Loading</h1>;
-            if (error) console.log(error);
+            if (error) {
+              console.log(error);
+              window.location.replace('/auth');
+            }
             return (
               (data.trip) ?
                 <div>
@@ -42,17 +45,16 @@ class TripDetails_page extends Component {
                     history={this.props.history}
                     iconRight={chat}
                   />
-                  <GeneralInfoDashboard history={this.props.history} match={this.props.match} info={data.trip} redirectParent={this.redirectParent()} sub={
-                    () => subscribeToMore({
-                      document: GET_TRIP_DETAILS_SUB,
-                      variables: { tripID: this.props.match.params.id },
-                      updateQuery: (prev, { subscriptionData }) => {
-                        return prev;
-                      }
-                    }
-                    )
-                  }
-                  />
+            <GeneralInfoDashboard history={this.props.history} match={this.props.match} info={data.trip} redirectParent={this.redirectParent()} sub={
+                () => subscribeToMore({
+                  document: GET_TRIP_DETAILS_SUB,
+                  variables: {tripID : this.props.match.params.id },
+                  updateQuery: (prev) => {
+                    return prev;
+                  }})}
+
+
+            />
                 </div>
                 :
                 <h1>Sorry, trip not found</h1>

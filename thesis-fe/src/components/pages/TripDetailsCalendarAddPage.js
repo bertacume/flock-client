@@ -19,22 +19,11 @@ class TripDetailsCalendarAddPage extends Component {
 
   redirectToCalendar = () => {
     this.props.history.push('/tripdetails/' + this.props.match.params.id + '/calendar')
-    console.log(this.props);
   }
 
   handleCalendarChange = (date) => {
     const dateFormatted = Object.assign({}, date, {startPresentational : date.startDate.format('YYYY-MM-DD')},{endPresentational : date.endDate.format('YYYY-MM-DD')})
-    console.log(dateFormatted);
     this.setState({selectedList: this.state.selectedList.concat(dateFormatted)});
-    // (e) => {
-    //   const objTime = this.state.selectedList;
-    //   for (let i = 0; i < objTime.length; i++) {
-    //     if ((objTime[i].startDate._d.toString() === e.startDate._d.toString()) && (objTime[i].endDate._d.toString() === e.endDate._d.toString())) {
-    //       return
-    //     }
-    //   }
-    //   this.setState({selectedList : this.state.selectedList.concat(e)})
-    // }
   }
 
   render() {
