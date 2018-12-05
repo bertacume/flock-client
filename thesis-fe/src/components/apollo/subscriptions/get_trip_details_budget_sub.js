@@ -20,6 +20,13 @@ const GET_TRIP_DETAILS_BUDGET_SUB = gql` subscription tripInfoChanged
           }
         },
         chosenSuggestion {
+          id,
+          value,
+          voters {
+            firstName,
+            lastName,
+            email
+          }
           value
         },
         isDictated,

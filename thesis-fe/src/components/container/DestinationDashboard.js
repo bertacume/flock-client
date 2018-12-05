@@ -26,8 +26,10 @@ class DestinationDashboard extends Component {
   }
 
   handleAddClick = (mutation) => {
-    this.addVote(mutation, this.state.input);
-    this.setState({ input: '' });
+    if (this.state.input.length > 0) {
+      this.addVote(mutation, this.state.input);
+      this.setState({ input: '' });
+    }
   }
 
   addVote = (mutation, name) => {
