@@ -3,7 +3,7 @@ import styled from 'react-emotion'
 import { DateRange } from 'react-date-range';
 import { List } from '../container/List'
 import moment from 'moment';
-import { fontFamily } from '../../helpers/styleConstants';
+import { fontFamily, addTrip } from '../../helpers/styleConstants';
 import back from '../../assets/svg/back.svg';
 import ADD_DATE from '../apollo/mutations/add_date';
 import { Mutation } from "react-apollo";
@@ -22,11 +22,22 @@ const Container = styled('div')`
   background: linear-gradient(to right, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 `;
 
+const SubContainer = styled('div')`
+  width: 90%;
+  display: flex;
+  padding: 10px 0 30px 0;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: ${addTrip.containerBackground};
+  border-radius: 3rem;
+`
+
 const ContainerList = styled('div')`
   max-height: 20vh;
 `;
 
-const H1 = styled('h1')`
+const H1 = styled('p')`
   font-size: 1.5rem;
   margin: 1rem;
   color: white;
@@ -70,72 +81,74 @@ class TripDetailsCalendarAddPage extends Component {
         <H1>
           Add your favorite dates
         </H1>
-        <DateRange
-          minDate={null}
-          maxDate={null}
-          startDate={null}
-          endDate={null}
-          calendars={1}
-          onChange={(e) => {
-            const objTime = this.state.selectedList;
-            for (let i = 0; i < objTime.length; i++) {
-              if ((objTime[i].startDate._d.toString() === e.startDate._d.toString()) && (objTime[i].endDate._d.toString() === e.endDate._d.toString())) {
-                return
+        <SubContainer>
+          <DateRange
+            minDate={null}
+            maxDate={null}
+            startDate={null}
+            endDate={null}
+            calendars={1}
+            onChange={(e) => {
+              const objTime = this.state.selectedList;
+              for (let i = 0; i < objTime.length; i++) {
+                if ((objTime[i].startDate._d.toString() === e.startDate._d.toString()) && (objTime[i].endDate._d.toString() === e.endDate._d.toString())) {
+                  return
+                }
               }
-            }
-            this.setState({selectedList : this.state.selectedList.concat(e)})
-          }}
-          twoStepChange={true}
-          theme={{
-            DayInRange: {
-              background: '#000000',
-              color: '#b75537'
-            },
-            DaySelected: {
-              background: '#000000',
-              color: '#b75537'
-            },
-            Calendar: {
-              width: 280,
-              padding: 10,
-              background: 'transparent',
-              borderRadius: '3rem',
-              display: 'inline-block',
-              boxSizing: 'border-box',
-              letterSpacing: 0,
-              color: '#b75537'
-            },
-            DateRange: {
-              display: 'block',
-              boxSizing: 'border-box',
-              background: 'transparent',
-              borderRadius: '2px'
-            },
-            MonthButton: {
-              display: 'block',
-              boxSizing: 'border-box',
-              height: 18,
-              width: 18,
-              padding: 0,
-              margin: '0 10px',
-              border: 'none',
-              background: 'rgba(255, 255, 255, .4)',
-              boxShadow: 'none',
-              outline: 'none',
-              borderRadius: '50%'
-            },
-            MonthArrowPrev: {
-              borderRightWidth: '6px',
-              borderRightColor: '#b75537',
-              marginLeft: 1
-            },
-            MonthArrowNext: {
-              borderLeftWidth: '6px',
-              borderLeftColor: '#b75537',
-              marginLeft: 7
-            },
-          }}
-        />
+              this.setState({selectedList : this.state.selectedList.concat(e)})
+            }}
+            twoStepChange={true}
+            theme={{
+              DayInRange: {
+                background: 'rgba(255, 255, 255, .6)',
+                color: '#b75537'
+              },
+              DaySelected: {
+                background: '#ffffff',
+                color: '#b75537'
+              },
+              Calendar: {
+                width: 280,
+                padding: 10,
+                background: 'transparent',
+                borderRadius: '3rem',
+                display: 'inline-block',
+                boxSizing: 'border-box',
+                letterSpacing: 0,
+                color: '#b75537'
+              },
+              DateRange: {
+                display: 'block',
+                boxSizing: 'border-box',
+                background: 'transparent',
+                borderRadius: '2px'
+              },
+              MonthButton: {
+                display: 'block',
+                boxSizing: 'border-box',
+                height: 18,
+                width: 18,
+                padding: 0,
+                margin: '0 10px',
+                border: 'none',
+                background: 'rgba(255, 255, 255, .4)',
+                boxShadow: 'none',
+                outline: 'none',
+                borderRadius: '50%'
+              },
+              MonthArrowPrev: {
+                borderRightWidth: '6px',
+                borderRightColor: '#b75537',
+                marginLeft: 1
+              },
+              MonthArrowNext: {
+                borderLeftWidth: '6px',
+                borderLeftColor: '#b75537',
+                marginLeft: 7
+              },
+            }}
+          />
+          </SubContainer>
         <ContainerList>
           <List items={this.state.selectedList.slice().map(obj => moment(obj.startDate).format('DD-MM-YYYY') + ' - ' +  moment(obj.endDate).format('DD-MM-YYYY')) || []}
             buttonResponse='delete'
