@@ -3,6 +3,8 @@ import styled from 'react-emotion'
 import back from '../../assets/svg/back.svg';
 import { Mutation } from "react-apollo";
 import ADD_FRIEND from '../apollo/mutations/addfriend';
+import { Navbar } from '../presentational/Navbar';
+import chat from '../../assets/chat.png';
 
 class ParticipantsDetails extends Component {
 
@@ -40,11 +42,6 @@ class ParticipantsDetails extends Component {
       borderRadius: 50
       }
     );
-    const InviteFriends = styled('div')`
-      display:flex;
-      flex-direction: row;
-      margin-bottom: 2rem;
-    `;
     const participants = this.props.info.trip.participants.map(obj => (
       <Participant key={obj.firstName + obj.lastName + obj.email}>
         <div style={image('https://img.clipartxtras.com/2f24590138d32260c0e35e81b46a196d_drawing-dinosaur-drawing-easy-as-well-as-cute-dinosaur-drawing-dinosaur-cute-drawing_600-800.jpeg')}></div>
@@ -58,9 +55,13 @@ class ParticipantsDetails extends Component {
     ))
     return (
       <Container>
-        <BIG>
-          Who's attending
-        </BIG>
+          <Navbar
+            pathLeft={`/tripdetails/${this.props.match.params.id}`}
+            pathRight={`/tripdetails/${this.props.match.params.id}/chat/budget`}
+            title={'calendar'}
+            iconRight={chat}
+            history={this.props.history}
+          />
         <InviteFriends>
         {this.state.input.length > 0 ?
           <input autoFocus key='aaaa' value={this.state.input} placeholder="Invite more friends" style={{fontSize:"15px", borderRadius:"5px", borderStyle: 'none'}} type="text" id="input" onChange={(e) => this.setState({input:e.target.value})} />
@@ -78,7 +79,7 @@ class ParticipantsDetails extends Component {
             }}
             onError={(error) => console.log(error)}
           >
-            { add => <button style={{fontSize:"15px",color:"white"}} onClick={add}>Add</button> }
+            { add => <Button onClick={add} >Add</Button> }
           </Mutation>
         </InviteFriends>
         <Participants>
@@ -98,10 +99,7 @@ const Container = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 5vh;
-  background: #ff7e5f;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: white;
 `
 const Participant = styled('div')`
   display: flex;
@@ -111,11 +109,32 @@ const Participant = styled('div')`
   margin: 2rem;
   max-height: 40vh;
   overflow: scroll;
+  border-radius: 25px;
+  margin-bottom: 2rem;
+  background: #ff7e5f;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 `
 const Participants = styled('div')`
   max-height: 60vh;
   overflow: scroll;
 `
+const Button = styled('button')`
+  font-size: 1.5rem;
+  color: black;
+
+`
+
+const InviteFriends = styled('div')`
+  display:flex;
+  flex-direction: row;
+  margin-bottom: 2rem;
+  padding: .5rem;
+  width: 100vw;
+  height: 5vh;
+  background: #e9e9e9;
+  justify-content: center;
+`;
 
 const ContainerInfo = styled('div')`
   margin-left: .5rem;
@@ -131,10 +150,7 @@ const H2 = styled('p')`
   font-size: 1.25rem;
   color: white;
 `
-const BIG = styled('p')`
-  font-size: 3rem;
-  color: white;
-`
+
 const GoBackButton = styled('button')`
   position: absolute;
   right: 40vw;

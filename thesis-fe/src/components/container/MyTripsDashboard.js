@@ -46,9 +46,7 @@ const Container = styled('div')`
   flex-direction: column;
   align-items: center;
 `
-const List = styled('div')`
-  overflow: scroll;
-`
+
 const ContainerButton = styled('div')`
   height: 10vh;
   width:10vh;
