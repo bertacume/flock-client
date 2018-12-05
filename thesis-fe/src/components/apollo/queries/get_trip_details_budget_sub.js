@@ -22,7 +22,8 @@ const GET_TRIP_DETAILS_BUDGET_SUB = gql` subscription tripInfoChanged
         chosenSuggestion {
           value
         },
-        isDictated
+        isDictated,
+        isLocked
       }
     }
   }
