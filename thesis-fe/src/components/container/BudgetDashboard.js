@@ -26,6 +26,10 @@ class BudgetDashboard extends Component {
     adding: false,
   }
 
+  componentDidMount () {
+    this.props.sub();
+  }
+
   handleInput = (value, mutation) => {
     this.addVote(mutation, value);
     this.clearBudget();
@@ -45,26 +49,22 @@ class BudgetDashboard extends Component {
     })
   }
 
-  addVote = (mutation, value) => {
+  addVote = (mutation, value, userVoted) => {
     const variables = { tripID: this.props.tripID, budget: { value } };
     mutation({ variables });
   }
 
   removeVote = (mutation, id) => {
-    const variables = { tripID: this.props.tripID, budgetID: id };
+    const variables = { tripID: this.props.tripID, suggestionID: id };
     mutation({ variables });
   }
 
   lock = (mutation, id) => {
-    console.log(mutation,id)
     const variables = { tripID: this.props.tripID, suggestionID: id };
-    console.log(variables);
     mutation({ variables });
   }
 
   unlock = (mutation, id) => {
-    console.log(mutation, id)
-    console.log('aaaa')
     const variables = { tripID: this.props.tripID, suggestionID: id };
     mutation({ variables });
   }
@@ -114,7 +114,6 @@ class BudgetDashboard extends Component {
   }
 
   renderDemocracy = () => {
-    console.log(this.props)
     const { self } = this.props.info;
     const { budget } = this.props.info.trip;
     return (<Container>
@@ -147,9 +146,9 @@ class BudgetDashboard extends Component {
     return (
       <Container>
         <Navbar
-          path={`/tripdetails/${this.props.tripID}`}
+          pathLeft={`/tripdetails/${this.props.tripID}`}
           title={'budget'}
-          icon={budgetImg}
+          iconRight={budgetImg}
           history={this.props.history}
         />
         {budget.isDictated || budget.isLocked ? this.renderDictated() : this.renderDemocracy()}
@@ -229,15 +228,6 @@ export const SliderWrapper = styled('div')`
     background: #e5815f;
   }
 `
-
-const ContainerBudget = styled('div')`
-  width: 80vw;
-  height: 10vh;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`
-
 export const Label = styled('p')`
   color: #e5815f;
   font-weight: 600;
@@ -267,12 +257,6 @@ const Title = styled('p')`
   color: #e5815f;
   font-size: 1.5rem;
 `
-const H1 = styled('h1')`
-  font-size: 1.5rem;
-  margin-left: 1rem;
-  color: #e48264;
-`
-
 const BtnContainer = styled('div')`
   height: 100%;
   margin: 5px 0 10px 0;

@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import Navigation from '../../components/container/Navigation';
 import MyTripsDashboard from '../../components/container/MyTripsDashboard';
 import { Query } from "react-apollo";
 import GET_MY_TRIPS from '../apollo/queries/get_my_trips';
-import GET_MY_TRIPS_SUB from '../apollo/queries/get_my_trips_sub';
+import GET_MY_TRIPS_SUB from '../apollo/subscriptions/get_my_trips_sub';
+import { Navbar } from '../presentational/Navbar';
+import menu from '../../assets/menu.png'
+import logo from '../../assets/logo_orange.png'
+import { Loading } from '../styledComponents/styledComponents';
 
 class MyTrips_page extends Component {
 
@@ -23,19 +26,27 @@ class MyTrips_page extends Component {
         errorPolicy="all"
         fetchPolicy='cache-and-network'
       >
-        {({ subscribeToMore, loading, ...result}) => {
+        {({ subscribeToMore, loading, error, data }) => {
+          if (loading) return <Loading><p>Loading</p></Loading>;
+          if (error) console.log(error);
           return (
-            (!loading) ?
+            data.self.trips ?
               <div>
-                <Navigation textContent="My trips" avatarURL={result.data.self.avatarURL} />
-                <MyTripsDashboard history={this.props.history} info={result.data.self.trips}
+                <Navbar
+                    pathLeft={`/mytrips`}
+                    pathRight={`/profile`}
+                    title={'My Trips'}
+                    history={this.props.history}
+                    iconLeft={logo}
+                    iconRight={menu}
+                  />
+                <MyTripsDashboard history={this.props.history} info={data.self.trips}
                 sub={
                   () => subscribeToMore({
                     document: GET_MY_TRIPS_SUB,
                     variables: {},
                     updateQuery: (prev, {subscriptionData}) => {
                       if (!subscriptionData.data) return prev;
-                      console.log(subscriptionData.data, prev)
                       if (prev.self.trips.every(obj => obj.id !== subscriptionData.data.tripInfoChanged.id)) {
                         const newObj = prev;
                         newObj.self.trips.push(subscriptionData.data.tripInfoChanged)
@@ -47,11 +58,8 @@ class MyTrips_page extends Component {
                   })
                 }
                 />
-              </div>
-            :
-              <h1>Loading</h1>
-          )
-
+              </div> : null
+          );
         }}
       </Query>
     );

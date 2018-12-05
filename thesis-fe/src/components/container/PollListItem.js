@@ -14,7 +14,7 @@ export class PollListItem extends Component {
   }
 
   getCollapseIcon = (isVoted) => {
-    let iconName = isVoted ? 'white' : 'black';
+    let iconName = 'white';
     if (this.state.isExpanded) iconName += '_up';
     return iconName;
   }
@@ -82,7 +82,7 @@ const ListItemContainer = styled('div')`
 `
 const ListItem = styled('div')`
   background: ${props =>
-    props.isVoted ? 'linear-gradient(315deg, #feb47b, #ff8e62)' : '#f3f3f3'};
+    props.isVoted ? 'linear-gradient(315deg, #feb47b, #ff8e62)' : '#ffd4ba'};
   width: 90%;
   height: 50px;
   padding: 0 15px;
@@ -108,6 +108,7 @@ const CollapsibleItem = styled('div')`
   flex-direction row;
   justify-content: flex-start;
   background: #f3f3f3;
+  border-radius: 0 0 1rem 1rem;
 `
 const ItemTitle = styled('p')`
   margin: 0;

@@ -8,7 +8,6 @@ import moment from 'moment';
 class DictatorList extends Component {
 
   render () {
-    console.log(this.props);
     const context  = this.props.info.trip[this.props.ctx]
     const creator = context.chosenSuggestion.creator.firstName;
     const votes = context.chosenSuggestion.voters;
@@ -27,7 +26,6 @@ class DictatorList extends Component {
       chosen= moment(chosen.startDate).format('DD-MM-YYYY') + ' - ' + moment(chosen.endDate).format('DD-MM-YYYY');
       type = 'Timeframe'
      }
-    console.log(context);
     return (<ContainerDictator key='1'>
       <HD>Chosen { type }: {chosen}</HD>
       <Votes>

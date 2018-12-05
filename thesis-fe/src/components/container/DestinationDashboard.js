@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
-import star from '../../assets/svg/star.svg';
 import { Input } from '../styledComponents/styledComponents';
 import { Navbar } from '../presentational/Navbar';
 import locationImg from '../../assets/location.png';
@@ -10,13 +9,16 @@ import ADD_OR_VOTE_FOR_DESTINATION from '../apollo/mutations/add_or_vote_for_des
 import REMOVE_VOTE_FOR_DESTINATION from '../apollo/mutations/remove_vote_for_destination';
 import LOCK_DESTINATION from '../apollo/mutations/lock_destination';
 import UNLOCK_DESTINATION from '../apollo/mutations/unlock_destination';
-import unlock from '../../assets/svg/unlock.svg';
 import DictatorList from './DictatorList';
 
 
 class DestinationDashboard extends Component {
   state = {
     input: '',
+  }
+
+  componentDidMount () {
+    this.props.sub();
   }
 
   handleInput = (event) => {
@@ -34,20 +36,16 @@ class DestinationDashboard extends Component {
   }
 
   removeVote = (mutation, id) => {
-    const variables = { tripID: this.props.tripID, destinationID: id };
+    const variables = { tripID: this.props.tripID, suggestionID: id };
     mutation({ variables });
   }
 
   lock = (mutation, id) => {
-    console.log(mutation,id)
     const variables = { tripID: this.props.tripID, suggestionID: id };
-    console.log(variables);
     mutation({ variables });
   }
 
   unlock = (mutation, id) => {
-    console.log(mutation, id)
-    console.log('aaaa')
     const variables = { tripID: this.props.tripID, suggestionID: id };
     mutation({ variables });
   }
@@ -61,7 +59,6 @@ class DestinationDashboard extends Component {
   )
 
   renderDemocracy = () => {
-    console.log(this.props)
     const { self } = this.props.info;
     const { destination } = this.props.info.trip;
     return (<Container>
@@ -98,9 +95,9 @@ class DestinationDashboard extends Component {
     return (
       <Container>
         <Navbar
-        path={`/tripdetails/${this.props.tripID}`}
+        pathLeft={`/tripdetails/${this.props.tripID}`}
         title={'destination'}
-        icon={locationImg}
+        iconRight={locationImg}
         history={this.props.history}
         />
         {destination.isDictated || destination.isLocked ? this.renderDictated() : this.renderDemocracy()}
@@ -143,14 +140,6 @@ const List = styled('div')`
   align-items: center;
   background-color: white;
 `
-
-const Votes = styled('div')`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
-
 const SubContainer = styled('div')`
   width: 100%;
   height: 18%;
@@ -161,26 +150,6 @@ const SubContainer = styled('div')`
   justify-content: space-evenly;
   align-items: center;
   background: #e9e9e9;
-`
-const ContainerDictator = styled('div')`
-  width: 80vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: linear-gradient(315deg, #feb47b, #ff8e62);
-  border-radius: 25px;
-  padding-bottom: 1rem;
-  margin-tiop: 2rem;
-`
-const HD = styled('h1')`
-  font-size: 2rem;
-  margin-left: 1rem;
-  color: white;
-`
-const H2 = styled('h1')`
-  font-size: 1.5rem;
-  margin-left: 2rem;
-  color: white;
 `
 const ImgBtn = styled('img')`
   height: 100%;

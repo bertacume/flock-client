@@ -138,7 +138,7 @@ export class AddTripPage extends Component {
   renderNavigateLeftBtns = () => {
     return (this.state.currentView !== 0 ?
       <Button onClick={this.handleBackClick}><ImgBtn src={require('../../assets/before.png')} /></Button> :
-      <FakeBtn></FakeBtn>);
+      <Button onClick={(res) => this.props.history.push(`/mytrips`)}><ImgBtn src={require('../../assets/before.png')} /></Button>);
   }
 
   renderNavigateRightBtns = () => {
@@ -194,8 +194,8 @@ const Container = styled('div')`
   background: -webkit-linear-gradient(to bottom, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to bottom, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   button:active {
-  border-width: 0;
-}
+    border-width: 0;
+  }
 `
 const WizardPage = styled(Page)`
   width: 100%;
@@ -228,10 +228,6 @@ const Button = styled('button')`
   border-color: #afafaf;
   border-radius: 10px;
   background-color: transparent;
-`
-const FakeBtn = styled('div')`
-  width: 20vw;
-  height: 5vh;
 `
 const PointsImg = styled('img')`
   width: 78%;

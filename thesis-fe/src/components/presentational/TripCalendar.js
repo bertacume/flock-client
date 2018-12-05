@@ -13,6 +13,7 @@ display: flex;
 flex-direction:row;
 justify-content:space-between;
 align-items: center;
+// background: rgba(255,144,94,1);
 background: rgba(255,126,88,1);
 margin-bottom: 2vh;
 padding-left: 2rem;
@@ -37,7 +38,7 @@ class TripCalendar extends Component {
 
     return (
       <Container>
-        <img src={calendar} alt="logo" height="50" width="50"/>
+        <img src={calendar} alt="logo" height="35" width="35"/>
         <H1>
           Check the calendar
         </H1>

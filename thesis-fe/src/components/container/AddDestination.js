@@ -26,7 +26,7 @@ export class AddDestination extends Component {
         this.state.input.length ?
           this.props.setDestination({
             ...this.props.destination,
-            suggestions: [this.state.input]
+            suggestions: [{name: this.state.input}]
           }) :
           this.props.setDestination({
             ...this.props.destination,

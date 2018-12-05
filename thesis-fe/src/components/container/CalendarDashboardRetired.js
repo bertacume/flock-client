@@ -5,61 +5,7 @@ import { DateRange } from 'react-date-range';
 import { List } from './List';
 import moment from 'moment';
 
-const Container = styled('div')`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background: #ff7e5f;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-`
-const BIG = styled('h1')`
-  font-size: 3rem;
-  color: white;
-`;
-
-const ContainerUsers = styled('div')`
-  margin-bottom: 3rem;
-  margin-left: 5rem;
-  width: 80vw;
-  height: 10vh;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: wrap;
-`
-const ContainerList = styled('div')`
-  max-height: 30rem;
-  width: 30rem;
-`
-
-const GoBackButton = styled('button')`
-  position: absolute;
-  right: 40vw;
-  margin-top: 2rem;
-  margin-right: .25rem;
-  position: relative;
-  font-size: 2rem;
-`;
-
-const H1 = styled('h1')`
-  font-size: 1.5rem;
-  margin: 1rem;
-  color: white;
-`;
-
-const H2 = styled('h1')`
-  font-size: 1.25rem;
-  margin: 1rem;
-  color: white;
-`;
-
-
 class MyTripsDashboard extends Component {
-
   state = {
     usersInfo : {},
     listInfo : [],
@@ -84,11 +30,9 @@ class MyTripsDashboard extends Component {
   }
 
   componentDidMount () {
-    console.log('ccccc')
     if(this.props.info.timeFrame){
     this.generateObj();
     }
-    else console.log(this.props)
   }
 
   redirectToTrip = () => {
@@ -101,7 +45,6 @@ class MyTripsDashboard extends Component {
     })
   }
   render() {
-    console.log(this.props);
     const mock = {};
     mock.Arturo = ['18-12-2018','31-12-2018']
     mock.Damien = ['12-12-2018','25-12-2018']
@@ -202,5 +145,53 @@ class MyTripsDashboard extends Component {
     );
   }
 }
+
+const Container = styled('div')`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background: #ff7e5f;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+`
+const BIG = styled('h1')`
+  font-size: 3rem;
+  color: white;
+`
+const ContainerUsers = styled('div')`
+  margin-bottom: 3rem;
+  margin-left: 5rem;
+  width: 80vw;
+  height: 10vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+`
+const ContainerList = styled('div')`
+  max-height: 30rem;
+  width: 30rem;
+`
+const GoBackButton = styled('button')`
+  position: absolute;
+  right: 40vw;
+  margin-top: 2rem;
+  margin-right: .25rem;
+  position: relative;
+  font-size: 2rem;
+`
+const H1 = styled('h1')`
+  font-size: 1.5rem;
+  margin: 1rem;
+  color: white;
+`
+const H2 = styled('h1')`
+  font-size: 1.25rem;
+  margin: 1rem;
+  color: white;
+`
 
 export default MyTripsDashboard;
