@@ -23,7 +23,6 @@ export const Navbar = (props) => {
 
   const Button = styled('button')`
     height: 90%;
-    width: 10%;
     padding: 0;
     border-width: 0;
     background-color: transparent;
