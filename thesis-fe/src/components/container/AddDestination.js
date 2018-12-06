@@ -17,7 +17,8 @@ export class AddDestination extends Component {
   }
 
   setMode = (isDictated) => {
-    this.props.setDestination({ ...this.props.destination, isDictated });
+    this.props.setDestination({ suggestions: [], isDictated });
+    this.setState({input: ''});
   }
 
   handleInput = event => {
