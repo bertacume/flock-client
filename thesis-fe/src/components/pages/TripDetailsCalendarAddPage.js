@@ -31,7 +31,6 @@ class TripDetailsCalendarAddPage extends Component {
   render() {
     return (
       <Container>
-        {/* <Nav> */}
         <Navbar
           pathLeft={`/tripdetails/${this.props.match.params.id}/calendar`}
           pathRight={`/tripdetails/${this.props.match.params.id}/chat/calendar`}
@@ -39,7 +38,6 @@ class TripDetailsCalendarAddPage extends Component {
           iconRight={chat}
           history={this.props.history}
         />
-        {/* </Nav> */}
         <SubContainer>
           <DateRange
             minDate={null}
@@ -145,8 +143,7 @@ const Container = styled('div')`
   justify-content: flex-start;
   align-items: center;
   background: white;
-`;
-
+`
 const SubContainer = styled('div')`
   width: 90%;
   heigth: 100%;
@@ -157,29 +154,14 @@ const SubContainer = styled('div')`
   align-items: center;
   background: ${backGradient};
   border-radius: 3rem;
-  // position: absolute;
-  // top: 10vh;
 `
-
 const ContainerList = styled('div')`
-  // position: absolute;
-  // top: 70vh;
-  // max-height: 25vh;
   overflow: scroll;
   width: 100%;
-`;
-
-
-const Nav = styled('div')`
-  // position: absolute;
-  // top: 0vh;
-  overflow: scroll;
-`;
-
+`
 const ImgBtn = styled('img')`
   height: 100%;
 `
-
 const Button = styled('button')`
   color: white;
   width: 20vw;
@@ -190,9 +172,6 @@ const Button = styled('button')`
   border-radius: 10px;
   background: transparent;
   font-size: 3rem;
-  // position: absolute;
-  // top: 60vh;
-  // left: 40vw;
 `
 
 export default TripDetailsCalendarAddPage;
