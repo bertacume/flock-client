@@ -40,6 +40,7 @@ class ParticipantsDetails extends Component {
     this.props.history.push('/tripdetails/' + this.props.match.params.id)
   }
 
+
   render() {
     const image = (imgURL) => ( {
       backgroundImage:`url(${imgURL})`,
@@ -84,7 +85,7 @@ class ParticipantsDetails extends Component {
             }}
             onError={(error) => console.log(error)}
           >
-            { add => <ButtonAdd onClick={() => (this.validateEmail()) ? add() : null}><ImgBtn src={require('../../assets/plus.png')} /></ButtonAdd> }
+            { add => (<ButtonAdd onClick={() => (this.validateEmail()) ? add() : console.log('Please input email')}><ImgBtn src={require('../../assets/plus.png')} /></ButtonAdd> )}
           </Mutation>
         </SubContainer>
         <Participants>
