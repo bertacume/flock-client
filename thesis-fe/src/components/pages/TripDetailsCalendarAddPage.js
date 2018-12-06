@@ -7,14 +7,15 @@ import { Mutation } from "react-apollo";
 import { Link } from "react-router-dom";
 import { Navbar } from '../presentational/Navbar';
 import chat from '../../assets/chat.png';
-import plus from '../../assets/plus-gradient.png';
+import plus from '../../assets/plus.png';
+import { backGradient, basicColors } from '../../helpers/styleConstants';
 
 
 class TripDetailsCalendarAddPage extends Component {
 
 
   state = {
-    selectedList : []
+    selectedList: []
   }
 
   redirectToCalendar = () => {
@@ -22,23 +23,23 @@ class TripDetailsCalendarAddPage extends Component {
   }
 
   handleCalendarChange = (date) => {
-    const dateFormatted = Object.assign({}, date, {startPresentational : date.startDate.format('YYYY-MM-DD')},{endPresentational : date.endDate.format('YYYY-MM-DD')})
-    if (this.state.selectedList.every(obj => (obj.startPresentational !== dateFormatted.startPresentational) || (obj.endPresentational !== dateFormatted.endPresentational))) this.setState({selectedList: this.state.selectedList.concat(dateFormatted)});
+    const dateFormatted = Object.assign({}, date, { startPresentational: date.startDate.format('YYYY-MM-DD') }, { endPresentational: date.endDate.format('YYYY-MM-DD') })
+    if (this.state.selectedList.every(obj => (obj.startPresentational !== dateFormatted.startPresentational) || (obj.endPresentational !== dateFormatted.endPresentational))) this.setState({ selectedList: this.state.selectedList.concat(dateFormatted) });
 
   }
 
   render() {
     return (
       <Container>
-        <Nav>
-          <Navbar
-            pathLeft={`/tripdetails/${this.props.match.params.id}/calendar`}
-            pathRight={`/tripdetails/${this.props.match.params.id}/chat/budget`}
-            title={'calendar'}
-            iconRight={chat}
-            history={this.props.history}
-          />
-        </Nav>
+        {/* <Nav> */}
+        <Navbar
+          pathLeft={`/tripdetails/${this.props.match.params.id}/calendar`}
+          pathRight={`/tripdetails/${this.props.match.params.id}/chat/calendar`}
+          title={'calendar'}
+          iconRight={chat}
+          history={this.props.history}
+        />
+        {/* </Nav> */}
         <SubContainer>
           <DateRange
             minDate={null}
@@ -51,11 +52,11 @@ class TripDetailsCalendarAddPage extends Component {
             theme={{
               DayInRange: {
                 background: 'rgba(255, 255, 255, .6)',
-                color: '#b75537'
+                color: `${basicColors.darkerColor}`
               },
               DaySelected: {
                 background: '#ffffff',
-                color: '#b75537'
+                color: `${basicColors.darkerColor}`
               },
               Calendar: {
                 width: 280,
@@ -65,7 +66,7 @@ class TripDetailsCalendarAddPage extends Component {
                 display: 'inline-block',
                 boxSizing: 'border-box',
                 letterSpacing: 0,
-                color: '#b75537'
+                color: '#ffffff'
               },
               DateRange: {
                 display: 'block',
@@ -88,22 +89,21 @@ class TripDetailsCalendarAddPage extends Component {
               },
               MonthArrowPrev: {
                 borderRightWidth: '6px',
-                borderRightColor: '#b75537',
+                borderRightColor: '#ffffff',
                 marginLeft: 1
               },
               MonthArrowNext: {
                 borderLeftWidth: '6px',
-                borderLeftColor: '#b75537',
+                borderLeftColor: '#ffffff',
                 marginLeft: 7
               },
             }}
           />
-          </SubContainer>
           <Link to={'/tripdetails/' + this.props.match.params.id + '/calendar/'}>
-            <Mutation mutation={ADD_DATE} variables ={{
-                tripID: this.props.match.params.id,
-                timeFrames: this.state.selectedList.map(obj => ({startDate: obj.startDate.format('YYYY-MM-DD'), endDate: obj.endDate.format('YYYY-MM-DD')}))
-              }}
+            <Mutation mutation={ADD_DATE} variables={{
+              tripID: this.props.match.params.id,
+              timeFrames: this.state.selectedList.map(obj => ({ startDate: obj.startDate.format('YYYY-MM-DD'), endDate: obj.endDate.format('YYYY-MM-DD') }))
+            }}
               onCompleted={(res) => {
                 this.setState({
                   input: ''
@@ -111,17 +111,27 @@ class TripDetailsCalendarAddPage extends Component {
               }}
               onError={(error) => console.log(error)}
             >
-              { add => <Button  onClick={() => {
+              {add => <Button onClick={() => {
                 add().then(this.redirectToCalendar);
-              }}><ImgBtn src={plus} /></Button> }
+              }}><ImgBtn src={plus} /></Button>}
             </Mutation>
           </Link>
           <ContainerList>
-          <List items={this.state.selectedList.slice().map(obj => obj.startPresentational + ' - ' +  obj.endPresentational || [])}
-            buttonResponse='delete_black'
-            handleClick = {(e) => this.setState({selectedList: this.state.selectedList.slice().filter( obj => obj.startPresentational + ' - ' + obj.endPresentational !== e)})}
-          />
+            <List items={this.state.selectedList.slice().map(obj => obj.startPresentational + ' - ' + obj.endPresentational || [])}
+              buttonResponse='delete'
+              handleClick={(e) => this.setState({ selectedList: this.state.selectedList.slice().filter(obj => obj.startPresentational + ' - ' + obj.endPresentational !== e) })}
+              styles={{
+                itemTitle: [`color: ${basicColors.darkerColor}`, 'margin: 0', 'font-size: 1.4rem'],
+                listContainer: ['max-height: 15rem;'],
+                listItem: ['background-color: rgba(255, 255, 255, .6)',
+                  'padding: 0 35px',
+                  'height: 2.8rem',
+                  'margin: .2rem 0'],
+              }
+              }
+            />
           </ContainerList>
+        </SubContainer>
       </Container>
     );
   }
@@ -132,37 +142,37 @@ const Container = styled('div')`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   background: white;
 `;
 
 const SubContainer = styled('div')`
   width: 90%;
+  heigth: 100%;
   display: flex;
   padding: 10px 0 30px 0;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background: #ff7e5f;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: ${backGradient};
   border-radius: 3rem;
-  position: absolute;
-  top: 10vh;
+  // position: absolute;
+  // top: 10vh;
 `
 
 const ContainerList = styled('div')`
-  position: absolute;
-  top: 70vh;
-  max-height: 25vh;
+  // position: absolute;
+  // top: 70vh;
+  // max-height: 25vh;
   overflow: scroll;
+  width: 100%;
 `;
 
 
 const Nav = styled('div')`
-  position: absolute;
-  top: 0vh;
+  // position: absolute;
+  // top: 0vh;
   overflow: scroll;
 `;
 
@@ -180,9 +190,9 @@ const Button = styled('button')`
   border-radius: 10px;
   background: transparent;
   font-size: 3rem;
-  position: absolute;
-  top: 60vh;
-  left: 40vw;
+  // position: absolute;
+  // top: 60vh;
+  // left: 40vw;
 `
 
 export default TripDetailsCalendarAddPage;

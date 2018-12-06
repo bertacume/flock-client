@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import plus from '../../assets/plus-gradient.png';
 import { fontFamily } from '../../helpers/styleConstants';
 import { Navbar } from '../presentational/Navbar';
-import calendarImg from '../../assets/svg/calendarPurple.svg';
+import chat from '../../assets/chat.png';
 import { PollList } from '../presentational/PollList';
 import ADD_OR_VOTE_FOR_TIMEFRAME from '../apollo/mutations/add_or_vote_for_timeframe';
 import REMOVE_VOTE_FOR_TIMEFRAME from '../apollo/mutations/remove_vote_for_timeframe';
@@ -84,7 +84,7 @@ class MyTripsDashboard extends Component {
         <Navbar
           pathLeft={`/tripdetails/${this.props.tripID}`}
           pathRight={`/tripdetails/${this.props.tripID}/chat/calendar`}
-          iconRight={calendarImg}
+          iconRight={chat}
           title={'calendar'}
           history={this.props.history}
         />
