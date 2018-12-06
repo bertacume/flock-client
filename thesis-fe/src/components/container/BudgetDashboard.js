@@ -5,7 +5,7 @@ import chat from '../../assets/chat.png';
 import { Navbar } from '../presentational/Navbar';
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
-import { fontFamily } from '../../helpers/styleConstants';
+import { fontFamily, basicColors } from '../../helpers/styleConstants';
 import ADD_OR_VOTE_FOR_BUDGET from '../apollo/mutations/add_or_vote_for_budget';
 import REMOVE_VOTE_FOR_BUDGET from '../apollo/mutations/remove_vote_for_budget';
 import LOCK_BUDGET from '../apollo/mutations/lock_budget';
@@ -201,7 +201,7 @@ const SubContainer = styled('div')`
   flex-direction column;
   justify-content: space-evenly;
   align-items: center;
-  background: #e9e9e9;
+  background: #d8d8d8;
 `
 export const SliderContainer = styled('div')`
   width: 100%;
@@ -217,8 +217,8 @@ export const SliderWrapper = styled('div')`
   display: inline-block;
 
   .input-range__slider {
-    background: #e5815f;
-    border: 1px solid #e5815f;
+    background: ${basicColors.lightColor};
+    border: 1px solid ${basicColors.lightColor};
   }
 
   .input-range__track {
@@ -226,11 +226,11 @@ export const SliderWrapper = styled('div')`
   }
 
   .input-range__track--active {
-    background: #e5815f;
+    background: ${basicColors.lightColor};
   }
 `
 export const Label = styled('p')`
-  color: #e5815f;
+  color: ${basicColors.lightColor};
   font-weight: 600;
   margin: 2px;
 `
@@ -250,12 +250,12 @@ export const SubTitleContainer = styled('div')`
   align-items: center;
 `
 export const SubTitle = styled('p')`
-  color: #e5815f;
+  color: ${basicColors.lightColor};
   font-family: ${fontFamily};
   font-size: 3rem;
 `
 const Title = styled('p')`
-  color: #e5815f;
+  color: ${basicColors.lightColor};
   font-size: 1.5rem;
 `
 const BtnContainer = styled('div')`

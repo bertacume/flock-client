@@ -7,6 +7,7 @@ import { Mutation, ApolloConsumer } from "react-apollo";
 import REGISTER from '../apollo/mutations/register';
 import LOGIN from '../apollo/mutations/login';
 import FACEBOOK from '../apollo/mutations/facebook';
+import { backGradient } from '../../helpers/styleConstants';
 
 class Auth_page extends Component {
   constructor(props) {
@@ -128,9 +129,7 @@ const OuterContainer = styled('div')`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #ff7e5f;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: ${backGradient};
 `
 
 export default Auth_page;

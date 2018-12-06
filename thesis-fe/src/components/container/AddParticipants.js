@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { cx, css } from 'emotion';
 import styled from 'react-emotion'
-import { fontFamily, addTrip } from '../../helpers/styleConstants';
+import { fontFamily, addTrip, basicColors } from '../../helpers/styleConstants';
 import { List } from './List';
 
 
@@ -66,7 +66,7 @@ export class AddParticipants extends Component {
             handleClick={this.deleteItem}
             buttonResponse='delete'
             styles={{
-              itemTitle: ['color: #b75537', 'margin: 0', 'font-size: 1.5rem'],
+              itemTitle: [`color: ${basicColors.darkerColor}`, 'margin: 0', 'font-size: 1.5rem'],
               listContainer: ['max-height: 21rem'],
               listItem: ['background-color: rgba(255, 255, 255, .3)',
                 'padding: 0 35px',
@@ -94,7 +94,7 @@ const Container = styled('div')`
   }
 `
 const Title = styled('p')`
-color: #b75537;
+color: ${basicColors.darkerColor};
 font-family: ${fontFamily};
 font-size: 1.5rem;
 `
@@ -112,7 +112,7 @@ const standarInput = css`
   font-family: ${fontFamily};
   padding: 0 10px;
   border-width: 0 0 2px 0;
-  color: #b75537;
+  color: ${basicColors.darkerColor};
   border-color: white;
   background-color: transparent;
 `

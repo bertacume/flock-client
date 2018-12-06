@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion'
-import { fontFamily, addTrip } from '../../helpers/styleConstants';
+import { fontFamily, addTrip, basicColors } from '../../helpers/styleConstants';
 import { Input } from '../styledComponents/styledComponents';
 import { WizardMode } from './WizardMode';
 import { List } from './List';
@@ -67,7 +67,7 @@ export class AddDestination extends Component {
             handleClick={this.deleteItem}
             buttonResponse='delete'
             styles={{
-              itemTitle: ['color: #b75537', 'margin: 0', 'font-size: 1.5rem'],
+              itemTitle: [`color: ${basicColors.darkerColor}`, 'margin: 0', 'font-size: 1.5rem'],
               listContainer: ['max-height: 21rem'],
               listItem: ['background-color: rgba(255, 255, 255, .3)',
                 'padding: 0 35px',
@@ -122,7 +122,7 @@ const SubContainer = styled('div')`
 
 `
 const Title = styled('p')`
-  color: #b75537;
+  color: ${basicColors.darkerColor};
   font-family: ${fontFamily};
   font-size: 1.5rem;
   font-weight: 400;
@@ -136,17 +136,6 @@ const Button = styled('button')`
   background-color: transparent;
   font-family: ${fontFamily};
 `
-// const Input = styled('input')`
-//   width: 80%;
-//   height: 5vh;
-//   font-family: ${fontFamily};
-//   padding: 0 10px;
-//   border-width: 0 0 2px 0;
-//   color: #b75537;
-//   border-color: white;
-//   background-color: transparent;
-//   font-size: 1.5rem;
-// `
 const ImgBtn = styled('img')`
   height: 100%;
 `

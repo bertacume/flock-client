@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation } from "react-apollo";
 import styled from 'react-emotion';
+import { selectedGradient, notSelectedColor } from '../../helpers/styleConstants';
 import moment from 'moment';
 
 export class PollListItem extends Component {
@@ -45,9 +46,9 @@ export class PollListItem extends Component {
           {(mutation, { data }) => (
             <ItemButton onClick={() => isVoted ? this.props.removeVote(mutation, item.id) : this.props.addVote(mutation, title)}>
               <ParticipantsCont>
-                <Centered>{item.voters.length}</Centered>
+                <Centered isVoted={isVoted}>{item.voters.length}</Centered>
               </ParticipantsCont>
-              <ItemTitle>{title}</ItemTitle>
+              <ItemTitle isVoted={isVoted}>{title}</ItemTitle>
             </ItemButton>
           )}
         </Mutation>
@@ -82,7 +83,7 @@ const ListItemContainer = styled('div')`
 `
 const ListItem = styled('div')`
   background: ${props =>
-    props.isVoted ? 'linear-gradient(315deg, #feb47b, #ff8e62)' : '#ffd4ba'};
+    props.isVoted ? selectedGradient : notSelectedColor};
   width: 90%;
   height: 50px;
   padding: 0 15px;
@@ -112,7 +113,9 @@ const CollapsibleItem = styled('div')`
 `
 const ItemTitle = styled('p')`
   margin: 0;
-  font-size: 1rem;
+  color: ${props =>
+    props.isVoted ? '#ffffff' : '#000000'};
+  font-size: 1.2rem;
 `
 const CollapseTitle = styled('p')`
   margin: 0;
@@ -143,6 +146,8 @@ const ParticipantsCont = styled('div')`
 const Centered = styled('p')`
   position: absolute;
   font-size: 1.5rem;
+  color: ${props =>
+    props.isVoted ? '#ffffff' : '#000000'};
   margin: 0;
 `
 const ItemButton = styled('button')`

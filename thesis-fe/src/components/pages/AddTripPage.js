@@ -5,6 +5,7 @@ import { AddDestination } from '../container/AddDestination';
 import { AddTime } from '../container/AddTime';
 import { AddBudget } from '../container/AddBudget';
 import { AddParticipants } from '../container/AddParticipants';
+import { backGradient } from '../../helpers/styleConstants';
 import posed, { PoseGroup } from 'react-pose';
 import { Mutation } from "react-apollo";
 import CREATE_TRIP from '../apollo/mutations/create_trip';
@@ -190,9 +191,7 @@ const Container = styled('div')`
   flex-direction column;
   justify-content: space-evenly;
   align-items: center;
-  background: #ff7e5f;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: ${backGradient};
   button:active {
     border-width: 0;
   }
@@ -224,6 +223,7 @@ const ButtonContainer = styled('div')`
 const Button = styled('button')`
   width: 20vw;
   height: 5vh;
+  color: #ffffff;
   border-width: 0;
   border-color: #afafaf;
   border-radius: 10px;

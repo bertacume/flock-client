@@ -29,6 +29,7 @@ class ChatPage extends Component {
               <Container>
                 <ChatContainer
                   messages={data.trip.messages}
+                  self={data.self}
                   history={this.props.history}
                   match={this.props.match}
                   mutation={{ DESTINATION: ADD_DESTINATION_MESSAGE, BUDGET: ADD_BUDGET_MESSAGE, TIMEFRAME: ADD_TIMEFRAME_MESSAGE, GENERAL: ADD_GENERAL_MESSAGE }}

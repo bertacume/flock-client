@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'react-emotion';
 import next from '../../assets/next.png'
 import location from '../../assets/location_white.png'
+import { palette } from '../../helpers/styleConstants';
 
 class TripDestination extends Component {
   render() {
@@ -36,7 +37,7 @@ display: flex;
 flex-direction:row;
 justify-content: space-between;
 padding-left: 2rem;
-background: rgba(247,152,98,1);
+background: ${palette[1]};
 margin-bottom: 2vh;
 align-items: center;
 `

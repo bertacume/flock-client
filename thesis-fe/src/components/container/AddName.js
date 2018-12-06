@@ -66,7 +66,7 @@ const Title = styled('p')`
   font-weight: 300;
   letter-spacing: .5rem;
   text-transform: uppercase;
-  color: #ce7355;
+  color: #ffffff;
 `
 const SubTitle = styled('p')`
   font-family: ${fontFamily};

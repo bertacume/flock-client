@@ -1,6 +1,6 @@
 import { css } from 'emotion';
 import styled from 'react-emotion';
-import { fontFamily, addTrip } from '../../helpers/styleConstants';
+import { fontFamily, addTrip, basicColors } from '../../helpers/styleConstants';
 
 export const Container = styled('div')`
   width: 100vw;
@@ -25,7 +25,7 @@ export const Input = styled('input')`
   text-align: center;
   font-family: ${fontFamily};
   padding: 0 10px;
-  color: #b75537;
+  color: ${basicColors.pressedColor};
   border-width: 0 0 2px 0;
   border-color: white;
   background-color: transparent;
@@ -45,14 +45,14 @@ export const Button = styled('button')`
   height: 7vh;
   border-width: 0;
   border-radius: 2rem;
-  color: #e38163;
+  color: ${basicColors.pressedColor};
   background-color: ${addTrip.containerBackground};
   font-family: ${fontFamily};
 `
 export const pressed = css`
   color: white;
   font-weight: 500;
-  background-color: #e38163;
+  background-color: ${basicColors.pressedColor};
 `
 export const SubContainer = styled('div')`
   width: 100%;
@@ -76,7 +76,7 @@ export const BasicContainer = styled('div')`
   flex-direction column;
   justify-content: flex-start;
   align-items: center;
-  color: #e38163;
+  color: ${basicColors.pressedColor}
   font-weight: 500;
   font-size: 1.4rem;
 `
