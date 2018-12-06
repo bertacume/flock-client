@@ -27,7 +27,14 @@ class DictatorList extends Component {
       type = 'Timeframe'
      }
     return (<ContainerDictator key='1'>
-      <HD>Chosen { type }: {chosen}</HD>
+      {(type === 'Timeframe') ?
+        <div>
+          <HD>Chosen { type }:</HD> <HD> {chosen}</HD>
+        </div>
+      :
+        <HD>Chosen { type }: {chosen}</HD>
+      }
+
       <Votes>
         <HD>Votes: {votes.length}</HD>
         {votes.map(obj => (
@@ -57,6 +64,7 @@ const Votes = styled('div')`
   justify-content: center;
   align-items: center;
 `
+
 
 const ContainerDictator = styled('div')`
   width: 80vw;

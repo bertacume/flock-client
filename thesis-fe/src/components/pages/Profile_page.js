@@ -1,6 +1,6 @@
 import React from 'react';
-import Navigation from '../container/Navigation';
 import styled from 'react-emotion';
+import { Navbar } from '../presentational/Navbar';
 
 
 
@@ -24,13 +24,13 @@ const ContainerOptions = styled('div')`
   align-items: center;
 `;
 
-const Profile_page = () => {
+const Profile_page = (props) => {
   const logout = () => {
     localStorage.setItem('token','');
     window.location.replace('/auth');
   }
 
-  const H1 = styled('h1')`
+  const H1 = styled('p')`
   font-size: 2.5rem;
   background: #ff7e5f;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to bottom, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
@@ -41,12 +41,15 @@ const Profile_page = () => {
 
   return (
     <Container>
-      <Navigation />
+      <Navbar
+        pathLeft={`/tripdetails/${props.match.params.id}`}
+        pathRight={`/tripdetails/${props.match.params.id}/chat/budget`}
+        title={'Profile'}
+        iconRight={null}
+        history={props.history}
+      />
       <ContainerOptions>
         <H1 onClick={logout}>Logout</H1>
-        <H1>Change avatar</H1>
-        <H1>Invite friends</H1>
-        <H1>Send us a message</H1>
       </ContainerOptions>
     </Container>
   );

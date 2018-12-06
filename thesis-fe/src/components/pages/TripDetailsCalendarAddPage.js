@@ -32,8 +32,8 @@ class TripDetailsCalendarAddPage extends Component {
       <Container>
         <Nav>
           <Navbar
-            pathLeft={`/tripdetails/${this.props.tripID}`}
-            pathRight={`/tripdetails/${this.props.tripID}/chat/budget`}
+            pathLeft={`/tripdetails/${this.props.match.params.id}/calendar`}
+            pathRight={`/tripdetails/${this.props.match.params.id}/chat/budget`}
             title={'calendar'}
             iconRight={chat}
             history={this.props.history}
