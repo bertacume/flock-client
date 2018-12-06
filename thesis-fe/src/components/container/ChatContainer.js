@@ -146,7 +146,7 @@ const Mssg = styled('div')`
   clear: both;
 `
 const MssgBox = styled('div')`
- padding: 0 0 10px 0;
+  padding: 0 0 10px 0;
   clear: both;
   position: relative;
 `
@@ -170,6 +170,7 @@ const Arrow = styled('div')`
   top: 6px;
   ${props =>
     props.isUser ? `left: -1px` : `right: -1px`};
+  max-width: 80vw;  
 `
 const ArrowOuter = styled('div')`
   width: 12px;
@@ -205,13 +206,7 @@ const ContainerChatMessage = styled('div')`
   -moz-border-radius: 5px;
   -o-border-radius: 5px;
   border-radius: 5px;
-  // padding: 10px 20px;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: flex-start;
-  // border-radius: 20px;
-  // margin-bottom: 1rem;
-  // background: #ffd4b8;
+  max-width: 80vw;
 `
 const Input = styled('textarea')`
   box-sizing: border-box;
