@@ -3,6 +3,7 @@ import { Query } from "react-apollo";
 import GET_PARTICIPANTS_DETAILS from '../apollo/queries/get_participants_details';
 import GET_TRIP_DETAILS_PARTICIPANTS_SUB from '../apollo/subscriptions/get_trip_details_participants_sub'
 import ParticipantsDashboard from '../container/ParticipantsDashboard';
+import { Loading } from '../presentational/Loading';
 
 
 class TripDetails_page extends Component {
@@ -17,7 +18,7 @@ class TripDetails_page extends Component {
       variables ={{tripID : this.props.match.params.id}}
     >
       {({ subscribeToMore, loading, error, data }) => {
-        if (loading) return <p>Loading...</p>;
+        if (loading) return <Loading />;
         if (error) {
           console.error(error);
           window.location.replace('/auth');

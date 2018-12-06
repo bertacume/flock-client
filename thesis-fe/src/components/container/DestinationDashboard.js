@@ -93,7 +93,6 @@ class DestinationDashboard extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { destination } = this.props.info.trip;
     return (
       <Container>
@@ -153,7 +152,7 @@ const SubContainer = styled('div')`
   flex-direction column;
   justify-content: space-evenly;
   align-items: center;
-  background: #e9e9e9;
+  background: #d8d8d8;
 `
 const ImgBtn = styled('img')`
   height: 100%;

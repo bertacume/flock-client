@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'react-emotion';
 import next from '../../assets/next.png';
 import budget from '../../assets/budget_white.png'
+import { palette } from '../../helpers/styleConstants';
 
 class TripBudget extends Component {
 
@@ -40,8 +41,7 @@ display: flex;
 flex-direction:row;
 align-items: center;
 justify-content: space-between;
-// background: rgba(255,138,94,0.9);
-background: rgba(255,138,94,1);
+background: ${palette[2]};
 margin-bottom 2vh;
 padding-left: 2rem;
 `

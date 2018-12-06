@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion'
-import { fontFamily, addTrip } from '../../helpers/styleConstants';
+import { fontFamily, addTrip, basicColors } from '../../helpers/styleConstants';
 import { WizardMode } from './WizardMode';
 import { List } from './List';
 import { DateRange } from 'react-date-range';
@@ -52,7 +52,7 @@ export class AddTime extends Component {
           handleClick={this.deleteItem}
           buttonResponse = 'delete'
           styles={{
-            itemTitle: ['color: #b75537', 'margin: 0', 'font-size: 1.4rem'],
+            itemTitle: [`color: ${basicColors.darkerColor}`, 'margin: 0', 'font-size: 1.4rem'],
             listContainer: ['max-height: 9.6rem;'],
             listItem: ['background-color: rgba(255, 255, 255, .3)',
               'padding: 0 35px',
@@ -102,11 +102,11 @@ export class AddTime extends Component {
 const CalendarTheme = {
   DayInRange: {
     background: 'rgba(255, 255, 255, .6)',
-    color: '#b75537'
+    color: `${basicColors.darkerColor}`
   },
   DaySelected: {
     background: '#ffffff',
-    color: '#b75537'
+    color: `${basicColors.darkerColor}`
   },
   Calendar: {
     width: 240,
@@ -116,7 +116,7 @@ const CalendarTheme = {
     display: 'inline-block',
     boxSizing: 'border-box',
     letterSpacing: 0,
-    color: '#b75537'
+    color: `${basicColors.darkerColor}`
   },
   DateRange: {
     display: 'block',
@@ -139,12 +139,12 @@ const CalendarTheme = {
   },
   MonthArrowPrev: {
     borderRightWidth: '6px',
-    borderRightColor: '#b75537',
+    borderRightColor: `${basicColors.darkerColor}`,
     marginLeft: 4
   },
   MonthArrowNext: {
     borderLeftWidth: '6px',
-    borderLeftColor: '#b75537',
+    borderLeftColor: `${basicColors.darkerColor}`,
     marginLeft: 10
   }
 }
@@ -162,7 +162,7 @@ const Container = styled('div')`
   }
 `
 const Title = styled('p')`
-  color: #b75537;
+  color: ${basicColors.darkerColor};
   font-family: ${fontFamily};
   font-size: 1.5rem;
   margin: 2px;

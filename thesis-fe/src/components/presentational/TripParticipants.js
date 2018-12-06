@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'react-emotion';
 import next from '../../assets/next.png';
 import participants from '../../assets/participants.png';
+import { palette } from '../../helpers/styleConstants';
 
 const MoreInfoButton = styled('button')`
   position: relative;
@@ -21,8 +22,7 @@ box-sizing: border-box;
   justify-content: space-between;
   align-items: center;
   overflow: scroll;
-  // background: rgba(255,175,111,0.8);
-  background: rgba(255,175,111,1);
+  background: ${palette[0]};
   margin-bottom: 2vh;
   padding-left: 2rem;
 `;

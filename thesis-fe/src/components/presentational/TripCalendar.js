@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'react-emotion';
 import next from '../../assets/next.png';
 import calendar from '../../assets/svg/calendar.svg'
+import { palette } from '../../helpers/styleConstants';
 
 const Container = styled('div')`
 box-sizing: border-box;
@@ -13,8 +14,7 @@ display: flex;
 flex-direction:row;
 justify-content:space-between;
 align-items: center;
-// background: rgba(255,144,94,1);
-background: rgba(255,126,88,1);
+background: ${palette[3]};
 margin-bottom: 2vh;
 padding-left: 2rem;
 `;

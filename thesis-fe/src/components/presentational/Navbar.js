@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'react-emotion';
 import back from '../../assets/back.png';
+import { softGradient } from '../../helpers/styleConstants';
+
 import { NavBar } from '../styledComponents/styledComponents';
 
 export const Navbar = (props) => {
@@ -32,9 +34,7 @@ export const Navbar = (props) => {
   const Title = styled('p')`
     margin: 0;
     text-transform: uppercase;
-    background: #ff7e5f;
-    background: -webkit-linear-gradient(315deg, #feb47b, #ff7e5f);
-    background: linear-gradient(315deg, #feb47b, #ff7e5f);
+    background: ${softGradient};
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 2.5rem;

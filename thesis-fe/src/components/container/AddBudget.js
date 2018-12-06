@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { css } from 'emotion';
 import styled from 'react-emotion';
-import { fontFamily, addTrip } from '../../helpers/styleConstants';
+import { fontFamily, addTrip, basicColors } from '../../helpers/styleConstants';
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
 import { WizardMode } from './WizardMode';
@@ -128,6 +128,7 @@ const Container = styled('div')`
 `
 const SubContainer = styled('div')`
   width: 90%;
+  padding: 20px 0;
   display: flex;
   flex-direction column;
   justify-content: flex-start;
@@ -153,7 +154,7 @@ export const SliderWrapper = styled('div')`
   }
 
   .input-range__track {
-    background: #e5815f;
+    background: ${basicColors.lightColor};
   }
 
   .input-range__track--active {
@@ -184,7 +185,7 @@ font-family: ${fontFamily};
 font-size: 3rem;
 `
 const Title = styled('p')`
-color: #b75537;
+color: ${basicColors.darkerColor};
 font-family: ${fontFamily};
 font-size: 1.5rem;
 `

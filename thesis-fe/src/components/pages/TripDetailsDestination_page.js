@@ -4,6 +4,7 @@ import { Container } from '../styledComponents/styledComponents';
 import GET_DESTINATION_DETAILS from '../apollo/queries/get_destination_details';
 import DestinationDashboard from '../container/DestinationDashboard';
 import GET_TRIP_DETAILS_DESTINATION_SUB from '../apollo/subscriptions/get_trip_details_destination_sub';
+import { Loading } from '../presentational/Loading';
 
 class TripDetailsDestination_page extends Component {
   tripID = this.props.match.params.id;
@@ -17,7 +18,7 @@ class TripDetailsDestination_page extends Component {
         variables={{ tripID: this.tripID }}
       >
         {({ subscribeToMore, loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
+          if (loading) return <Loading />;
           if (error) {
             console.error(error);
             window.location.replace('/auth');

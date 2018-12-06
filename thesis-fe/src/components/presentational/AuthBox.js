@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion'
-import { BasicContainer, SubContainer, Button, pressed } from '../styledComponents/styledComponents';
-import { fontFamily } from '../../helpers/styleConstants';
+import { BasicContainer, Button, pressed } from '../styledComponents/styledComponents';
+import { fontFamily, addTrip, basicColors } from '../../helpers/styleConstants';
 import logo from '../../assets/logo.png';
 
 class AuthBox extends Component {
@@ -83,13 +83,27 @@ const ContainerMode = styled('div')`
   align-items: center;
   margin: 0 0 10px 0;
 `
+const SubContainer = styled('div')`
+  width: 100%;
+  display: flex;
+  padding: 15px 0 15px 0;
+  flex-direction column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: ${addTrip.containerBackground};
+  border-radius: 3rem;
+
+  Input:focus{
+    outline: none;
+  }
+`
 const Input = styled('input')`
   width: 80%;
   height: 5vh;
   font-family: ${fontFamily};
   padding: 0 10px;
   margin: 10px 0;
-  color: #b75537;
+  color: ${basicColors.darkerColor};
   border-width: 0 0 2px 0;
   border-color: white;
   background-color: transparent;
@@ -101,7 +115,7 @@ const InputPassw = styled('input')`
   height: 5vh;
   padding: 0 10px;
   margin: 10px 0;
-  color: #b75537;
+  color: ${basicColors.darkerColor};
   border-width: 0 0 2px 0;
   border-color: white;
   background-color: transparent;
@@ -114,7 +128,7 @@ const AuthButton = styled('button')`
   height: 7vh;
   margin: 5px;
   background-color: rgb(255, 255, 255,.6);
-  color: #e38163;
+  color: ${basicColors.pressedColor};
   aligin-content: center;
   text-align:center;
   border-width: 0;
@@ -125,8 +139,8 @@ const AuthButton = styled('button')`
   font-family: ${fontFamily};
 `
 const Logo = styled('img')`
-  height: 10%;
-  margin: 0 0 30px 0;
+  width: 35%;
+  margin: 0 0 20px 0;
 `
 
 
