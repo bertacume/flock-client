@@ -8,6 +8,7 @@ import { Mutation } from "react-apollo";
 import { Link } from "react-router-dom";
 import { Navbar } from '../presentational/Navbar';
 import chat from '../../assets/chat.png';
+import plus from '../../assets/plus-gradient.png';
 
 
 class TripDetailsCalendarAddPage extends Component {
@@ -23,7 +24,7 @@ class TripDetailsCalendarAddPage extends Component {
 
   handleCalendarChange = (date) => {
     const dateFormatted = Object.assign({}, date, {startPresentational : date.startDate.format('YYYY-MM-DD')},{endPresentational : date.endDate.format('YYYY-MM-DD')})
-    if (this.state.selectedList.every(obj => obj.startPresentational !== dateFormatted.startPresentational && obj.endPresentational !== dateFormatted.endPresentational)) this.setState({selectedList: this.state.selectedList.concat(dateFormatted)});
+    if (this.state.selectedList.every(obj => (obj.startPresentational !== dateFormatted.startPresentational) || (obj.endPresentational !== dateFormatted.endPresentational))) this.setState({selectedList: this.state.selectedList.concat(dateFormatted)});
 
   }
 
@@ -113,7 +114,7 @@ class TripDetailsCalendarAddPage extends Component {
             >
               { add => <Button  onClick={() => {
                 add().then(this.redirectToCalendar);
-              }}>Add</Button> }
+              }}><ImgBtn src={plus} /></Button> }
             </Mutation>
           </Link>
           <ContainerList>
@@ -166,20 +167,20 @@ const Nav = styled('div')`
   overflow: scroll;
 `;
 
-
+const ImgBtn = styled('img')`
+  height: 100%;
+`
 
 const Button = styled('button')`
   color: white;
   width: 20vw;
-  height: 5vh;
+  height: 7.5vh;
   margin: 10px 0 20px 0;
   border-width: 0;
   border-color: #afafaf;
   border-radius: 10px;
-  background: #ff7e5f;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #feb47b, #ff7e5f);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #feb47b, #ff7e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  font-family: ${fontFamily};
+  background: transparent;
+  font-size: 3rem;
   position: absolute;
   top: 60vh;
   left: 40vw;
