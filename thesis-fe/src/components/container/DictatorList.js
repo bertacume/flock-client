@@ -43,7 +43,7 @@ class DictatorList extends Component {
         ))}
       </Votes>
       <HD>Creator: {creator}</HD>
-      {(this.props.info.self.email === this.props.info.trip.creator.email) ?
+      {(this.props.info.self.email === this.props.info.trip.creator.email && !context.isDictated) ?
         <Mutation
           mutation={this.props.unlock}
           variables={{ tripID : this.props.tripID }}

@@ -12,7 +12,7 @@ export const NavBar = styled('div')`
   box-sizing: border-box;
   width: 100vw;
   height: 8vh;
-  padding: 1.5vh 2vw 1.5vh 2vw;
+  padding: 1rem 1.5rem 1rem 1.5rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
