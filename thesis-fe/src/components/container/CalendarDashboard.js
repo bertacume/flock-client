@@ -88,7 +88,7 @@ class MyTripsDashboard extends Component {
           title={'calendar'}
           history={this.props.history}
         />
-        {!this.props.info.trip.timeFrame.isLocked && !this.props.info.trip.isDictated ?
+        {!this.props.info.trip.timeFrame.isLocked && !this.props.info.trip.timeFrame.isDictated ?
           this.renderDemocracy()
           :
           this.renderDictator()
