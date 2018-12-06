@@ -78,14 +78,13 @@ const H1 = styled('p')`
   letter-spacing: 2px;
 `
 const Button = styled('button')`
-width: 20vw;
-height: 10vh;
-margin: 10px 0 20px 0;
-border-width: 0;
-border-color: #afafaf;
-border-radius: 10px;
-background-color: transparent;
-font-family: ${fontFamily};
+  height: 10vh;
+  margin: 10px 0 20px 0;
+  border-width: 0;
+  border-color: #afafaf;
+  border-radius: 10px;
+  background-color: transparent;
+  font-family: ${fontFamily};
 `
 const ImgBtn = styled('img')`
   height: 80%;

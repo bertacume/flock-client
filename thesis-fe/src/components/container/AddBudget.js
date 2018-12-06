@@ -128,6 +128,7 @@ const Container = styled('div')`
 `
 const SubContainer = styled('div')`
   width: 90%;
+  padding: 20px 0;
   display: flex;
   flex-direction column;
   justify-content: flex-start;

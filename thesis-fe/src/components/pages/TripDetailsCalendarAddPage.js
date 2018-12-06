@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import styled from 'react-emotion'
 import { DateRange } from 'react-date-range';
 import { List } from '../container/List'
-import { fontFamily } from '../../helpers/styleConstants';
 import ADD_DATE from '../apollo/mutations/add_date';
 import { Mutation } from "react-apollo";
 import { Link } from "react-router-dom";

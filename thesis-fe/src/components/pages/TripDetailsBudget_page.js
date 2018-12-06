@@ -4,6 +4,7 @@ import { Container } from '../styledComponents/styledComponents';
 import GET_BUDGET_DETAILS from '../apollo/queries/get_budget_details';
 import BudgetDashboard from '../container/BudgetDashboard';
 import GET_TRIP_DETAILS_BUDGET_SUB from '../apollo/subscriptions/get_trip_details_budget_sub';
+import { Loading } from '../presentational/Loading';
 
 
 class TripDetailsBudget_page extends Component {
@@ -17,7 +18,7 @@ class TripDetailsBudget_page extends Component {
         variables={{ tripID: this.tripID }}
       >
         {({ subscribeToMore, loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
+          if (loading) return <Loading />;
           if (error) {
             console.error(error);
             window.location.replace('/auth')

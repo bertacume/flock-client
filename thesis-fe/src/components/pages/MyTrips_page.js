@@ -6,7 +6,7 @@ import GET_MY_TRIPS_SUB from '../apollo/subscriptions/get_my_trips_sub';
 import { Navbar } from '../presentational/Navbar';
 import menu from '../../assets/menu.png'
 import logo from '../../assets/logo_orange.png'
-import { Loading } from '../styledComponents/styledComponents';
+import { Loading } from '../presentational/Loading';
 
 class MyTrips_page extends Component {
 
@@ -27,7 +27,7 @@ class MyTrips_page extends Component {
         fetchPolicy='cache-and-network'
       >
         {({ subscribeToMore, loading, error, data }) => {
-          if (loading) return <Loading><p>Loading</p></Loading>;
+          if (loading) return <Loading />;
           if (error) {
             console.log(error);
             window.location.replace('/auth');

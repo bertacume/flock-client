@@ -80,11 +80,12 @@ export const BasicContainer = styled('div')`
   font-weight: 500;
   font-size: 1.4rem;
 `
-export const Loading = styled('div')`
-box-sizing: border-box;
-width: 100%;
-display: flex;
-flex-direction column;
-justify-content: center;
-align-items: center;
+export const LoadingStyle = styled('div')`
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction column;
+  justify-content: center;
+  align-items: center;
+  color: ${basicColors.middleColor};
 `

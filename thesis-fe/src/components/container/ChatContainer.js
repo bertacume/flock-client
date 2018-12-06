@@ -39,7 +39,7 @@ class ChatContainer extends Component {
         return locationImg;
       case 'BUDGET':
         return budgetImg;
-      case 'TIMEFRAME':
+      case 'CALENDAR':
         return calendarImg;
     
       default:
@@ -130,11 +130,8 @@ const Box = styled('div')`
 const ContainerChat = styled('div')`
   height: 100%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
   background: white;
+  overflow: scroll;
 `
 const Mssg = styled('div')`
   box-sizing: border-box;

@@ -93,7 +93,6 @@ class DestinationDashboard extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { destination } = this.props.info.trip;
     return (
       <Container>
