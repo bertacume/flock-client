@@ -21,6 +21,17 @@ const GET_TRIP_DETAILS_DESTINATION_SUB = gql` subscription tripInfoChanged
         },
         chosenSuggestion {
           name
+          id
+          creator {
+            email,
+            firstName,
+            lastName
+          },
+          voters {
+            email,
+            firstName,
+            lastName
+          }
         },
         isDictated,
         isLocked

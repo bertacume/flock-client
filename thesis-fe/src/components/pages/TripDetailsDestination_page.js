@@ -18,15 +18,18 @@ class TripDetailsDestination_page extends Component {
       >
         {({ subscribeToMore, loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
-          if (error) console.error(error);
+          if (error) {
+            console.error(error);
+            window.location.replace('/auth');
+          }
           if (data.trip) {
             return (
               <Container>
-                <DestinationDashboard 
-                info={data} 
-                tripID={this.tripID} 
+                <DestinationDashboard
+                info={data}
+                tripID={this.tripID}
                 match={this.props.match}
-                location={this.props.location} 
+                location={this.props.location}
                 history={this.props.history}
                 sub={() => subscribeToMore({
                   document: GET_TRIP_DETAILS_DESTINATION_SUB,

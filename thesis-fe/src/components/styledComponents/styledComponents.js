@@ -6,7 +6,7 @@ export const Container = styled('div')`
   width: 100vw;
   height: 100vh;
   margin: 0;
-  padding: 0; 
+  padding: 0;
 `
 export const NavBar = styled('div')`
   box-sizing: border-box;
@@ -50,7 +50,7 @@ export const Button = styled('button')`
   font-family: ${fontFamily};
 `
 export const pressed = css`
-  color: white; 
+  color: white;
   font-weight: 500;
   background-color: #e38163;
 `

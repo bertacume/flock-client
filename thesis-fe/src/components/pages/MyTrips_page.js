@@ -28,7 +28,10 @@ class MyTrips_page extends Component {
       >
         {({ subscribeToMore, loading, error, data }) => {
           if (loading) return <Loading><p>Loading</p></Loading>;
-          if (error) console.log(error);
+          if (error) {
+            console.log(error);
+            window.location.replace('/auth');
+          }
           return (
             data.self.trips ?
               <div>
