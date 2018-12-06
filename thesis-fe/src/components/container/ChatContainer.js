@@ -41,14 +41,17 @@ class ChatContainer extends Component {
         return budgetImg;
       case 'CALENDAR':
         return calendarImg;
-    
+
       default:
         return logo;
     }
   }
 
   renderMessages = () => {
-    const messages = this.props.messages.filter(mssg => mssg.type === this.props.type);
+    const type = (this.props.type === 'CALENDAR') ? 'TIMEFRAME' : this.props.type;
+    const messages = this.props.messages.filter(mssg => mssg.type === type);
+    console.log(this.props.type)
+    console.log(messages)
     return messages.map(mssg => {
       const isUser = this.props.self.email === mssg.creator.email;
       return (<Mssg key={mssg.createdAt} isUser={isUser}>

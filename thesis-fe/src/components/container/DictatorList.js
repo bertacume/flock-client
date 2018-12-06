@@ -3,6 +3,7 @@ import styled from 'react-emotion';
 import { Mutation } from "react-apollo";
 import unlock from '../../assets/svg/unlock.svg'
 import moment from 'moment';
+import { backGradient } from '../../helpers/styleConstants';
 
 
 class DictatorList extends Component {
@@ -71,7 +72,7 @@ const ContainerDictator = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(315deg, #feb47b, #ff8e62);
+  background: ${backGradient};
   border-radius: 25px;
   padding-bottom: 1rem;
   margin-tiop: 2rem;
