@@ -1,8 +1,8 @@
-#Flock - Front end
+# Flock - Front end
 
 [![MIT Licence](https://camo.githubusercontent.com/1e5d6c593654e3673fe4323032b7af9656157b1e/68747470733a2f2f6261646765732e66726170736f66742e636f6d2f6f732f6d69742f6d69742e7376673f763d313033)](https://opensource.org/licenses/mit-license.php)
 
-##Introduction
+## Introduction
 
 Planning trips has never been easier before. Flock is the easiest way organizing trips as a group. Every member of a trip can make suggestions on three categories: Destination, Budget, Timeframe. Everyone can vote for their favorite option. As soon as the decision is made the creator can lock the voting. Any need to discuss? With the help of the chat feature communication is centralized in the app.
 
@@ -10,7 +10,7 @@ Planning trips has never been easier before. Flock is the easiest way organizing
 
 ## Screenshots
 
-![first](/Users/bertacumellas/Desktop/first.jpg)
+![first](./thesis-fe/src/assets/first.jpg)
 
 
 
@@ -35,7 +35,7 @@ npm start
 
 
 ## Tech stack
-![techstack](/Users/bertacumellas/Downloads/techstack.png)
+![techstack](./thesis-fe/src/assets/techstack.png)
 
 * <a href="https://graphql.org/">GraphQL</a>
 * <a href="https://www.apollographql.com/docs/apollo-server/">Apollo Server</a>
