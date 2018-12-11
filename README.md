@@ -37,10 +37,10 @@ npm start
 ## Tech stack
 ![techstack](./thesis-fe/src/assets/techstack.png)
 
+* <a href="https://reactjs.org">React</a>
+* <a href="https://emotion.sh">Emotion</a>
+* <a href="https://www.apollographql.com/docs/react/">Apollo Client</a>
 * <a href="https://graphql.org/">GraphQL</a>
-* <a href="https://www.apollographql.com/docs/apollo-server/">Apollo Server</a>
-* <a href="https://www.mongodb.com/what-is-mongodb">MongoDB</a>
-* <a href="https://jestjs.io/">Jest</a>
 
 ## Authors
 * Marco Kunz | <a href="https://www.linkedin.com/in/marcokunz/">linkedIn</a> | <a href="https://github.com/mrcknz">gitHub</a>
